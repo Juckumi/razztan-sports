@@ -1,27 +1,17 @@
-import { createRoot } from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Link,
-} from "react-router-dom";
-import LandingPage from "../pages/LandingPage";
-import UserDashboard from "../pages/UserDashboard";
+import { createBrowserRouter } from "react-router-dom";
+import UserDashboard from "../pages/UserDashboard.jsx";
+import AppLayout from "../app/AppLayout.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-        <LandingPage />
-    ),
-  },
-  {
-    path: "user",
-    element: (
-        <UserDashboard />
-    ),
+    element: (<AppLayout></AppLayout>),
+    children: [
+      {
+        path: "user",
+        element: (<UserDashboard />),
+      },
+    ],
   },
 ]);
-
-createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
-);
+export default router;
