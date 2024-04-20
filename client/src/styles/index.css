@@ -1,0 +1,49 @@
+:root{
+    --color-brand-green: #042616;
+    --color-brand-purple: #6214A3;
+    --color-brand-bone-100: #eeebe3;
+    --color-brand-bone-200: #F3E6DE;
+    --color-brand-bone-300: #D9C6BA;
+    --color-brand-beige: #734930;
+
+    --color-black:#0D0D0D;
+    --color-white:#F2F2F2;
+
+    --color-grey-100: #747F8C;
+    --color-grey-100: #1E2D40;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-brand-bone-100) ;
+    color:  var(--color-black);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.5rem;
+  }
+  
+  p {
+    font-size: 1rem;
+  }
+  
+  ul, ol {
+    list-style: none;
+  }
+  
+  li {
+    padding: 0;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  
