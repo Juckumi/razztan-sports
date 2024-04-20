@@ -1,8 +1,12 @@
+import styles from "../styles/uiStyles/HeaderStyles.module.css";
+import Logo from "./Logo";
+
+
 function Header() {
     return (
-        <div>
-            <h1>Este es el header</h1>
-        </div>
+        <header className={styles.header}>
+            <Logo isWhite={true} />
+        </header>
     )
 }
 

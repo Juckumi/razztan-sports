@@ -1,8 +1,10 @@
+import style from '../styles/uiStyles/FooterStyles.module.css'
+
 function Footer() {
     return (
-        <div>
+        <footer className={style.footer}>
             <h1>Este es el footer</h1>
-        </div>
+        </footer>
     )
 }
 

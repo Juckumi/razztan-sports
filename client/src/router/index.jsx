@@ -13,5 +13,9 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "*",
+    element: (<p>Erroorrr pagina no esncontrada</p>),
+  },
 ]);
 export default router;
