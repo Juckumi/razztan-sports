@@ -1,0 +1,92 @@
+:root{
+  --color-brand-green: #042616;
+  --color-brand-purple: #6214A3;
+  --color-brand-bone-100: #eeebe3;
+  --color-brand-bone-200: #F3E6DE;
+  --color-brand-bone-300: #D9C6BA;
+  --color-brand-beige: #734930;
+
+  --color-black:#0D0D0D;
+  --color-white:#F2F2F2;
+
+  --color-grey-100: #747F8C;
+
+}
+.line {
+  flex: 1;
+    text-align:center;
+    font-size:1.5rem;
+    font-weight:700   ;
+    padding:1rem;
+    background-color: var();
+    background-color: var(--color-brand-beige) ;
+    /* background-color: rgba(0,0,0,0); */
+
+    color: var(--color-brand-bone-100);
+    cursor: pointer;
+    position: relative;
+  
+}
+
+/* .line:after {
+  content: '' ;
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  bottom: 0px;
+  left: -4px;
+  transform: scaleX(0);
+  
+  background: #FFA01B ;
+  transform-origin: bottom right;
+  transition: transform 0.5s ease-out;
+}
+
+.line:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+} */
+.line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, transparent,var(--color-brand-bone-300), transparent);
+  opacity: 0; /* Inicialmente, establece la opacidad en 0 */
+  transition: opacity 0.5s ease-out; /* Transición de la opacidad */
+  z-index: -1; /* Para que el degradado esté detrás del contenido */
+}
+
+.line:hover::after {
+  opacity: 1; /* Cambia la opacidad al 100% al pasar el cursor sobre .line */
+}
+
+.ul{
+    position:absolute;top:3.5rem;left:0;
+    width: 100%;
+    z-index: -1;
+    animation: aparecerDesdeArriba 0.8s ease forwards; 
+  }
+  
+  @keyframes aparecerDesdeArriba {
+    from {
+     
+      transform: translateY(-100%); 
+    }
+    to {
+
+      transform: translateY(0);
+    }
+}
+.li{
+    background: var(--color-brand-green);
+    color:white;
+    height:3rem;
+    padding:1rem;
+    width:100%;
+    z-index: 20;
+
+}
+

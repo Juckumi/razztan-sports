@@ -1,11 +1,14 @@
 import styles from "../styles/uiStyles/HeaderStyles.module.css";
 import Logo from "./Logo";
+import UserProfilePic from "./UserProfilePic"
 
 
 function Header() {
     return (
         <header className={styles.header}>
-            <Logo isWhite={true} />
+            <div></div>
+            <Logo  isWhite={true} />
+            <UserProfilePic />
         </header>
     )
 }
