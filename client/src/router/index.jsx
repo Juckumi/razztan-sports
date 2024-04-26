@@ -5,6 +5,8 @@ import LandingPage from "../pages/LandingPage";
 import AppLayout from "../app/AppLayout";
 import UserLayout from "../app/UserLayout";
 import Modal from "../ui/Modal";
+import LogInForm from "../features/identify/LogInForm";
+import RegisterForm from "../features/identify/RegisterForm";
 
 
 const router = createBrowserRouter([
@@ -17,13 +19,20 @@ const router = createBrowserRouter([
         element: (<LandingPage />),
         children:[
           {
-            path: "iniciar-sesion",
-            element: (<Modal />),
-          },
-          {
-            path: "registrarse",
-            element: (<Modal />),
-          },
+            path: "indentify",
+            element: (  <Modal />
+            ),
+            children: [
+              {
+                path:'iniciar-sesion',
+                element:(<LogInForm />)
+              },
+              {
+                path:'registrarse',
+                element:(<RegisterForm />)
+              }
+            ]
+          }
         ]
       },
     ],
