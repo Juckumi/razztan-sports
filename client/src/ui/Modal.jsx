@@ -1,10 +1,33 @@
-import { useNavigate } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import { useClickOutside } from "../hooks/useClickOutside"
-import { useEffect } from "react";
+import {  useInsertionEffect } from "react";
+import styled from 'styled-components';
+
 
 const homePath = '/'
 
-function Modal({children}) {
+const Blur = styled.div`
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items:center;
+
+`
+
+
+const StyledModal = styled.div`
+                background: var(--color-brand-green-500);
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+`
+
+function Modal() {
     const handleNavBack = () => {
         navigate(homePath)
     }
@@ -13,14 +36,11 @@ function Modal({children}) {
 
 
     
-    useEffect(() => {
-        // Función para deshabilitar el desplazamiento del cuerpo del documento cuando el modal está abierto
+    useInsertionEffect(() => {
         const handleStopScroll = () => {
             document.body.style.overflow = 'hidden';
         };
-        // Aplica la función cuando el modal se monta
         handleStopScroll();
-        // Limpia el efecto cuando el modal se desmonta
         return () => {
             document.body.style.overflow = 'auto';
         };
@@ -28,25 +48,11 @@ function Modal({children}) {
 
 
     return (
-        <div style={{ position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.5)', /* Fondo oscuro semi-transparente */
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems:'center',
-            }}>
-            <div ref={ref} style={{
-                backgroundColor: 'white',
-                padding: '20px',
-                borderRadius: '5px',
-                boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',/* Sombra para resaltar el modal */
-            }} >
-                    {children}
-            </div>
-        </div>
+        <Blur>
+            <StyledModal ref={ref} >
+                    <Outlet />
+            </StyledModal>
+        </Blur>
     )
 }
 

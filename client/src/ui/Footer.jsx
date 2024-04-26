@@ -1,10 +1,16 @@
-import style from '../styles/uiStyles/FooterStyles.module.css'
+import styled from 'styled-components'
+
+const StyledFooter = styled.footer`
+    background-color: var(--color-grey-100);
+    height: 10vh;
+    color: var(--color-brand-bone-300);
+`;
 
 function Footer() {
     return (
-        <footer className={style.footer}>
+        <StyledFooter>
             <h1>Este es el footer</h1>
-        </footer>
+        </StyledFooter>
     )
 }
 
