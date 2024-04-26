@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         element: (<LandingPage />),
         children:[
           {
-            path: "indentify",
+            path: "auth",
             element: (  <Modal />
             ),
             children: [

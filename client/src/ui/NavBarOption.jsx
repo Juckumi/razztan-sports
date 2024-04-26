@@ -13,7 +13,7 @@ const NavOption = styled.div`
     cursor: pointer;
 
     /* Verificar si la propiedad active es falsa */
-    ${props => !props.active ? `
+    ${props => props.active === 'false' ? `
         &:hover span:after {
             content: '';
             position: absolute;
@@ -129,7 +129,7 @@ function NavBarOption({link, label,list = []}) {
     return (
        list.length > 0 ? 
        
-       <NavOption active={!isOpen ? false: true} onClick={handleClickSelect}>
+       <NavOption active={!isOpen ? 'false': 'true'} onClick={handleClickSelect}>
        <span> {label}</span>
         {isOpen && 
                 <List ref ={ref}  >
@@ -143,7 +143,7 @@ function NavBarOption({link, label,list = []}) {
         
 
        </NavOption>: 
-       <NavOption active={false} onClick={()=> handleLink(link)} >
+       <NavOption active='false' onClick={()=> handleLink(link)} >
              <span> {label}</span>
         </NavOption>
 

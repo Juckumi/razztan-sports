@@ -23,8 +23,9 @@ const Blur = styled.div`
 const StyledModal = styled.div`
                 background: var(--color-brand-green-500);
                 padding: 20px;
-                border-radius: 5px;
+                border-radius: var(--b-radius-md);
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                text-align: center;
 `
 
 function Modal() {

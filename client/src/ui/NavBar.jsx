@@ -8,7 +8,7 @@ const navLinks = [
 
 function NavBar() {
     return (
-        <div style={{display:'flex',boxShadow:'-10px 10px 10px -10px var(--color-brand-green-100)',justifyContent:'center',background:'var(--gardient-brand-green)'
+        <div style={{display:'flex',boxShadow:'0 10px 10px -10px var(--color-brand-green-100)',justifyContent:'center',background:'var(--gardient-brand-green)'
     }} >
             {navLinks?.map((navLink,index) => 
                     <NavBarOption 
