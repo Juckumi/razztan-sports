@@ -1,3 +1,36 @@
+@font-face {
+  font-family: 'BodoniFLF';
+  src: url('../assets/fonts/BodoniflfBold-MVZx.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'AnonymusPro';
+  src: url('../assets/fonts/AnonymusPro/AnonymousPro-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AnonymusPro';
+  src: url('../assets/fonts/AnonymusPro/AnonymousPro-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AnonymusPro';
+  src: url('../assets/fonts/AnonymusPro/AnonymousPro-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'AnonymusPro';
+  src: url('../assets/fonts/AnonymusPro/AnonymousPro-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+
 :root{
   --color-brand-green-500: #042616;
   --color-brand-green-300: #2A3631;
@@ -15,7 +48,13 @@
 
   --color-grey-100: #747F8C;
   --color-grey-100: #1E2D40;
-  --gardient-brand-green: linear-gradient(to right, var(--color-brand-green-500), var(--color-brand-green-100))
+  --gardient-brand-green: linear-gradient(to right, var(--color-brand-green-500), var(--color-brand-green-100));
+
+
+  --b-radius-sm: 3px;
+  --b-radius-md: 5px;
+  --b-radius-lg: 10px;
+
 }
 
 * {
@@ -31,11 +70,13 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-size: 1.5rem;
+    font-family: 'BodoniFLF';
+    font-weight: bold;
   }
   
   p {
     font-size: 1rem;
+    font-family: AnonymusPro;
   }
   
   ul, ol {
