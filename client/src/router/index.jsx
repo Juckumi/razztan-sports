@@ -7,6 +7,7 @@ import UserLayout from "../app/UserLayout";
 import Modal from "../ui/Modal";
 import LogInForm from "../features/identify/LogInForm";
 import RegisterForm from "../features/identify/RegisterForm";
+import Events from "../pages/Events";
 
 
 const router = createBrowserRouter([
@@ -38,13 +39,33 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "user",
     element: (<UserLayout />),
     children: [
-      {
-        path: "dashboard",
-        element: (<UserDashboard />),
-      },
+        {
+        path: "user/dashboard",
+        element: (<UserDashboard />)
+        },
+        {
+        element: (<Events />),
+        children:[
+          {
+            path:"user/events/jair",
+            element: (<p>jair</p>)
+          },
+          {
+            path:"user/events/all",
+            element: (<p>all</p>)
+          },
+        ]
+        },
+        {
+          path: "user/fields",
+        element: (<UserDashboard />)
+        },
+        {
+          path: "user/chat",
+        element: (<UserDashboard />)
+        },
     ],
   },
   {

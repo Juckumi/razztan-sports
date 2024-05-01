@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import Logo from "./Logo";
 import Button    from "../ui/Button"
+import UserProfilePic    from "../ui/UserProfilePic"
+
 import { useNavigate } from 'react-router';
 const StyledHeader = styled.header`
     display: flex;
@@ -10,6 +12,7 @@ const StyledHeader = styled.header`
     color: var(--color-brand-bone-300);
     height: fit-content;
     padding: 0 2rem;
+    z-index:20;
 
         *{
             flex:1;
@@ -26,7 +29,7 @@ const ButtonGroup = styled.div`
 
 `
 
-function Header() {
+function Header({isAuth = true}) {
     const navigate = useNavigate();
 
 
@@ -38,10 +41,14 @@ function Header() {
             <div></div>
             <Logo  isWhite={true} />
             <div>
+            {!isAuth ? 
                 <ButtonGroup>
                     <Button onClick={() => handleLink('/auth/registrarse')}>registrarse</Button>
                     <Button onClick={() => handleLink('/auth/iniciar-sesion')}>iniciar sesion</Button>
                 </ButtonGroup>
+                :
+                <UserProfilePic />
+                }
             </div>
         </StyledHeader>
     )

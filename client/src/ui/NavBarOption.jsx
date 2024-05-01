@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 import { useClickOutside } from "../hooks/useClickOutside";
 import styled from 'styled-components'
 
 
 const NavOption = styled.div`
+    ${ (props) => props.right === 'true'?
+    '':
+    ''}
     text-align: center;
     font-size: 1.1rem;
     font-weight: 700;
@@ -27,7 +30,7 @@ const NavOption = styled.div`
             transition: transform 0.5s ease-out;
         }
         
-        span {
+        && > span {
             position: relative;
             transition: transform 0.5s ease-out;
         }
@@ -44,7 +47,7 @@ const NavOption = styled.div`
             transform-origin: bottom right;
         }
     ` : `
-        span {
+    && >span {
             position: relative;
             transition: transform 0.5s ease-out;
         }
@@ -69,19 +72,22 @@ const NavOption = styled.div`
 
 
 const List = styled.ul`
-    position:absolute;top:9.8rem;left: 0;
-    background: var(--color-brand-green-500);
+    position:absolute;top:10rem;right:0;
+    background: var(--color-brand-green-100);
     width: 20rem;
     height: 100vh;
-    z-index: -1;
+    z-index: 10;
     animation: aparecerDesdeArriba 1s ease forwards; 
     border-radius: 0 0 0.6rem 0.6rem ;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+
 
     @keyframes aparecerDesdeArriba {
-    from {
-     
-      transform: scaleY(-0);
-      transform-origin: top;
+    from { 
+    transform: scaleY(-0);
+    transform-origin: top;
 
     }
     to {
@@ -90,6 +96,7 @@ const List = styled.ul`
       transform-origin: top;
 
     }
+
 }
 
 `
@@ -101,18 +108,33 @@ const Li = styled.li`
     padding: 2.5rem;
     width:100%;
     border-radius: 1rem;
-    z-index: 20;
+    
+
+
+`
+const Icon = styled.span`
+        display: flex;
+        justify-content: space-around;
+        :first-child{
+        font-size:1.3rem;
+        align-items:center;
+        color:white;
+        margin-right: 0.4rem;
+        padding: 0;
+        }
 
 
 `
 
 
 
-function NavBarOption({link, label,list = []}) {
+function NavBarOption({navLink}) {
+    console.log(navLink,'navvvvvvv')
+    const {label,link,list,icon,right} = navLink;
     const navigate = useNavigate();
+    const location = useLocation();
+    console.log(typeof(location.pathname),'pathhhh')
     const [isOpen,setOpen] = useState(false);
-    console.log(list)
-
 
     const handleClickSelect = (e) => {
         e.preventDefault()
@@ -127,26 +149,27 @@ function NavBarOption({link, label,list = []}) {
     const ref = useClickOutside(handleCloseSelect)
 
     return (
-       list.length > 0 ? 
-       
-       <NavOption active={!isOpen ? 'false': 'true'} onClick={handleClickSelect}>
-       <span> {label}</span>
-        {isOpen && 
-                <List ref ={ref}  >
-                   {list?.map((element,index) =>
-                    <Li  key={index}  onClick={()=> handleLink(element.link)}>
-                        {element.label}
-                    </Li >
-                )} 
-                </List>
+        list.length > 0 ? 
+        (  <>
+                <NavOption active={!isOpen ? 'false': 'true'} right={right} onClick={handleClickSelect}>
+                    <Icon>{icon} {label}</Icon>    
+                </NavOption>
+   
+                {isOpen && 
+                    <List ref ={ref} >
+                        {list?.map((element,index) =>
+                                <Li  key={index}  onClick={()=> handleLink(element.link)}>
+                                    {element.label}
+                                </Li >
+                            )
+                        } 
+                    </List>
                 }
-        
-
-       </NavOption>: 
-       <NavOption active='false' onClick={()=> handleLink(link)} >
-             <span> {label}</span>
-        </NavOption>
-
+     </>
+    ): 
+        (<NavOption active={ location.pathname.includes(link) ? 'true':'false'} right={right} onClick={()=> handleLink(link)} >
+            <Icon>{icon} {label}</Icon>
+        </NavOption>)
     )
 }
 
