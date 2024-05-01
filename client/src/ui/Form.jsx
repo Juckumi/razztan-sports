@@ -15,7 +15,7 @@ const  StyledForm = styled.form`
 
 function Form({children,onSubmit}) {
     return (
-        <StyledForm onSubmit={(e)=> onSubmit(e)} method='post'>
+        <StyledForm onSubmit={(e)=> onSubmit(e)}>
             {children}
         </StyledForm>
     )

@@ -34,17 +34,17 @@ display: inline-block;
 
 
 
-function InputForm({label,name,type,icon,rule = '/^*$/'}) {
+function InputForm({formData,setFormData,label,name,type,icon,rule = new RegExp("")}) {
 
     const  handleRequirements = (e,rule) => {
         if(rule.test(e.target.value) == false){
             e.target.style.outline = '2px red solid'
         }else{
             e.target.style.outline = '3px  green solid'
-
+            const { name, value } = e.target;
+            setFormData({...formData,[name]:value})
         }
     }
-    console.log(icon)
     return (
         <>
                 <Span>
@@ -52,7 +52,7 @@ function InputForm({label,name,type,icon,rule = '/^*$/'}) {
                 </Span>
                 <Div>
                     <Label>{label}</Label>
-                    <Input onChange={(e)=> handleRequirements(e,rule)}type={type} placeholder={label} name={name}/>
+                    <Input onChange={(e)=> handleRequirements(e,rule)} type={type} placeholder={label} name={name}/>
                 </Div>
         </>
     )
