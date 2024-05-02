@@ -12,6 +12,9 @@ const StyledSection = styled.section`
 
 const StyledArticle = styled.article`
   text-align: center;
+  display: grid;
+  justify-content: center;
+  align-items: center;
 
 
 `

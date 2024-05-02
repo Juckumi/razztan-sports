@@ -8,6 +8,7 @@ import Modal from "../ui/Modal";
 import LogInForm from "../features/identify/LogInForm";
 import RegisterForm from "../features/identify/RegisterForm";
 import Events from "../pages/Events";
+import ChatDashboard from "../pages/ChatDashboard";
 
 
 const router = createBrowserRouter([
@@ -64,7 +65,7 @@ const router = createBrowserRouter([
         },
         {
           path: "user/chat",
-        element: (<UserDashboard />)
+        element: (<ChatDashboard />)
         },
     ],
   },
