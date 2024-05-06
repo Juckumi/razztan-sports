@@ -9,6 +9,8 @@ import LogInForm from "../features/identify/LogInForm";
 import RegisterForm from "../features/identify/RegisterForm";
 import Events from "../pages/Events";
 import ChatDashboard from "../pages/ChatDashboard";
+import UserEvents from "../features/events/UserEvents";
+import AllEvents from "../features/events/AllEvents";
 
 
 const router = createBrowserRouter([
@@ -51,11 +53,11 @@ const router = createBrowserRouter([
         children:[
           {
             path:"user/events/jair",
-            element: (<p>jair</p>)
+            element: (<UserEvents />)
           },
           {
             path:"user/events/all",
-            element: (<p>all</p>)
+            element: (<AllEvents />)
           },
         ]
         },

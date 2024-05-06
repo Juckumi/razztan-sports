@@ -129,11 +129,9 @@ const Icon = styled.span`
 
 
 function NavBarOption({navLink}) {
-    console.log(navLink,'navvvvvvv')
     const {label,link,list,icon,right} = navLink;
     const navigate = useNavigate();
     const location = useLocation();
-    console.log(typeof(location.pathname),'pathhhh')
     const [isOpen,setOpen] = useState(false);
 
     const handleClickSelect = (e) => {
@@ -167,6 +165,8 @@ function NavBarOption({navLink}) {
                 }
      </>
     ): 
+      //TODO:Falta que cuando se le de a events se marque como activo events y el navOtions de mas abajo
+
         (<NavOption active={ location.pathname.includes(link) ? 'true':'false'} right={right} onClick={()=> handleLink(link)} >
             <Icon>{icon} {label}</Icon>
         </NavOption>)

@@ -9,32 +9,51 @@ use App\Http\Controllers\FieldController;
 use App\Http\Controllers\SportController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\MessageController;
+
+
 
 // Agrupar las rutas bajo el prefijo '/api'
 Route::prefix('api')->group(function () {
     // Rutas para eventos
-    Route::get('/events', [EventController::class, 'getAllEvents']);
 
-    // Rutas para chats
-    Route::get('/chats', [ChatController::class, 'getAllChats']);
+    Route::prefix('events')->group(function() {
+        Route::get('/',[EventController::class,'getAllEvents']);
+        Route::get('/{id}',[EventController::class,'getEventById']);
 
-    // Rutas para ocurrencias
-    Route::get('/occurrences', [OccurrenceController::class, 'getAllOccurrences']);
+    });
+    Route::prefix('chats')->group(function() {
+        Route::get('/',[ChatController::class,'getAllChats']);
+        Route::get('/{id}',[ChatController::class,'getChatById']);
+        Route::get('/user/{id}',[ChatController::class,'getChatsByUserId']);
 
-    // Rutas para reservas
-    Route::get('/bookings', [BookingController::class, 'getAllBookings']);
 
-    // Rutas para campos
-    Route::get('/fields', [FieldController::class, 'getAllFields']);
+    });
+    Route::prefix('messages')->group(function() {
+        Route::get('/',[MessageController::class,'getAllMessages']);
+        Route::get('/{id}',[MessageController::class,'getMessageById']);
+        Route::get('/chat/{id}',[MessageController::class,'getMessagesByChatId']);
 
-    // Rutas para deportes
-    Route::get('/sports', [SportController::class, 'getAllSports']);
 
-    // Rutas para notificaciones
-    Route::get('/notifications', [NotificationController::class, 'getAllNotifications']);
-
-    // Rutas para invitaciones
-    Route::get('/invitation', [InvitationController::class, 'getAllInvitations']);
+    });
+    Route::prefix('occurrences')->group(function() {
+        Route::get('/',[OccurrenceController::class,'getAllOccurrences']);
+    });
+    Route::prefix('bookings')->group(function() {
+        Route::get('/',[BookingController::class,'getAllBookings']);
+    });
+    Route::prefix('fields')->group(function() {
+        Route::get('/',[FieldController::class,'getAllFields']);
+    });
+    Route::prefix('sports')->group(function() {
+        Route::get('/',[SportController::class,'getAllSports']);
+    });
+    Route::prefix('notifications')->group(function() {
+        Route::get('/',[NotificationController::class,'getAllNotifications']);
+    });
+    Route::prefix('invitations')->group(function() {
+        Route::get('/',[InvitationController::class,'getAllInvitations']);
+    });
 });
 
 

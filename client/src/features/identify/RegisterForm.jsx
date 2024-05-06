@@ -26,6 +26,7 @@ function RegisterForm() {
     pwd:'',
     confirmPwd:'',
   });
+  //TODO:falta ajustar esta llamada a la api no tengo claro como deberia de hacerlo aún
   const navigate = useNavigate();
   const [errors, setErrors] = useState(null);
   const handleSubmit = async (e) => {
