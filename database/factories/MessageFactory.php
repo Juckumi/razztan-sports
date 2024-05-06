@@ -18,6 +18,12 @@ class MessageFactory extends Factory
     {
         return [
             'text' => $this->faker->paragraph,
+            'user_id' => function () {
+                return \App\Models\User::factory()->create()->id;
+            },
+            'chat_id' => function () {
+                return \App\Models\Chat::factory()->create()->id;
+            },
         ];
     }
 }

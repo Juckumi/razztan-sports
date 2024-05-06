@@ -48,4 +48,17 @@ class User extends Authenticatable
 {
     return $this->belongsToMany(Events::class);
 }
+      public function chats()
+    {
+        return $this->belongsToMany(Chat::class);
+    }
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

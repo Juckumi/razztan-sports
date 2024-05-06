@@ -63,6 +63,8 @@ class DatabaseSeeder extends Seeder
         $userIds = DB::table('users')->pluck('id');
         $sportsIds = DB::table('sports')->pluck('id');
         $fieldsIds = DB::table('fields')->pluck('id');
+        $chatsIds = DB::table('chats')->pluck('id');
+
 
 
 
@@ -96,6 +98,18 @@ class DatabaseSeeder extends Seeder
             DB::table('field_sport')->insert([
                 'field_id' => $fieldsId,
                 'sport_id' => $sportsId,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);           
+        }
+        foreach ($chatsIds as $chatsId) {
+            // Selecciona un usuario aleatorio
+            $userId = $userIds->random();
+
+              // Inserta la relación en la tabla events_users
+            DB::table('chat_user')->insert([
+                'chat_id' => $chatsId,
+                'user_id' => $userId,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);           

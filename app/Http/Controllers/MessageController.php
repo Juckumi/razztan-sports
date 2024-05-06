@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\Chat;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
 
@@ -11,9 +12,25 @@ class MessageController extends Controller
     function getAllMessages(){
         try {
             $allMessage= Message::all();
-            return response(json(['data'=> $allMessage]),201);
+            return response()->json(['data'=> $allMessage],201);
         } catch (\Throwable $th) {
-            return response(json(['error'=> $th->getMessage()]),500);
+            return response()->json(['error'=> $th->getMessage()],500);
+        }
+    }
+    function getMessageById($id){
+        try {
+            $message = Message::find($id);
+            return response()->json(['data'=> $message],201);
+        } catch (\Throwable $th) {
+            return response()->json(['error'=> $th->getMessage()],500);
+        }
+    }
+    function getMessagesByChatId($chatId){
+        try {
+            $messages = Chat::find($chatId)->messages;
+            return response()->json(['data'=> $messages],201);
+        } catch (\Throwable $th) {
+            return response()->json(['error'=> $th->getMessage()],500);
         }
     }
     /**
