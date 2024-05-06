@@ -10,8 +10,19 @@ class EventController extends Controller
 {
     function getAllEvents(){
         try {
-            $allEvents = Event::all();
-            return response()->json(['data'=> $allEvents],201);
+            $limit = request()->input('limit',6);
+            $page = request()->input('page',1);
+
+            $paginateEvents = Event::paginate($limit, ['*'], 'page', $page);
+            return response()->json(['data'=> $paginateEvents->items(),'paginate' => ['limit'=>intval($limit),'page'=>intval($page),'total'=>$paginateEvents->total()]],201);
+        } catch (\Throwable $th) {
+            return response()->json(['error'=> $th->getMessage()],500);
+        }
+    }
+    function getEventById($id){
+        try {
+            $event = Event::find($id);
+            return response()->json(['data'=> $event],201);
         } catch (\Throwable $th) {
             return response()->json(['error'=> $th->getMessage()],500);
         }
