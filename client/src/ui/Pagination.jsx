@@ -11,20 +11,19 @@ display:flex;
 justify-content: center;
 align-items: center;
 color:var(--color-white);
-background-color: var(--color-brand-green-500);
 padding:1rem;
 margin:1rem;
 border-radius: 50%;
-cursor:pointer;
 transition: 0.5s;
 
-&&:hover{
-    background-color: var(--color-brand-green-300);
-
-}
 
 `
-
+const ForwardPage = styled(Div)`
+background-color :${(props) => (props.pages+1 <= props.totalpages) ? 'var(--color-brand-green-500);cursor:pointer;&&:hover{background-color: var(--color-brand-green-300);} ': 'var(--color-brand-green-100)' }
+`
+const PreviousPage = styled(Div)`
+background-color :${(props) => (props.pages-1 > 0) ? 'var(--color-brand-green-500);cursor:pointer;&&:hover{background-color: var(--color-brand-green-300);}': 'var(--color-brand-green-100)' }
+`
 
 function Pagination({page,totalPages,setPage}) {
 
@@ -37,11 +36,25 @@ function Pagination({page,totalPages,setPage}) {
     }
     return (
         <Container>
-            <Div onClick={handlePreviousPage} > <FiSkipBack /> </Div>
+            <PreviousPage
+            pages={page}
+            onClick={handlePreviousPage}
+
+            
+            > 
+                <FiSkipBack />
+            </PreviousPage>
                 <div>
                     Página {page} de {totalPages}
                 </div>
-            <Div onClick={handleNextPage}> <FiSkipForward /> </Div>
+            <ForwardPage 
+            onClick={handleNextPage}
+            pages={page}
+            totalpages={totalPages}
+
+            >
+                <FiSkipForward /> 
+             </ForwardPage>
         </Container>
     )
 }

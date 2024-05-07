@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import EventsCard from "./EventsCard"
-import useGetAllEvents from "./useGetAllEvents"
+import {useGetAllEvents} from "./useGetAllEvents"
 import Pagination from "../../ui/Pagination";
 import Spinner from "../../ui/Spinner";
 

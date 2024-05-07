@@ -18,8 +18,7 @@ export const getAllMessages = async () => {
 export const getMessagesByChatId = async (chatId) => {
     
     try {
-        const res = await fetch(`api/messages/chat/${chatId}`);
-        console.log(res)
+        const res = await fetch(`/api/messages/chat/${chatId}`);
 
         const data = await res.json();
         console.log(data);
