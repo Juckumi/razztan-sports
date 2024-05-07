@@ -2,13 +2,11 @@ export const getAllChats = async () => {
     
     try {
         const res = await fetch('/api/chats');
-        console.log(res)
 
         const data = await res.json();
-        console.log(data);
         if (!res.ok) {
             throw new Error('No se ha fetchear la data usuario');
-        }
+        }       
 
         return data.data;
     } catch (err) {
@@ -18,14 +16,13 @@ export const getAllChats = async () => {
 export const getChatsByUserId = async (userId) => {
     
     try {
-        const res = await fetch(`api/chats/user/${userId}`);
-        console.log(res)
+        const res = await fetch(`/api/chats/user/${userId}`);
 
-        const data = await res.json();
-        console.log(data);
+       
         if (!res.ok) {
             throw new Error('No se ha fetchear la data usuario');
         }
+        const data = await res.json();
 
         return data.data;
     } catch (err) {

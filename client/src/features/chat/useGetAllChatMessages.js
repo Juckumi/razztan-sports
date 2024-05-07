@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
-import { getAllEvents } from "../../api/eventApi";
+import { getMessagesByChatId } from "../../api/messageApi";
 
-export function useGetAllEvents() {
-    const [events, setEvents] = useState([]);
+export function useGetAllChatMessages(openChat) {
+    const [messages, setMessages] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(6);
-
 
     useEffect(() => {
         async function fetchData(){
             try{
                 setIsLoading(true)
-                const events = await getAllEvents({limit,page});
+                const chatMessages = await getMessagesByChatId(openChat);
 
-                setEvents(events)
+                setMessages(chatMessages)
             }catch(err){
                 setError(err.message)
             }finally{
@@ -24,9 +21,9 @@ export function useGetAllEvents() {
         }
         fetchData();
         
-    }, [page,limit]);
+    }, [openChat]);
 
 
-    return {events,isLoading,error,setPage,page,limit}
+    return {messages,isLoading,error}
 }
 

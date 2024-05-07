@@ -46,7 +46,7 @@
   --color-black:#0D0D0D;
   --color-white:#F2F2F2;
 
-  --color-grey-100: #747F8C;
+  --color-grey-200: #747F8C;
   --color-grey-100: #1E2D40;
   --gardient-brand-green: linear-gradient(to right, var(--color-brand-green-500), var(--color-brand-green-100));
 
