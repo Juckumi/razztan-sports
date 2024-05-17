@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import Calendar from "../features/dashboard/Calendar"
+import Dashboard from "../features/dashboard/Dashboard"
 
 const StyledSection = styled.section`
   display: grid;
@@ -10,7 +11,8 @@ const StyledSection = styled.section`
 
 `
 
-const StyledArticle = styled.article`
+const StyledACalendarArticle = styled.article`
+  padding: 1rem;
   text-align: center;
   display: grid;
   justify-content: center;
@@ -18,15 +20,14 @@ const StyledArticle = styled.article`
 
 
 `
+
 function UserDashboard() {
     return (
        <StyledSection style={{height:'67vh',zIndex:'10'}}>
-          <StyledArticle>
-            info
-          </StyledArticle>
-          <StyledArticle>
+          <Dashboard />
+          <StyledACalendarArticle>
             <Calendar />
-          </StyledArticle>
+          </StyledACalendarArticle>
        </StyledSection>
     )
 }

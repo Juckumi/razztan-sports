@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
-import { getAllPaginatedEvents } from "../../api/eventApi";
+import { getAllEvents } from "../../api/eventApi";
+import { getAllOccurences } from "../../api/occurrencesApi";
 
-export function useGetAllEvents() {
+export function useGetEventsAndOccurencesCalendar() {
     const [events, setEvents] = useState([]);
+    const [occurrences, setOccurrences] = useState([]);
+
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(6);
-    const [search, setSearch] = useState('');
-
 
 
     useEffect(() => {
         async function fetchData(){
             try{
                 setIsLoading(true)
-                const events = await getAllPaginatedEvents({limit,page,search});
+                const events = await getAllEvents();
+                const occurrences = await getAllOccurences();
 
+                setOccurrences(occurrences)
                 setEvents(events)
             }catch(err){
                 setError(err.message)
@@ -26,9 +27,9 @@ export function useGetAllEvents() {
         }
         fetchData();
         
-    }, [page,limit,search]);
+    }, []);
 
 
-    return {events,isLoading,error,setPage,page,limit,setLimit,setSearch,search}
+    return {events,occurrences,isLoading,error}
 }
 

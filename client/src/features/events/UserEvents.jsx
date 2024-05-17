@@ -23,7 +23,7 @@ function UserEvents() {
         <>
         <StyledTable>
             { !isLoading && events?.data?.map((event)=>
-                <EventsCard  event={event} key={event.id} />
+                <EventsCard  event={event} key={event.id}  />
             )}
         </StyledTable>
         <Pagination page={events?.paginate?.page} totalPages={Math.round(events?.paginate?.total/limit)} setPage={setPage} />

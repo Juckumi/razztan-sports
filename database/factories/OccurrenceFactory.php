@@ -21,7 +21,7 @@ class OccurrenceFactory extends Factory
                 return \App\Models\Event::factory()->create()->id;
             },
             'description' => $this->faker->paragraph,
-            'date' => $this->faker->dateTimeBetween('now', '+1 year'),
+            'start' => $this->faker->dateTimeBetween('now', '+1 year'),
             'title' => $this->faker->sentence,
         ];
     }

@@ -5,6 +5,8 @@ import NavBar from '../ui/NavBar';
 import { FiSettings,FiCalendar, FiInfo ,FiMessageSquare } from "react-icons/fi";
 import { TbSoccerField } from "react-icons/tb";
 import { RxDashboard } from "react-icons/rx";
+import { AppContext } from '../context/AppContext';
+import { useContext } from 'react';
 
 
 
@@ -25,13 +27,17 @@ const navLinks = [
 
 ];
 const UserLayout = () => {
+  const {themeMode} = useContext(AppContext)
+
   return (
     <>
-      <Header />
-      <NavBar navLinks={navLinks} color={'var(--gardient-brand-green)'} />
-            <Outlet />
-      <Footer />
+    <div style={{position:(themeMode === 'event')? 'fixed': 'initial'}}>
+      <Header themeMode={themeMode} />
+      <NavBar navLinks={navLinks} color={'var(--gardient-brand-green)'} themeMode={themeMode} />
+    </div>
+    <Outlet />
     </>
+
   );
 };
 

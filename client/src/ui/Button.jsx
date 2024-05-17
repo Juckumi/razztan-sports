@@ -8,6 +8,7 @@ const Button = styled.button`
  font-size: 1.3rem;
  transition: transform 1s;
  border: none;
+ cursor: pointer;
 
  &&:hover{
     transform: scale(1.1);

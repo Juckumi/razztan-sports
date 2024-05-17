@@ -4,6 +4,8 @@ import { Outlet } from 'react-router';
 import NavBar from '../ui/NavBar';
 import { FiCalendar,FiInfo } from 'react-icons/fi';
 import { MdOutlineSportsBasketball } from "react-icons/md";
+import { useContext, useLayoutEffect } from 'react';
+import { AppContext } from '../context/AppContext';
 
 
 const navLinks = [
@@ -29,11 +31,21 @@ const navLinks = [
   }
 ];
 const AppLayout = () => {
+  const {themeMode,setThemeMode} = useContext(AppContext)
+
+  useLayoutEffect(()=>{
+    setThemeMode('event');
+
+    return () => {
+      setThemeMode('');
+    }
+      
+  },[])
   return (
     <>
       <div style={{position:'fixed',width:'100vw'}}>
-      <Header />
-      <NavBar navLinks={navLinks} color={'var(--gardient-brand-green)'}/>
+      <Header themeMode={themeMode} />
+      <NavBar navLinks={navLinks} themeMode={themeMode} />
       </div>
        <Outlet />
       <Footer />

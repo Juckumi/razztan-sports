@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FiSkipBack,FiSkipForward  } from "react-icons/fi";
+import { FiSkipBack,FiSkipForward,FiRewind } from "react-icons/fi";
 
 const Container = styled.div`
 display:flex;
@@ -19,14 +19,19 @@ transition: 0.5s;
 
 `
 const ForwardPage = styled(Div)`
-background-color :${(props) => (props.pages+1 <= props.totalpages) ? 'var(--color-brand-green-500);cursor:pointer;&&:hover{background-color: var(--color-brand-green-300);} ': 'var(--color-brand-green-100)' }
+background-color :${(props) => ((props.pages*1)+1 <= (props.totalpages*1)) ? 'var(--color-brand-green-500);cursor:pointer;&&:hover{background-color: var(--color-brand-green-300);} ': 'var(--color-brand-green-100)' };
 `
 const PreviousPage = styled(Div)`
-background-color :${(props) => (props.pages-1 > 0) ? 'var(--color-brand-green-500);cursor:pointer;&&:hover{background-color: var(--color-brand-green-300);}': 'var(--color-brand-green-100)' }
+background-color :${(props) => ((props.pages*1)-1 > 0) ? 'var(--color-brand-green-500);cursor:pointer;&&:hover{background-color: var(--color-brand-green-300);}': 'var(--color-brand-green-100)' };
 `
 
 function Pagination({page,totalPages,setPage}) {
-
+    const handleFirstPage = () => {
+        if(page-1 !== 0) setPage(1)
+     }
+     const handleLastPage  = () => {
+         if(page+1 <= totalPages) setPage(totalPages)
+     }
 
     const handlePreviousPage = () => {
        if(page-1 !== 0) setPage(page-1)
@@ -36,6 +41,14 @@ function Pagination({page,totalPages,setPage}) {
     }
     return (
         <Container>
+             <PreviousPage
+            pages={page}
+            onClick={handleFirstPage}
+
+            
+            > 
+                <FiRewind />
+            </PreviousPage>
             <PreviousPage
             pages={page}
             onClick={handlePreviousPage}
@@ -50,10 +63,18 @@ function Pagination({page,totalPages,setPage}) {
             <ForwardPage 
             onClick={handleNextPage}
             pages={page}
-            totalpages={totalPages}
+            totalpages={totalPages.toString()}
 
             >
                 <FiSkipForward /> 
+             </ForwardPage>
+             <ForwardPage 
+            onClick={handleLastPage}
+            pages={page}
+            totalpages={totalPages.toString()}
+
+            >
+                <FiRewind style={{transform:'rotate(180deg)'}} /> 
              </ForwardPage>
         </Container>
     )

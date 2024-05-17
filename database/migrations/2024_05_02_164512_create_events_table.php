@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             
             $table->id();
-            $table->string('name');
+            $table->string('title');
+            $table->string('slug')->unique()->nullable();
+            $table->string('backgroundColor');
             $table->text('description');
-            $table->float('price');
+            $table->float('price')->nullable();
             $table->text('eventPhotoUrl');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->boolean('catering');
 
             $table->timestamps();

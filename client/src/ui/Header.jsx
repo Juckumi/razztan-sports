@@ -4,12 +4,16 @@ import Button    from "../ui/Button"
 import UserProfilePic    from "../ui/UserProfilePic"
 
 import { useNavigate } from 'react-router';
+import { useHeaderAnimation } from '../hooks/useHeaderAnimation';
+import { useEffect } from 'react';
+import RazztanSportsIcon from './RazztanSportsIcon';
+
 const StyledHeader = styled.header`
     display: flex;
     justify-content:space-between;
     align-items: center;
-    background:  var(--gardient-brand-green);
-    color: var(--color-brand-bone-300);
+    background:  ${({thememode})=> thememode === 'event'? 'rgba(0,0,0,0)'  : 'var(--gardient-brand-green)'};
+    color: ${({thememode})=> thememode === 'event'? 'var(--color-black)'  : 'var(--color-brand-bone-300)'};
     height: fit-content;
     padding: 0 2rem;
     z-index:20;
@@ -29,17 +33,22 @@ const ButtonGroup = styled.div`
 
 `
 
-function Header({isAuth = true}) {
+function Header({isAuth = true,themeMode}) {
     const navigate = useNavigate();
+    const { ref} = useHeaderAnimation();
+
+   
 
 
     const handleLink = (link) => {
         navigate(link)
     }
+  
+
     return (
-        <StyledHeader>
+        <StyledHeader thememode={themeMode} ref={ref}>
             <div></div>
-            <Logo  isWhite={true} />
+            <Logo themeMode={themeMode} />
             <div>
             {!isAuth ? 
                 <ButtonGroup>
