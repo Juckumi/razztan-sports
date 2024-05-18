@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Occurrence;
+use App\Models\Event;
+
 use App\Http\Requests\StoreOccurrenceRequest;
 use App\Http\Requests\UpdateOccurrenceRequest;
 
@@ -12,6 +14,14 @@ class OccurrenceController extends Controller
         try {
             $allOccurrencies = Occurrence::all();
             return response()->json(['data'=> $allOccurrencies],201);
+        } catch (\Throwable $th) {
+            return response()->json(['error'=> $th->getMessage()],500);
+        }
+    }
+    function getOccurencesByEventId($eventId){
+        try {
+            $occurences = Event::find($eventId)->occurrences;
+            return response()->json(['data'=> $occurences],201);
         } catch (\Throwable $th) {
             return response()->json(['error'=> $th->getMessage()],500);
         }

@@ -4,20 +4,22 @@ import Button    from "../ui/Button"
 import UserProfilePic    from "../ui/UserProfilePic"
 
 import { useNavigate } from 'react-router';
+import { useHeaderAnimation } from '../hooks/useHeaderAnimation';
+
 const StyledHeader = styled.header`
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
-    background:  var(--gardient-brand-green);
-    color: var(--color-brand-bone-300);
+    background: ${({ thememode }) => thememode === 'event' ? 'rgba(0,0,0,0)' : 'var(--gardient-brand-green)'};
+    color: ${({ thememode }) => thememode === 'event' ? 'var(--color-black)' : 'var(--color-brand-bone-300)'};
     height: fit-content;
     padding: 0 2rem;
-    z-index:20;
-
-        *{
-            flex:1;
-            text-align: right;
-        }
+    z-index: 20;
+    transition: background 3s;
+    *{
+        flex:1;
+        text-align: right;
+    }
 
 
 `
@@ -29,17 +31,22 @@ const ButtonGroup = styled.div`
 
 `
 
-function Header({isAuth = true}) {
+function Header({isAuth = true,themeMode}) {
     const navigate = useNavigate();
+    const { ref} = useHeaderAnimation();
+
+   
 
 
     const handleLink = (link) => {
         navigate(link)
     }
+  
+
     return (
-        <StyledHeader>
+        <StyledHeader thememode={themeMode} ref={ref}>
             <div></div>
-            <Logo  isWhite={true} />
+            <Logo themeMode={themeMode} />
             <div>
             {!isAuth ? 
                 <ButtonGroup>

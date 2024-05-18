@@ -26,25 +26,25 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Crear 10 usuarios
-        User::factory(10)->create();
+        User::factory(30)->create();
 
         // Crear eventos
-        Event::factory(5)->create();
+        Event::factory(60)->create();
 
         // Crear ocurrencias
-        Occurrence::factory(10)->create();
+        Occurrence::factory(120)->create();
 
         // Crear mensajes
-        Message::factory(20)->create();
+        Message::factory(100)->create();
 
         // Crear campos
-        Field::factory(8)->create();
+        Field::factory(25)->create();
 
         // Crear invitaciones
-        Invitation::factory(15)->create();
+        Invitation::factory(60)->create();
 
         // Crear deportes
-        Sport::factory(5)->create();
+        // Sport::factory(5)->create();
 
         // Crear notificaciones
         Notification::factory(10)->create();
@@ -57,6 +57,20 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
+        $sports = ['Futbol','Baloncesto','Tenis','Cricket','Polo'];
+
+        foreach ($sports as $sport) {
+           
+
+              // Inserta la relación en la tabla events_users
+            DB::table('sports')->insert([
+                'name' => $sport,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        
+        }
+
 
         // Obtén los IDs de todos los eventos y usuarios existentes en la base de datos
         $eventIds = DB::table('events')->pluck('id');
@@ -64,6 +78,8 @@ class DatabaseSeeder extends Seeder
         $sportsIds = DB::table('sports')->pluck('id');
         $fieldsIds = DB::table('fields')->pluck('id');
         $chatsIds = DB::table('chats')->pluck('id');
+        $occurences = DB::table('occurrences')->pluck('id');
+
 
 
 
@@ -73,11 +89,26 @@ class DatabaseSeeder extends Seeder
             // Selecciona un usuario aleatorio
             $userId = $userIds->random();
             $sportsId = $sportsIds->random();
+            $sportsId2 = $sportsIds->random();
+
 
               // Inserta la relación en la tabla events_users
             DB::table('event_sport')->insert([
                 'event_id' => $eventId,
                 'sport_id' => $sportsId,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            DB::table('event_sport')->insert([
+                'event_id' => $eventId,
+                'sport_id' => $sportsId2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            DB::table('event_sport')->insert([
+                'event_id' => $eventId,
+                'sport_id' => $sportsId2,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

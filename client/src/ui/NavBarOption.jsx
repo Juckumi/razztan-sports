@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router"
 import { useClickOutside } from "../hooks/useClickOutside";
 import styled from 'styled-components'
+import { useHeaderAnimation } from "../hooks/useHeaderAnimation";
 
 
 const NavOption = styled.div`
@@ -12,7 +13,6 @@ const NavOption = styled.div`
     font-size: 1.1rem;
     font-weight: 700;
     padding: 1rem;
-    color: var(--color-brand-bone-100);
     cursor: pointer;
 
     /* Verificar si la propiedad active es falsa */
@@ -73,7 +73,7 @@ const NavOption = styled.div`
 
 const List = styled.ul`
     position:absolute;top:10rem;right:0;
-    background: var(--color-brand-green-100);
+    background: inherit;
     width: 20rem;
     height: 100vh;
     z-index: 10;
@@ -104,7 +104,7 @@ const List = styled.ul`
 const Li = styled.li`
 
     background: var(--color-brand-green);
-    color:white;
+    color:inherit;
     padding: 2.5rem;
     width:100%;
     border-radius: 1rem;
@@ -118,7 +118,6 @@ const Icon = styled.span`
         :first-child{
         font-size:1.3rem;
         align-items:center;
-        color:white;
         margin-right: 0.4rem;
         padding: 0;
         }
@@ -146,6 +145,10 @@ function NavBarOption({navLink}) {
     }
     const ref = useClickOutside(handleCloseSelect)
 
+
+    
+
+
     return (
         list.length > 0 ? 
         (  <>
@@ -156,7 +159,7 @@ function NavBarOption({navLink}) {
                 {isOpen && 
                     <List ref ={ref} >
                         {list?.map((element,index) =>
-                                <Li  key={index}  onClick={()=> handleLink(element.link)}>
+                                <Li key={index}  onClick={()=> handleLink(element.link)}>
                                     {element.label}
                                 </Li >
                             )

@@ -11,6 +11,7 @@ import Events from "../pages/Events";
 import ChatDashboard from "../pages/ChatDashboard";
 import UserEvents from "../features/events/UserEvents";
 import AllEvents from "../features/events/AllEvents";
+import EventDetails from "../pages/EventDetails";
 
 
 const router = createBrowserRouter([
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
             element: (<AllEvents />)
           },
         ]
+        },
+        {
+          path:"event/:eventSlug",
+          element: (<EventDetails />)
         },
         {
           path: "user/fields",

@@ -19,7 +19,11 @@ Route::prefix('api')->group(function () {
 
     Route::prefix('events')->group(function() {
         Route::get('/',[EventController::class,'getAllEvents']);
+        Route::get('/paginated',[EventController::class,'getAllPaginatedEvents']);
+
         Route::get('/{id}',[EventController::class,'getEventById']);
+        Route::get('/slug/{slug}',[EventController::class,'getEventBySlug']);
+
 
     });
     Route::prefix('chats')->group(function() {
@@ -38,6 +42,8 @@ Route::prefix('api')->group(function () {
     });
     Route::prefix('occurrences')->group(function() {
         Route::get('/',[OccurrenceController::class,'getAllOccurrences']);
+        Route::get('/event/{id}',[OccurrenceController::class,'getOccurencesByEventId']);
+
     });
     Route::prefix('bookings')->group(function() {
         Route::get('/',[BookingController::class,'getAllBookings']);

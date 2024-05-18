@@ -18,8 +18,8 @@ class BookingFactory extends Factory
     {
         return [
             'price' => fake()->randomFloat(2, 0, 1000),
-            'start_date' => fake()->dateTimeBetween('-1 month', '+1 month'),
-            'end_date' => fake()->dateTimeBetween('-1 month', '+1 month'),
+            'start' => fake()->dateTimeBetween('-1 month', '+1 month'),
+            'end' => fake()->dateTimeBetween('-1 month', '+1 month'),
         ];
     }
 }
