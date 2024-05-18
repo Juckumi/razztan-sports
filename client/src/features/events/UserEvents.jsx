@@ -15,19 +15,22 @@ const StyledTable = styled.div`
 `
 
 function UserEvents() {
-    const {events,isLoading,error,setPage,limit} = useGetAllEvents();
-
-    if(isLoading) return <Spinner />
-    if(error) return  <div>Algo ha ido mal {error}</div>
+    const userEvents = [];
     return (
         <>
-        <StyledTable>
-            { !isLoading && events?.data?.map((event)=>
-                <EventsCard  event={event} key={event.id}  />
-            )}
-        </StyledTable>
-        <Pagination page={events?.paginate?.page} totalPages={Math.round(events?.paginate?.total/limit)} setPage={setPage} />
+        {userEvents > 0 ?
+                <StyledTable>
+                    {/* { !isLoading && events?.data?.map((event)=>
+                        <EventsCard  event={event} key={event.id}  />
+                    )} */}
+                </StyledTable>
 
+                : 
+                <>
+                        <h1>No tienes eventos ahora mismo disponibles</h1>
+                </>
+            
+            }
         </>
     )
 }

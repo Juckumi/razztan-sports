@@ -24,8 +24,7 @@ const Img = styled.img`
     margin: -0.5rem;
     border-radius: 0.5rem;
     -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,1)); /* Degradado de transparente a negro */
-  mask-image: linear-gradient(to right, rgba(0,0,0,0),  rgba(0,0,0,0.5),rgba(0,0,0,1)); /* Degradado de transparente a negro */
-
+    mask-image: linear-gradient(to right, rgba(0,0,0,0),  rgba(0,0,0,0.5),rgba(0,0,0,1)); /* Degradado de transparente a negro */
 
 `
 function EventRow({event}) {

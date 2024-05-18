@@ -3,6 +3,8 @@ import { MdOutlineSportsBaseball ,MdOutlineSportsBasketball  ,MdOutlineSportsCri
 import { useNavigate } from "react-router";
 import { formatDate } from "../../utils/dateFormatter";
 import { LuCalendarClock } from "react-icons/lu";
+import StyledIcon from "../../ui/StyledIcon";
+import DateSpan from "../../ui/DateSpan";
 
 
 const StyledEventCard = styled.div`
@@ -51,36 +53,25 @@ const StyledDivImg = styled.div`
     border-radius: var(--b-radius-lg)  0 0 var(--b-radius-lg)  ;
 
 `
-const StyledIcon = styled.span`
-    display:flex;
-    align-items: center;
 
 
-`
-const DateSpan = styled.span`
-    color: var(--color-grey-100);
-    font-size: 0.9rem;
-    margin: 1rem;
-
-
-`
 export const Icon = ({sportName}) => {
     let icon= <p></p>;
     switch(sportName){
         case 'Futbol':
-            icon = <StyledIcon>  <MdOutlineSportsFootball style={{fontSize:'2rem'}} /> {sportName} </StyledIcon>
+            icon = <StyledIcon>  <MdOutlineSportsFootball /> {sportName} </StyledIcon>
         break;
         case 'Baloncesto':
-            icon =   <StyledIcon> <MdOutlineSportsBasketball style={{fontSize:'2rem'}} /> {sportName} </StyledIcon>
+            icon =   <StyledIcon> <MdOutlineSportsBasketball  /> {sportName} </StyledIcon>
         break;
         case 'Polo':
-            icon =   <StyledIcon> <MdOutlineSportsBaseball style={{fontSize:'2rem'}} /> {sportName} </StyledIcon>
+            icon =   <StyledIcon> <MdOutlineSportsBaseball /> {sportName} </StyledIcon>
         break;
         case 'Tenis':
-            icon =  <StyledIcon>   <MdOutlineSportsBaseball style={{fontSize:'2rem'}} /> {sportName} </StyledIcon>
+            icon =  <StyledIcon>   <MdOutlineSportsBaseball  /> {sportName} </StyledIcon>
         break;
         case 'Cricket':
-            icon =   <StyledIcon>   <MdOutlineSportsCricket style={{fontSize:'2rem'}} />  {sportName} </StyledIcon>
+            icon =   <StyledIcon>   <MdOutlineSportsCricket />  {sportName} </StyledIcon>
         break;
     }
 
@@ -97,7 +88,8 @@ function EventsCard({event}) {
                     <Img src={`https://picsum.photos/200?random=${event.id}`} />
                 </StyledDivImg>
                 <div style={{flex:'2',display:'flex',flexFlow:'column'}}>
-                    <EventName color={event.backgroundColor}> {event.title} <div style={{width:'1rem',height:'1rem',backgroundColor:event.backgroundColor,borderRadius:'1rem'}}></div> </EventName>
+                    <EventName color={event.backgroundColor}> {event.title} 
+                    <div style={{width:'1rem',height:'1rem',backgroundColor:event.backgroundColor,borderRadius:'1rem'}}></div> </EventName>
                     <StyledGrid>
                         <div style={{padding:'1rem', display:'flex',gap:'1rem'}}>
                           
