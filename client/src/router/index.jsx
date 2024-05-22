@@ -12,73 +12,84 @@ import ChatDashboard from "../pages/ChatDashboard";
 import UserEvents from "../features/events/UserEvents";
 import AllEvents from "../features/events/AllEvents";
 import EventDetails from "../pages/EventDetails";
-
+import CreateEventForm from "../features/events/CreateEventForm";
 
 const router = createBrowserRouter([
-  {
-    // path: "/",
-    element: (<AppLayout />),
-    children: [
-      {
-        path: "/",
-        element: (<LandingPage />),
-        children:[
-          {
-            path: "auth",
-            element: (  <Modal />
-            ),
-            children: [
-              {
-                path:'iniciar-sesion',
-                element:(<LogInForm />)
-              },
-              {
-                path:'registrarse',
-                element:(<RegisterForm />)
-              }
-            ]
-          }
-        ]
-      },
-    ],
-  },
-  {
-    element: (<UserLayout />),
-    children: [
-        {
-        path: "user/dashboard",
-        element: (<UserDashboard />)
-        },
-        {
-        element: (<Events />),
-        children:[
-          {
-            path:"user/events/jair",
-            element: (<UserEvents />)
-          },
-          {
-            path:"user/events/all",
-            element: (<AllEvents />)
-          },
-        ]
-        },
-        {
-          path:"event/:eventSlug",
-          element: (<EventDetails />)
-        },
-        {
-          path: "user/fields",
-        element: (<UserDashboard />)
-        },
-        {
-          path: "user/chat",
-        element: (<ChatDashboard />)
-        },
-    ],
-  },
-  {
-    path: "*",
-    element: (<p>Erroorrr pagina no esncontrada</p>),
-  },
+    {
+        // path: "/",
+        element: <AppLayout />,
+        children: [
+            {
+                path: "/",
+                element: <LandingPage />,
+                children: [
+                    {
+                        path: "iniciar-sesion",
+                        element: (
+                            <Modal>
+                                <LogInForm />
+                            </Modal>
+                        ),
+                    },
+                    {
+                        path: "registrarse",
+                        element: (
+                            <Modal>
+                                <RegisterForm />
+                            </Modal>
+                        ),
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        element: <UserLayout />,
+        children: [
+            {
+                path: "user/dashboard",
+                element: <UserDashboard />,
+            },
+            {
+                element: <Events />,
+                children: [
+                    {
+                        path: "user/events/jair",
+                        element: <UserEvents />,
+                        children: [
+                            {
+                                path: "crear-evento",
+                                element: (
+                                    <Modal>
+                                        <CreateEventForm />
+                                    </Modal>
+                                ),
+                            },
+                        ],
+                    },
+                    {
+                        path: "user/events/all",
+                        element: <AllEvents />,
+                    },
+                ],
+            },
+            {
+                path: "event/:eventSlug",
+                element: <EventDetails />,
+            },
+            {
+                path: "user/fields",
+                element: <UserDashboard />,
+            },
+            {
+                path: "user/chat",
+                element: <ChatDashboard />,
+            },
+        ],
+    },
+    {
+        path: "*",
+        element: <p>Erroorrr pagina no esncontrada</p>,
+    },
 ]);
 export default router;

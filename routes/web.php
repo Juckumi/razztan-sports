@@ -19,10 +19,14 @@ Route::prefix('api')->group(function () {
 
     Route::prefix('events')->group(function() {
         Route::get('/',[EventController::class,'getAllEvents']);
+        Route::post('/',[EventController::class,'createEvent']);
+
         Route::get('/paginated',[EventController::class,'getAllPaginatedEvents']);
 
         Route::get('/{id}',[EventController::class,'getEventById']);
         Route::get('/slug/{slug}',[EventController::class,'getEventBySlug']);
+        Route::get('/user/{id}',[EventController::class,'getEventByUserId']);
+
 
 
     });

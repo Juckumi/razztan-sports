@@ -14,7 +14,7 @@ const StyledHeader = styled.header`
     color: ${({ thememode }) => thememode === 'event' ? 'var(--color-black)' : 'var(--color-brand-bone-300)'};
     height: fit-content;
     padding: 0 2rem;
-    z-index: 20;
+    z-index: 30;
     transition: background 3s;
     *{
         flex:1;

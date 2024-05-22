@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Sport;
+use App\Models\User;
+
+
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 
@@ -12,15 +16,25 @@ class EventController extends Controller
         try {
             $limit = request()->input('limit', 6);
             $page = request()->input('page', 1);
-            $searchQuery = request()->input('search', 'Uriel'); // Obtener el parámetro de búsqueda
+            $filter = request()->input('filter', '[]');
             
-            $paginateEvents = Event::with('sports')
-                ->where('title', 'LIKE', "%{$searchQuery}%") // Aplicar la condición de búsqueda
-                ->paginate($limit, ['*'], 'page', $page);
+            $filter = json_decode($filter);
             
 
-        
-            // Convertir la colección de deportes relacionados en objetos JSON
+
+
+            $searchQuery = request()->input('search', ''); 
+            
+            $paginateEvents = Event::with('sports')->orderBy('created_at', 'desc')
+
+                ->where('title', 'LIKE', "%{$searchQuery}%")
+                ->when(!empty($filter), function($query) use ($filter) {
+                    $query->whereHas('sports', function($query) use ($filter) {
+                        $query->whereIn('name', $filter);
+                    });
+                })
+                ->paginate($limit, ['*'], 'page', $page);
+
             $formattedEvents = $paginateEvents->map(function ($event) {
                 $event->sports = $event->sports->map(function ($sport) {
                     return [
@@ -34,7 +48,8 @@ class EventController extends Controller
             });
 
 
-            return response()->json(['data'=> $formattedEvents,'paginate' => ['limit'=>intval($limit),'page'=>intval($page),'total'=>$paginateEvents->total()]],201);
+
+            return response()->json(['data'=> $formattedEvents,'paginate' => ['limit'=>intval($limit),'page'=>intval($page),'total'=>$paginateEvents->total(), 'filter' => $filter]],201);
         } catch (\Throwable $th) {
             return response()->json(['error'=> $th->getMessage()],500);
         }
@@ -58,6 +73,68 @@ class EventController extends Controller
             $event = Event::find($id);
             return response()->json(['data'=> $event],201);
         } catch (\Throwable $th) {
+            return response()->json(['error'=> $th->getMessage()],500);
+        }
+    }
+
+    function getEventByUserId($id){
+        try {
+            $events = User::find($id)->ownedEvents;
+
+            $eventsWithSport = $events->map(function ($event) {
+                $event->sports = $event->sports->map(function ($sport) {
+                    return [
+                        'id' => $sport->id,
+                        'name' => $sport->name,
+                        'created_at' => $sport->created_at,
+                        'updated_at' => $sport->updated_at,
+                    ];
+                });
+                return $event;
+            });
+            
+            return response()->json(['data'=> $eventsWithSport],201);
+        } catch (\Throwable $th) {
+            return response()->json(['error'=> $th->getMessage()],500);
+        }
+    }
+
+    function createEvent(){
+        try {
+
+
+        $event = new Event();
+
+        $event->title = request()->title;
+        $event->start = request()->start;
+        $event->end = request()->end;
+        $event->description = request()->description;
+        $event->price = request()->price;
+
+        $event->catering = request()->catering == 'si';
+        $event->user_id = request()->userId ;
+
+
+        $event->save();
+
+        $eventId = $event->id;
+
+        foreach (request()->sports as $sportName) {
+            $sport = Sport::where('name', $sportName)->first();
+
+            if ($sport) {
+                $event->sports()->attach($sport->id);
+            }
+        }
+
+            
+            
+            return response()->json(['data'=> request()->all()],201);
+
+
+
+        } catch (\Throwable $th) {
+
             return response()->json(['error'=> $th->getMessage()],500);
         }
     }

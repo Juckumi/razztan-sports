@@ -6,13 +6,13 @@ const Span = styled.span`
     cursor: pointer;
 `
 
-function Logo({themeMode}) {
+function Logo({style = {fontSize:'6.5rem', color:  'var(--color-white)'}}) {
     const navigate = useNavigate();
 
     return (
         <div style={{textAlign:'center'}}>
             <Span onClick={()=> navigate('/user/dashboard')}>
-                <RazztanSportsIcon  style={{fontSize:'6.5rem', color:  'var(--color-white)'}} />
+                <RazztanSportsIcon  style={style} />
             </Span>
         </div>
     )

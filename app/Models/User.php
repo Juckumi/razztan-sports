@@ -46,7 +46,11 @@ class User extends Authenticatable
     }
     public function events()
 {
-    return $this->belongsToMany(Events::class);
+    return $this->belongsToMany(Event::class);
+}
+public function ownedEvents()
+{
+    return $this->hasmany(Event::class);
 }
       public function chats()
     {

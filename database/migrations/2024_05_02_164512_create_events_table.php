@@ -16,13 +16,18 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique()->nullable();
-            $table->string('backgroundColor');
+            $table->string('backgroundColor')->nullable();
             $table->text('description');
             $table->float('price')->nullable();
-            $table->text('eventPhotoUrl');
+            $table->text('eventPhotoUrl')->nullable();
             $table->dateTime('start');
             $table->dateTime('end');
             $table->boolean('catering');
+            $table->enum('publishStatus',['publico','privado','revisado']);
+
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); //TODO: hay que sarse cuenta de este campo cuando se haga migrate fresh
+
+
 
             $table->timestamps();
 

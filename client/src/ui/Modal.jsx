@@ -1,10 +1,9 @@
-import { Outlet, useNavigate } from "react-router";
+import {useNavigate } from "react-router";
 import { useClickOutside } from "../hooks/useClickOutside"
 import {  useInsertionEffect } from "react";
 import styled from 'styled-components';
 
 
-const homePath = '/'
 
 const Blur = styled.div`
             position: fixed;
@@ -28,9 +27,9 @@ const StyledModal = styled.div`
                 text-align: center;
 `
 
-function Modal() {
+function Modal({children}) {
     const handleNavBack = () => {
-        navigate(homePath)
+        navigate(-1)
     }
     const ref = useClickOutside(handleNavBack);
     const navigate = useNavigate();
@@ -51,7 +50,7 @@ function Modal() {
     return (
         <Blur>
             <StyledModal ref={ref} >
-                    <Outlet />
+                    {children}
             </StyledModal>
         </Blur>
     )
