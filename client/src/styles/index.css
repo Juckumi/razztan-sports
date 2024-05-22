@@ -1,109 +1,125 @@
 @font-face {
-  font-family: 'BodoniFLF';
-  src: url('../assets/fonts/BodoniflfBold-MVZx.ttf') format('truetype');
+    font-family: "BodoniFLF";
+    src: url("../assets/fonts/BodoniflfBold-MVZx.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'AnonymusPro';
-  src: url('../assets/fonts/AnonymusPro/AnonymousPro-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'AnonymusPro';
-  src: url('../assets/fonts/AnonymusPro/AnonymousPro-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
+    font-family: "AnonymusPro";
+    src: url("../assets/fonts/AnonymusPro/AnonymousPro-Regular.ttf")
+        format("truetype");
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'AnonymusPro';
-  src: url('../assets/fonts/AnonymusPro/AnonymousPro-Italic.ttf') format('truetype');
-  font-weight: normal;
-  font-style: italic;
+    font-family: "AnonymusPro";
+    src: url("../assets/fonts/AnonymusPro/AnonymousPro-Bold.ttf")
+        format("truetype");
+    font-weight: bold;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'AnonymusPro';
-  src: url('../assets/fonts/AnonymusPro/AnonymousPro-BoldItalic.ttf') format('truetype');
-  font-weight: bold;
-  font-style: italic;
+    font-family: "AnonymusPro";
+    src: url("../assets/fonts/AnonymusPro/AnonymousPro-Italic.ttf")
+        format("truetype");
+    font-weight: normal;
+    font-style: italic;
 }
 
+@font-face {
+    font-family: "AnonymusPro";
+    src: url("../assets/fonts/AnonymusPro/AnonymousPro-BoldItalic.ttf")
+        format("truetype");
+    font-weight: bold;
+    font-style: italic;
+}
 
-:root{
-  --color-brand-green-500: #042616;
-  --color-brand-green-300: #2A3631;
-  --color-brand-green-100: #335043;
+:root {
+    --color-brand-green-500: #042616;
+    --color-brand-green-300: #2a3631;
+    --color-brand-green-100: #335043;
 
-  --color-brand-purple: #6214A3;
-  --color-brand-bone-100: #eeebe3;
-  --color-brand-bone-200: #F3E6DE;
-  --color-brand-bone-300: #D9C6BA;
-  --color-brand-beige-500: #734930;
-  --color-brand-beige-100: #905B3C;
+    --color-brand-purple: #6214a3;
+    --color-brand-bone-100: #eeebe3;
+    --color-brand-bone-200: #f3e6de;
+    --color-brand-bone-300: #d9c6ba;
+    --color-brand-beige-500: #734930;
+    --color-brand-beige-100: #905b3c;
 
-  --color-black:#0D0D0D;
-  --color-white:#F2F2F2;
+    --color-black: #0d0d0d;
+    --color-white: #f2f2f2;
 
-  --color-grey-200: #747F8C;
-  --color-grey-100: #1E2D40;
-  --gardient-brand-green: linear-gradient(to right, var(--color-brand-green-500), var(--color-brand-green-100));
+    --color-grey-200: #747f8c;
+    --color-grey-100: #1e2d40;
+    --color-grey-200: #101823;
+    --gardient-brand-green: linear-gradient(
+        to right,
+        var(--color-brand-green-500),
+        var(--color-brand-green-100)
+    );
 
-
-  --b-radius-sm: 3px;
-  --b-radius-md: 5px;
-  --b-radius-lg: 10px;
-
+    --b-radius-sm: 3px;
+    --b-radius-md: 5px;
+    --b-radius-lg: 10px;
 }
 
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; 
-  }
-  
-  body {
+    box-sizing: border-box;
+}
+
+body {
     font-family: Arial, sans-serif;
-    background-color: var(--color-brand-bone-100) ;
-    color:  var(--color-black);
+    background-color: var(--color-brand-bone-100);
+    color: var(--color-black);
     overflow-x: hidden;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'BodoniFLF';
+}
+textarea,
+input {
+    font-family: Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "BodoniFLF";
     font-weight: bold;
-  }
-  
-  p {
+}
+
+p {
     font-size: 1rem;
     font-family: AnonymusPro;
-  }
-  
-  ul, ol {
+}
+
+ul,
+ol {
     list-style: none;
-  }
-  
-  li {
+}
+
+li {
     padding: 0;
-  }
-  
-  img {
+}
+
+img {
     max-width: 100%;
     height: auto;
-  }
-  ::-webkit-scrollbar {
+}
+::-webkit-scrollbar {
     width: 10px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
-    border-radius: 5px; 
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

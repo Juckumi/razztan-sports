@@ -23,8 +23,8 @@ function UserProfilePic() {
         <div style={{position:'relative'}} ref={ref} >
             <img ref={ref} onClick={handleOpen} style={{borderRadius:'130rem',objectFit: 'cover', width:'4.5rem',height:'4.5rem'}}src={user.profilePicture} alt="profile-pic-razztan-sports"  />
             {isShowing && <ul style={{position:'absolute' ,right:0,top:'5em',backgroundColor:'white'}} >
-                <li onClick={() => handleLink('/auth/iniciar-sesion')} style={{padding:'1rem'}}>Iniciar sesion</li>
-                <li  onClick={() => handleLink('/auth/registrarse')} style={{padding:'1rem'}}>Registrarse</li>
+                <li onClick={() => handleLink('/iniciar-sesion')} style={{padding:'1rem'}}>Iniciar sesion</li>
+                <li  onClick={() => handleLink('/registrarse')} style={{padding:'1rem'}}>Registrarse</li>
             </ul>}
         </div>
     )

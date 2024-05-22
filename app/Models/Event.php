@@ -24,6 +24,10 @@ class Event extends Model
 {
     return $this->belongsToMany(User::class);
 }
+public function creator()
+{
+    return $this->belongsTo(User::class);
+}
 public function sports()
 {
     return $this->belongsToMany(Sport::class);

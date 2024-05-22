@@ -1,24 +1,15 @@
-import styled  from 'styled-components';
+import styled from "styled-components";
 
-const  StyledForm = styled.form`
+const Form = styled.form`
     padding: 1rem;
-    margin: 1rem;
+    margin: 0.5rem;
     background-color: var(--color-brand-bone-300);
     border-radius: var(--b-radius-lg);
-    :last-child {
+    min-height: 20rem;
+    min-width: 30rem;
+    & > :last-child {
         border: none;
     }
-
 `;
- 
 
-
-function Form({children,onSubmit}) {
-    return (
-        <StyledForm onSubmit={(e)=> onSubmit(e)}>
-            {children}
-        </StyledForm>
-    )
-}
-
-export default Form
+export default Form;

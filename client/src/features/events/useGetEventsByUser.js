@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
-import { getEventBySlug } from "../../../api/eventApi";
-import { useParams } from "react-router";
+import { getEventsByUserId } from "../../api/eventApi";
 
-export function useGetEventBySlug() {
-    const [event, setEvent] = useState([]);
+export function useGetEventsByUser() {
+    const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const { eventSlug } = useParams();
+    const userId = 1;
 
     useEffect(() => {
         async function fetchData() {
             try {
                 setIsLoading(true);
-                const events = await getEventBySlug(eventSlug);
+                const events = await getEventsByUserId(userId);
                 console.log("🚀 => fetchData => events:", events);
 
-                setEvent(events);
+                setEvents(events);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -23,7 +22,7 @@ export function useGetEventBySlug() {
             }
         }
         fetchData();
-    }, [eventSlug]);
+    }, [userId]);
 
-    return { event, isLoading, error };
+    return { events, isLoading, error };
 }

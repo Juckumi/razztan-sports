@@ -8,6 +8,8 @@ export function useGetAllEvents() {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(6);
     const [search, setSearch] = useState('');
+    const [selectedFilters, setSelectedFilters] = useState([]);
+
 
 
 
@@ -15,7 +17,7 @@ export function useGetAllEvents() {
         async function fetchData(){
             try{
                 setIsLoading(true)
-                const events = await getAllPaginatedEvents({limit,page,search});
+                const events = await getAllPaginatedEvents({limit,page,search,selectedFilters});
 
                 setEvents(events)
             }catch(err){
@@ -26,9 +28,9 @@ export function useGetAllEvents() {
         }
         fetchData();
         
-    }, [page,limit,search]);
+    }, [page,limit,search,selectedFilters]);
 
 
-    return {events,isLoading,error,setPage,page,limit,setLimit,setSearch,search}
+    return {events,isLoading,error,setPage,page,limit,setLimit,setSearch,search,setSelectedFilters,selectedFilters}
 }
 

@@ -49,7 +49,7 @@ function RegisterForm() {
 
     return (
       <>       
-      <Logo isWhite={true} />      
+        <Logo style={{fontSize:'4rem'}} />
        <Form onSubmit={handleSubmit}>
                 <h1 style={{color:'var(--color-brand-green-500)',fontSize:'2rem',margin:'1rem'}}>Registrarse</h1>
                
@@ -70,7 +70,9 @@ function RegisterForm() {
                             {campo}: {array.join(', ')}
                           </p>
       ))}
-                   <Button>Registrarse</Button>
+                <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                    <Button>Registrarse</Button>
+              </div>
               </Form>
               </>
 

@@ -57,6 +57,9 @@ if (count($events) >= $maxEvents) {
             'start' => $start,
             'end' => $end,
             'catering' => $this->faker->boolean,
+            'user_id' => function () {
+                return \App\Models\User::factory()->create()->id;
+            },
         ];
     }
 }
