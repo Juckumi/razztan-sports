@@ -12,6 +12,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import Button from "../../ui/Button";
 import Select from "../../ui/Select";
 import DateSpan from "../../ui/DateSpan";
+import { useSearchParams } from "react-router-dom";
 
 const ClearButton = styled(Button)`
     padding: 0.3rem;
@@ -55,8 +56,11 @@ function AllEvents() {
         limit,
         setSearch,
         setSelectedFilters,
+        selectedFilters,
     } = useGetAllEvents();
+    console.log("🚀 => AllEvents => events:", events);
     const { sports } = useGetAllSports();
+    const [searchParams, setSearchparams] = useSearchParams();
 
     const ref = useRef();
     let searchTimeout;
@@ -99,6 +103,7 @@ function AllEvents() {
                         )}
                         onSelectionChange={handleSelectChange}
                         multiple
+                        initialvalue={selectedFilters || []}
                     />
                 </div>
             </FiltersContainer>
@@ -132,7 +137,13 @@ function AllEvents() {
                                 totalPages={Math.ceil(
                                     events?.paginate?.total / limit
                                 )}
-                                setPage={setPage}
+                                setPage={(value) => {
+                                    setPage(value);
+                                    setSearchparams(
+                                        { page: value },
+                                        { replace: true }
+                                    );
+                                }}
                             />
                         </>
                     ) : (

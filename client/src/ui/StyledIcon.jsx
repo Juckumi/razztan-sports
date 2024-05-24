@@ -1,14 +1,12 @@
 import styled from "styled-components";
 
 const StyledIcon = styled.span`
-    display:flex;
+    display: flex;
     align-items: center;
-    
-    *{
-        font-size: 2rem;
 
+    * {
+        font-size: 1.5rem;
     }
-    
-`
+`;
 
-export  default StyledIcon;
+export default StyledIcon;

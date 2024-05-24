@@ -54,7 +54,16 @@ function UserEvents() {
         <>
             {events.length > 0 ? (
                 <>
-                    <div>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            flexFlow: "column",
+                            padding: "2rem",
+                        }}
+                    >
+                        <h1>¡Crea un nuevo evento!</h1>
                         <ButtonAnimated
                             $rounded
                             onClick={() => navigate("crear-evento")}

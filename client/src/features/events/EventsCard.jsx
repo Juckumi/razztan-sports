@@ -110,11 +110,10 @@ function EventsCard({ event }) {
     return (
         <StyledEventCard onClick={() => navigate(`/event/${event.slug}`)}>
             <StyledDivImg>
-                <Img src={`https://picsum.photos/200?random=${event.id}`} />
+                <Img src={event.bannerPhotoUrl} />
             </StyledDivImg>
             <div style={{ flex: "2", display: "flex", flexFlow: "column" }}>
                 <EventName color={event.backgroundColor}>
-                    {" "}
                     {event.title}
                     <div
                         style={{
@@ -123,7 +122,7 @@ function EventsCard({ event }) {
                             backgroundColor: event.backgroundColor,
                             borderRadius: "1rem",
                         }}
-                    ></div>{" "}
+                    ></div>
                 </EventName>
                 <StyledGrid>
                     <div
@@ -135,11 +134,7 @@ function EventsCard({ event }) {
                     >
                         {event?.sports?.map((sport) => (
                             <span key={Math.random()}>
-                                {" "}
-                                <Icon
-                                    sportName={sport.name}
-                                    withText={true}
-                                />{" "}
+                                <Icon sportName={sport.name} withText={true} />
                             </span>
                         ))}
                     </div>

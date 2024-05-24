@@ -47,3 +47,6 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+client/public/uploads/eventsPhotos/*
+client/public/uploads/profilePictures/*
+

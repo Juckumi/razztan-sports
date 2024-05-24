@@ -53,7 +53,7 @@ if (count($events) >= $maxEvents) {
             'backgroundColor' =>  $randomColor ,
 
             'price' => $this->faker->randomFloat(2, 0, 1000),
-            'eventPhotoUrl' => $this->faker->imageUrl(),
+            'eventPhotosUrls' => ['https://picsum.photos/200?random=1','https://picsum.photos/200?random=2','https://picsum.photos/200?random=3'],
             'start' => $start,
             'end' => $end,
             'catering' => $this->faker->boolean,

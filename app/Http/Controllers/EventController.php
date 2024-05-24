@@ -9,6 +9,11 @@ use App\Models\User;
 
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Support\Str;
+
+
 
 class EventController extends Controller
 {
@@ -100,26 +105,70 @@ class EventController extends Controller
     }
 
     function createEvent(){
-        try {
 
+        try {
+                
+        $validator = Validator::make(request()->all(), [
+            'title' => 'required|max:23',
+            'description' => 'required|max:255',
+            'catering' => 'required|in:si,no',
+            'publicStatus' => 'required|in:publico,privado,revisado',
+            'eventsPhotosUrls' => 'required',
+            'bannerPhotoUrl' => 'required',
+            'sports' => 'required',
+            'start' => 'required|date|before:end',
+            'end' => 'required|date',
+            'price' => 'integer|min:0',
+
+
+
+        ],$messages = [
+            'required' => 'el campo  :attribute es obligatorio',
+            'title.max' => 'el campo :attribute es demsaiado largo el maximo es :max',
+            'min' => 'El titulo es muy corto el menos son :min caracteres',
+            'price' => 'El precio debe ser superior :min ',
+            'start.before' => 'El inicio del evento debe ser anterior a su fin ',
+            'in' => 'El :attribute tiene que ser las siguientes opciones: :values',
+            'publicStatus' => 'El status del evento debe ser publico, privado y revisado',
+
+        ]);
+        if ($validator->fails()) {  
+            return response()->json(['errors'=> $validator->errors()],401);
+
+        }
+
+            $imageName = time() . '-' . 'razztan-sports-banner-'.'.' . request()->bannerPhotoUrl->extension();
+            request()->bannerPhotoUrl->move(base_path('client/public/uploads/eventsPhotos'), $imageName);
+            $bannerPhotoUrl = '/uploads/eventsPhotos/' . $imageName;
+
+        $eventsPhotosUrls = [];
+        foreach (request()->eventsPhotosUrls as $index => $img) {
+
+            $imageName = time() . '-' . $index . 'razztan-sports-event-'.'.' . $img->extension();
+            $img->move(base_path('client/public/uploads/eventsPhotos'), $imageName);
+            $eventsPhotosUrls[] = '/uploads/eventsPhotos/' . $imageName;
+
+        }
+        
 
         $event = new Event();
-
         $event->title = request()->title;
         $event->start = request()->start;
         $event->end = request()->end;
         $event->description = request()->description;
         $event->price = request()->price;
+        $event->eventPhotosUrls = $eventsPhotosUrls;
+        $event->bannerPhotoUrl = $bannerPhotoUrl;
 
         $event->catering = request()->catering == 'si';
         $event->user_id = request()->userId ;
-
-
         $event->save();
 
-        $eventId = $event->id;
+    if(isset(request()->sports)){
 
-        foreach (request()->sports as $sportName) {
+        $sports = explode(',',request()->sports);
+        
+        foreach ( $sports  as $sportName) {
             $sport = Sport::where('name', $sportName)->first();
 
             if ($sport) {
@@ -127,6 +176,7 @@ class EventController extends Controller
             }
         }
 
+    }
             
             
             return response()->json(['data'=> request()->all()],201);

@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createEvent } from "../../../api/eventApi";
 
 export function useCreateEvent() {
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [errors, setErrors] = useState(null);
 
     async function postEvent(event) {
         try {
@@ -11,12 +11,17 @@ export function useCreateEvent() {
             const res = await createEvent(event);
 
             return res;
-        } catch (err) {
-            setError(err.message);
+        } catch (error) {
+            console.log("🚀 => postEvent => error:", error);
+            setErrors(error.errors);
         } finally {
             setIsLoading(false);
         }
     }
 
-    return { postEvent, isLoading, error };
+    useEffect(() => {
+        console.log("mierrrrrrrrrrrrrrrrrrrrrrr", errors);
+    }, [errors]);
+
+    return { postEvent, isLoading, errors, setErrors };
 }

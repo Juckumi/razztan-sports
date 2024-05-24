@@ -16,6 +16,7 @@ import { formatDate } from "../utils/dateFormatter";
 import DateSpan from "../ui/DateSpan";
 import Button from "../ui/Button";
 import Switch from "../ui/Switch";
+import { useNavigate } from "react-router";
 
 const Img = styled.img`
     width: 100%;
@@ -48,10 +49,6 @@ const SideBody = styled.div`
     justify-content: center;
     align-items: center;
     gap: 1rem;
-
-    && > :last-child {
-        color: red;
-    }
 `;
 const Description = styled.div`
     flex: 3;
@@ -115,6 +112,7 @@ const SportsContainer = styled.div`
 
 function EventDetails() {
     const { setThemeMode } = useContext(AppContext);
+    const navigate = useNavigate();
     useLayoutEffect(() => {
         setThemeMode("event");
 
@@ -129,13 +127,19 @@ function EventDetails() {
     return (
         <>
             <DivImg>
-                <Img src={`https://picsum.photos/300/100?random=${event.id}`} />
+                <Img src={event.bannerPhotoUrl} />
                 <h1>{event.title}</h1>
             </DivImg>
             <SportsContainer>
                 {event?.sports?.map((sport) => (
-                    <StyledIcon key={Math.random()}>
-                        {" "}
+                    <StyledIcon
+                        key={sport.id}
+                        onClick={() =>
+                            navigate(
+                                `/user/events/all?page=1&sport-filter=${sport.name}`
+                            )
+                        }
+                    >
                         <Icon sportName={sport.name}></Icon>{" "}
                     </StyledIcon>
                 ))}
@@ -167,6 +171,26 @@ function EventDetails() {
 
                 <SideBody></SideBody>
             </EventBody>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "1rem",
+                }}
+            >
+                {event?.eventPhotosUrls?.map((url, index) => (
+                    <img
+                        style={{
+                            width: "10rem",
+                            height: "10rem",
+                            objectFit: "cover",
+                        }}
+                        key={index}
+                        src={`${url}`}
+                        alt="hola"
+                    />
+                ))}
+            </div>
             <Occurrence eventId={event?.id} />
         </>
     );

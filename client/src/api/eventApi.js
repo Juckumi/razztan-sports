@@ -51,23 +51,20 @@ export const getEventsByUserId = async (userId) => {
     return data.data;
 };
 
-export const createEvent = async (event) => {
-    const body = JSON.stringify(event);
+export const createEvent = async (body) => {
+    console.log("🚀 => createEvent => body:", body);
+    // const body = JSON.stringify(event);
 
     try {
         const res = await fetch(`/api/events`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
             body,
         });
 
         if (!res.ok) {
             const errorData = await res.json();
-            throw new Error(
-                errorData.message || "No se ha podido crear el evento"
-            );
+            console.error(errorData);
+            throw errorData;
         }
 
         return res;

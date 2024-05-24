@@ -57,6 +57,7 @@
         var(--color-brand-green-500),
         var(--color-brand-green-100)
     );
+    --color-warning: #a60303;
 
     --b-radius-sm: 3px;
     --b-radius-md: 5px;
