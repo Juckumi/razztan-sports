@@ -9,6 +9,7 @@ const StyledSelect = styled.div`
     width: fit-content;
 `;
 const Container = styled.div`
+    position: relative;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -16,6 +17,16 @@ const Container = styled.div`
 
     flex-direction: ${({ $direction }) =>
         $direction === "column" ? $direction : "row"};
+
+    .tooltip {
+        display: none;
+        transition: visibility 1s;
+    }
+    &:hover {
+        .tooltip {
+            display: initial;
+        }
+    }
 `;
 
 const StyledSpan = styled.div`
@@ -32,6 +43,8 @@ const StyledSpan = styled.div`
     & > * {
         margin: 0 1rem;
     }
+    ${(props) =>
+        props.$error && "outline:2px solid var(--color-warning);border:none;"};
 `;
 
 const StyledArrow = styled.span`
@@ -50,6 +63,20 @@ const Ul = styled.ul`
     background-color: var(--color-brand-bone-200);
     border-radius: 0 0 0.4rem 0.4rem;
     overflow-x: hidden;
+    overflow-y: hidden;
+    border: 1px solid;
+
+    animation: aparecerDesdeArriba 0.4s;
+    @keyframes aparecerDesdeArriba {
+        from {
+            transform: scaleY(-0);
+            transform-origin: top;
+        }
+        to {
+            transform: scaleY(100%);
+            transform-origin: top;
+        }
+    }
     li {
         padding: 0.5rem 1rem;
         transition: 0.3s;
@@ -101,6 +128,36 @@ const SelectedItemDelete = styled.span`
         background-color: red;
     }
 `;
+const Tooltip = styled.ul`
+    background-color: var(--color-brand-green-100);
+    color: #fff;
+    text-align: justify;
+    list-style-type: circle;
+
+    border-radius: var(--b-radius-sm);
+    padding: 0.5rem 1rem 0.5rem 2rem;
+    position: absolute;
+    min-width: fit-content;
+    z-index: 1;
+    top: -5px;
+    left: 105%;
+    li {
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent var(--color-brand-green-100) transparent
+            transparent;
+    }
+`;
 function Select({
     selectTitle,
     render,
@@ -111,6 +168,9 @@ function Select({
     multiple = null,
     order = () => {},
     initialvalue,
+    error,
+    tooltip,
+    clearError,
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedItems, setSelectedItems] = useState(initialvalue || []);
@@ -136,7 +196,14 @@ function Select({
     return (
         <Container $direction={direction}>
             <StyledSelect ref={ref}>
-                <StyledSpan onClick={() => setIsOpen(!isOpen)} $isOpen={isOpen}>
+                <StyledSpan
+                    onClick={(e) => {
+                        setIsOpen(!isOpen);
+                        clearError();
+                    }}
+                    $isOpen={isOpen}
+                    $error={error || null}
+                >
                     {isFilter && <FaFilter />}
 
                     {!multiple && selectedItems.length !== 0
@@ -152,9 +219,8 @@ function Select({
                         )}
                     </StyledArrow>
                 </StyledSpan>
-
                 {isOpen && (
-                    <Ul>
+                    <Ul isopen={isOpen}>
                         {data.filter((item) => {
                             if (multiple) {
                                 return !selectedItems.includes(item.name);
@@ -208,6 +274,13 @@ function Select({
                         </SelectedItems>
                     )}
                 </>
+            )}
+            {tooltip && (
+                <Tooltip className="tooltip">
+                    {tooltip.map((error, index) => (
+                        <li key={index}>{error}</li>
+                    ))}
+                </Tooltip>
             )}
         </Container>
     );

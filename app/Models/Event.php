@@ -12,6 +12,12 @@ class Event extends Model
     use Sluggable;
 
     use HasFactory;
+    protected $fillable = ['eventPhotosUrls'];
+
+    protected $casts = [
+        'eventPhotosUrls' => 'array',
+    ];
+
     public function sluggable(): array
     {
         return [

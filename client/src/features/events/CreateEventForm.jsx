@@ -10,9 +10,11 @@ import { Icon } from "./EventsCard";
 import { useNavigate } from "react-router";
 import { useCreateEvent } from "./event/useCreateEvent";
 import { toast } from "react-hot-toast";
+import DateSpan from "../../ui/DateSpan";
+import { LuCalendarClock } from "react-icons/lu";
+import { formatDate } from "../../utils/dateFormatter";
 
 const DivFlex = styled.div`
-    padding: 1rem;
     margin: 0.5rem;
     background-color: var(--color-brand-bone-300);
     border-radius: var(--b-radius-lg);
@@ -77,6 +79,14 @@ const ColumnForm = styled.div`
         margin: 0 0 2rem 0;
     }
 `;
+const ImgViewerContainer = styled.div`
+    width: 13rem;
+    height: 13rem;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    grid-template-rows: 1fr;
+`;
 
 function CreateEventForm() {
     const navigate = useNavigate();
@@ -88,12 +98,15 @@ function CreateEventForm() {
         price: 0,
         userId: 1,
     });
-    const { postEvent, isLoading } = useCreateEvent();
+    const { postEvent, isLoading, errors, setErrors } = useCreateEvent();
     const [step, setStep] = useState(1);
     const [isPrice, setIsPrice] = useState(true);
 
     const inputFileRef = useRef();
     const previewerRef = useRef();
+    const previewerRefBanner = useRef();
+
+    const [arrayPreview, setArrayPreview] = useState([]);
 
     const { sports } = useGetAllSports();
 
@@ -107,8 +120,24 @@ function CreateEventForm() {
     async function handleSubmit(e) {
         e.preventDefault();
         setIsPrice(true);
+
         if (step === 3) {
-            const res = await postEvent(formData);
+            const data = new FormData();
+
+            for (const property in formData) {
+                console.log("sasasa", property);
+                data.append(property, formData[property]);
+            }
+
+            // Añadir archivos a FormData
+            for (let i = 0; i < formData?.eventsPhotosUrls?.length; i++) {
+                data.append(
+                    `eventsPhotosUrls[${i}]`,
+                    formData.eventsPhotosUrls[i]
+                );
+            }
+
+            const res = await postEvent(data);
             if (res?.status === 201) {
                 toast.success("se ha creado con exito el evento");
                 navigate(-1);
@@ -123,17 +152,40 @@ function CreateEventForm() {
         }
     };
     const handleImgPreviewer = (e) => {
+        if (previewerRefBanner.current) {
+            setFormData({ ...formData, bannerPhotoUrl: e.target.files[0] });
+            return;
+        }
         if (previewerRef.current) {
-            // previewerRef.current.src = URL.createObjectURL(e.target.files[0]);
-            setFormData({ ...formData, img: e.target.files[0] });
+            setFormData({ ...formData, eventsPhotosUrls: e.target.files });
         }
     };
-
     useEffect(() => {
-        if (formData.img && previewerRef.current) {
-            previewerRef.current.src = URL.createObjectURL(formData.img);
+        if (
+            formData.eventsPhotosUrls &&
+            (previewerRef.current || previewerRefBanner.current)
+        ) {
+            if (formData.eventsPhotosUrls.length > 0) {
+                if (step === 1) {
+                    previewerRef.current.src = URL.createObjectURL(
+                        formData.eventsPhotosUrls[0]
+                    );
+                }
+            }
+            if (formData.bannerPhotoUrl) {
+                if (step === 3) {
+                    previewerRefBanner.current.src = URL.createObjectURL(
+                        formData.bannerPhotoUrl
+                    );
+                }
+            }
         }
-    }, [formData.img, step]);
+    }, [
+        formData.eventsPhotosUrls,
+        formData.bannerPhotoUrl,
+        step,
+        previewerRef,
+    ]);
 
     return (
         <>
@@ -162,7 +214,7 @@ function CreateEventForm() {
                 <h1>
                     {step === 1 && "General"}
                     {step === 2 && "Opciones"}
-                    {step === 3 && "General"}
+                    {step === 3 && "Vista previa"}
                 </h1>
 
                 {step === 1 && (
@@ -174,6 +226,12 @@ function CreateEventForm() {
                                 formData={formData}
                                 setFormData={setFormData}
                                 initialValue={formData.title}
+                                error={errors?.title}
+                                tooltip={errors?.title}
+                                clearError={() => {
+                                    let { title, ...data } = errors;
+                                    setErrors({ ...data });
+                                }}
                             />
                             <InputForm
                                 type="textArea"
@@ -182,6 +240,12 @@ function CreateEventForm() {
                                 formData={formData}
                                 setFormData={setFormData}
                                 initialValue={formData.description}
+                                error={errors?.description}
+                                tooltip={errors?.description}
+                                clearError={() => {
+                                    let { description, ...data } = errors;
+                                    setErrors({ ...data });
+                                }}
                             />
                         </div>
                         <div
@@ -200,21 +264,19 @@ function CreateEventForm() {
                                     style={{ display: "none" }}
                                     onChange={handleImgPreviewer}
                                     accept="image/*"
+                                    multiple
                                 />
+
                                 <span style={{ fontSize: "0.8rem" }}>
                                     Elige una imagen
                                 </span>
-                                <img
-                                    ref={previewerRef}
-                                    style={{
-                                        cursor: "pointer",
-                                        width: "13rem",
-                                        height: "13rem",
-                                        objectFit: "cover",
-                                    }}
-                                    src={`/public/EVENT.png`}
-                                    onClick={handleInputClick}
-                                />
+                                <ImgViewerContainer>
+                                    <img
+                                        ref={previewerRef}
+                                        src={`/EVENT.png`}
+                                        onClick={handleInputClick}
+                                    />
+                                </ImgViewerContainer>
                             </div>
                         </div>
                     </DivFlex>
@@ -246,6 +308,12 @@ function CreateEventForm() {
                                     direction={"column"}
                                     multiple
                                     initialvalue={formData.sports}
+                                    error={errors?.sports}
+                                    tooltip={errors?.sports}
+                                    clearError={() => {
+                                        let { sports, ...data } = errors;
+                                        setErrors({ ...data });
+                                    }}
                                 />
                             </div>
                         </ColumnForm>
@@ -270,6 +338,12 @@ function CreateEventForm() {
                                     }
                                     direction={"column"}
                                     initialvalue={formData.publicStatus}
+                                    error={errors?.publicStatus}
+                                    tooltip={errors?.publicStatus}
+                                    clearError={() => {
+                                        let { publicStatus, ...data } = errors;
+                                        setErrors({ ...data });
+                                    }}
                                 />
                             </div>
                             <div>
@@ -280,6 +354,12 @@ function CreateEventForm() {
                                     label="Fecha de comienzo"
                                     formData={formData}
                                     setFormData={setFormData}
+                                    error={errors?.start}
+                                    tooltip={errors?.start}
+                                    clearError={() => {
+                                        let { start, ...data } = errors;
+                                        setErrors({ ...data });
+                                    }}
                                 />
                                 <Checked>
                                     <input
@@ -299,6 +379,10 @@ function CreateEventForm() {
                                     setFormData={setFormData}
                                     initialValue={formData.price}
                                     style={{ width: "6rem" }}
+                                    clearError={() => {
+                                        let { price, ...data } = errors;
+                                        setErrors({ ...data });
+                                    }}
                                 />
                             </div>
                         </ColumnForm>
@@ -321,6 +405,12 @@ function CreateEventForm() {
                                         })
                                     }
                                     initialvalue={formData.catering}
+                                    error={errors?.catering}
+                                    tooltip={errors?.catering}
+                                    clearError={() => {
+                                        let { catering, ...data } = errors;
+                                        setErrors({ ...data });
+                                    }}
                                 />
                             </div>
                             <div>
@@ -331,12 +421,117 @@ function CreateEventForm() {
                                     label="Fecha Fin"
                                     formData={formData}
                                     setFormData={setFormData}
+                                    error={errors?.end}
+                                    clearError={() => {
+                                        let { end, ...data } = errors;
+                                        setErrors({ ...data });
+                                    }}
+                                    tooltip={errors?.end}
                                 />
                             </div>
                         </ColumnForm>
                     </DivFlex>
                 )}
-                {step === 3 && <DivFlex>Paso 3</DivFlex>}
+                {step === 3 && (
+                    <div>
+                        <div
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "1fr 1fr",
+                                gridAutoRows: "10rem",
+                                textAlign: "center",
+                                position: "relative",
+                            }}
+                        >
+                            <input
+                                id={"banner"}
+                                type="file"
+                                ref={inputFileRef}
+                                style={{ display: "none" }}
+                                onChange={handleImgPreviewer}
+                                accept="image/*"
+                            />
+                            <h1
+                                style={{
+                                    position: "absolute",
+                                    bottom: "2rem",
+                                    zIndex: "5",
+                                    width: "100%",
+                                }}
+                            >
+                                {formData.title}
+                            </h1>
+                            <img
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "cover",
+                                    gridColumn: "1 / -1",
+                                }}
+                                ref={previewerRefBanner}
+                                src={`/EVENT.png`}
+                                onClick={handleInputClick}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                display: "flex",
+                                margin: "1rem 0",
+                                justifyContent: "space-between",
+                            }}
+                        >
+                            {formData?.sports?.map((sport, index) => (
+                                <Icon
+                                    key={index}
+                                    sportName={sport}
+                                    withText={true}
+                                />
+                            ))}
+                        </div>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                margin: "2rem 1rem",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    gap: "1rem",
+                                    alignItems: "flex-start",
+                                }}
+                            >
+                                <span>catering:{formData.catering}</span>
+                                <span>status:{formData.publicStatus}</span>
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    gap: "1rem",
+                                    alignItems: "flex-start",
+                                }}
+                            >
+                                <div>
+                                    <LuCalendarClock />
+                                    <DateSpan>
+                                        {formatDate(new Date(formData.start))}
+                                    </DateSpan>
+                                </div>
+                                <div>
+                                    <LuCalendarClock />
+                                    <DateSpan>
+                                        {formatDate(new Date(formData.end))}
+                                    </DateSpan>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
                 <ButtonGroup>
                     {step === 3 && (
                         <Button disabled={isLoading} type="submit">

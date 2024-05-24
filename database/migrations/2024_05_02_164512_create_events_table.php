@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('backgroundColor')->nullable();
             $table->text('description');
             $table->float('price')->nullable();
-            $table->text('eventPhotoUrl')->nullable();
+            $table->json('eventPhotosUrls')->nullable();
+            $table->text('bannerPhotoUrl')->nullable();
+
             $table->dateTime('start');
             $table->dateTime('end');
             $table->boolean('catering');
