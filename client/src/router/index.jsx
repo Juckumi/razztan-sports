@@ -13,6 +13,8 @@ import UserEvents from "../features/events/UserEvents";
 import AllEvents from "../features/events/AllEvents";
 import EventDetails from "../pages/EventDetails";
 import CreateEventForm from "../features/events/CreateEventForm";
+import CreateOccurenceForm from "../features/events/event/CreateOccurrenceForm";
+import EventInvite from "../features/events/event/EventInvite";
 
 const router = createBrowserRouter([
     {
@@ -76,6 +78,32 @@ const router = createBrowserRouter([
             {
                 path: "event/:eventSlug",
                 element: <EventDetails />,
+                children: [
+                    {
+                        path: "crear-occurencia",
+                        element: (
+                            <Modal>
+                                <CreateOccurenceForm />
+                            </Modal>
+                        ),
+                    },
+                    {
+                        path: "invite",
+                        element: (
+                            <Modal>
+                                <EventInvite />
+                            </Modal>
+                        ),
+                    },
+                    {
+                        path: "occurencia/:occurenciaSlug",
+                        element: (
+                            <Modal>
+                                <CreateOccurenceForm />
+                            </Modal>
+                        ),
+                    },
+                ],
             },
             {
                 path: "user/fields",

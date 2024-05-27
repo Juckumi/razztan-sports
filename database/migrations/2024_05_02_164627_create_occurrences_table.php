@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('description');
             $table->datetime('start');
             $table->text('title');
+            $table->string('slug')->unique()->nullable();
+            $table->text('occurencePhotoUrl')->nullable();
             $table->timestamps();
 
         });

@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { createEvent } from "../../../api/eventApi";
+import { useState } from "react";
+import { createOccurence } from "../../../api/occurrencesApi";
 
-export function useCreateEvent() {
+export function useCreateOccurence() {
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState(null);
 
-    async function postEvent(event) {
+    async function postOccurence(event) {
+        console.log(event, "occurenciaaaa");
         try {
             setIsLoading(true);
-            const res = await createEvent(event);
-
+            const res = await createOccurence(event);
             return res;
         } catch ({ errorData, res }) {
             setErrors(errorData.errors);
@@ -19,5 +19,5 @@ export function useCreateEvent() {
         }
     }
 
-    return { postEvent, isLoading, errors, setErrors };
+    return { postOccurence, isLoading, errors, setErrors };
 }

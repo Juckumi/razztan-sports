@@ -41,6 +41,6 @@ public function sports()
 
 public function occurrences()
 {
-    return $this->hasMany(Occurrence::class);
+    return $this->hasMany(Occurrence::class)->orderBy('start', 'ASC');;
 }
 }

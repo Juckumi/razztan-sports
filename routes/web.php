@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\OccurrenceController;
+use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\SportController;
@@ -30,6 +32,10 @@ Route::prefix('api')->group(function () {
 
 
     });
+
+    Route::prefix('users')->group(function() {
+        Route::get('/',[AuthController::class,'getAllUsers']);
+    });
     Route::prefix('chats')->group(function() {
         Route::get('/',[ChatController::class,'getAllChats']);
         Route::get('/{id}',[ChatController::class,'getChatById']);
@@ -46,6 +52,8 @@ Route::prefix('api')->group(function () {
     });
     Route::prefix('occurrences')->group(function() {
         Route::get('/',[OccurrenceController::class,'getAllOccurrences']);
+        Route::post('/',[OccurrenceController::class,'createOccurence']);
+
         Route::get('/event/{id}',[OccurrenceController::class,'getOccurencesByEventId']);
 
     });
@@ -63,6 +71,8 @@ Route::prefix('api')->group(function () {
     });
     Route::prefix('invitations')->group(function() {
         Route::get('/',[InvitationController::class,'getAllInvitations']);
+        Route::post('/',[InvitationController::class,'createInvitation']);
+
     });
 });
 

@@ -34,7 +34,7 @@ const ButtonGroup = styled.div`
     }
 `;
 
-function Header({ isAuth = true, themeMode }) {
+function Header({ isAuth = true, themeMode, navbarRef }) {
     const navigate = useNavigate();
     const { ref } = useHeaderAnimation();
 

@@ -95,6 +95,9 @@ function CreateEventForm() {
         description: "",
         start: "",
         end: "",
+        catering: "",
+        publicStatus: "",
+        eventsPhotosUrls: [],
         price: 0,
         userId: 1,
     });
@@ -105,8 +108,6 @@ function CreateEventForm() {
     const inputFileRef = useRef();
     const previewerRef = useRef();
     const previewerRefBanner = useRef();
-
-    const [arrayPreview, setArrayPreview] = useState([]);
 
     const { sports } = useGetAllSports();
 
@@ -125,7 +126,6 @@ function CreateEventForm() {
             const data = new FormData();
 
             for (const property in formData) {
-                console.log("sasasa", property);
                 data.append(property, formData[property]);
             }
 
@@ -136,11 +136,16 @@ function CreateEventForm() {
                     formData.eventsPhotosUrls[i]
                 );
             }
-
             const res = await postEvent(data);
+            console.log(res);
+
             if (res?.status === 201) {
                 toast.success("se ha creado con exito el evento");
                 navigate(-1);
+            } else if (res?.status === 401) {
+                toast.error(
+                    "Algo ha salido mal, revise los datos introducidos"
+                );
             } else {
                 toast.error("No se ha podido crear el evento");
             }
@@ -148,41 +153,44 @@ function CreateEventForm() {
     }
     const handleInputClick = () => {
         if (inputFileRef.current) {
+            if (errors) {
+                if (errors.bannerPhotoUrl) {
+                    let { bannerPhotoUrl, ...data } = errors;
+                    setErrors(data);
+                } else {
+                    let { eventsPhotosUrls, ...data } = errors;
+                    setErrors(data);
+                }
+            }
             inputFileRef.current.click();
         }
     };
     const handleImgPreviewer = (e) => {
         if (previewerRefBanner.current) {
-            setFormData({ ...formData, bannerPhotoUrl: e.target.files[0] });
-            return;
+            setFormData({ ...formData, bannerPhotoUrl: e?.target?.files[0] });
         }
         if (previewerRef.current) {
-            setFormData({ ...formData, eventsPhotosUrls: e.target.files });
+            setFormData({ ...formData, eventsPhotosUrls: e?.target?.files });
         }
     };
     useEffect(() => {
-        if (
-            formData.eventsPhotosUrls &&
-            (previewerRef.current || previewerRefBanner.current)
-        ) {
-            if (formData.eventsPhotosUrls.length > 0) {
-                if (step === 1) {
-                    previewerRef.current.src = URL.createObjectURL(
-                        formData.eventsPhotosUrls[0]
-                    );
-                }
+        if (formData.eventsPhotosUrls.length > 0) {
+            if (step === 1) {
+                previewerRef.current.src = URL.createObjectURL(
+                    formData?.eventsPhotosUrls[0]
+                );
             }
-            if (formData.bannerPhotoUrl) {
-                if (step === 3) {
-                    previewerRefBanner.current.src = URL.createObjectURL(
-                        formData.bannerPhotoUrl
-                    );
-                }
+        }
+        if (formData.bannerPhotoUrl) {
+            if (step === 3) {
+                previewerRefBanner.current.src = URL.createObjectURL(
+                    formData?.bannerPhotoUrl
+                );
             }
         }
     }, [
-        formData.eventsPhotosUrls,
-        formData.bannerPhotoUrl,
+        formData?.eventsPhotosUrls,
+        formData?.bannerPhotoUrl,
         step,
         previewerRef,
     ]);
@@ -198,14 +206,14 @@ function CreateEventForm() {
                     position: "relative",
                 }}
             >
-                <span>
+                <span onClick={() => setStep(1)}>
                     Paso <Circle $active={step === 1}>1</Circle>
                 </span>
                 <Hr />
-                <span>
+                <span onClick={() => setStep(2)}>
                     Paso <Circle $active={step === 2}>2</Circle>
                 </span>
-                <span>
+                <span onClick={() => setStep(3)}>
                     Paso <Circle $active={step === 3}>3</Circle>
                 </span>
             </div>
@@ -348,7 +356,7 @@ function CreateEventForm() {
                             </div>
                             <div>
                                 <InputForm
-                                    type="date"
+                                    type="datetime-local"
                                     name={"start"}
                                     initialValue={formData.start}
                                     label="Fecha de comienzo"
@@ -404,7 +412,7 @@ function CreateEventForm() {
                                             catering: item,
                                         })
                                     }
-                                    initialvalue={formData.catering}
+                                    initialvalue={formData.catering || ""}
                                     error={errors?.catering}
                                     tooltip={errors?.catering}
                                     clearError={() => {
@@ -415,7 +423,7 @@ function CreateEventForm() {
                             </div>
                             <div>
                                 <InputForm
-                                    type="date"
+                                    type="datetime-local"
                                     name={"end"}
                                     initialValue={formData.end}
                                     label="Fecha Fin"
@@ -426,7 +434,7 @@ function CreateEventForm() {
                                         let { end, ...data } = errors;
                                         setErrors({ ...data });
                                     }}
-                                    tooltip={errors?.end}
+                                    tooltip={errors?.end || null}
                                 />
                             </div>
                         </ColumnForm>
@@ -467,6 +475,9 @@ function CreateEventForm() {
                                     height: "100%",
                                     objectFit: "cover",
                                     gridColumn: "1 / -1",
+                                    outline: errors?.bannerPhotoUrl
+                                        ? " 2px var(--color-warning) solid"
+                                        : "",
                                 }}
                                 ref={previewerRefBanner}
                                 src={`/EVENT.png`}
@@ -504,8 +515,12 @@ function CreateEventForm() {
                                     alignItems: "flex-start",
                                 }}
                             >
-                                <span>catering:{formData.catering}</span>
-                                <span>status:{formData.publicStatus}</span>
+                                {formData.catering && (
+                                    <span>catering:{formData.catering}</span>
+                                )}
+                                {formData.publicStatus && (
+                                    <span>status:{formData.publicStatus}</span>
+                                )}
                             </div>
                             <div
                                 style={{
@@ -517,16 +532,28 @@ function CreateEventForm() {
                                 }}
                             >
                                 <div>
-                                    <LuCalendarClock />
-                                    <DateSpan>
-                                        {formatDate(new Date(formData.start))}
-                                    </DateSpan>
+                                    {formData.start && (
+                                        <>
+                                            <LuCalendarClock />
+                                            <DateSpan>
+                                                {formatDate(
+                                                    new Date(formData.start)
+                                                )}
+                                            </DateSpan>
+                                        </>
+                                    )}
                                 </div>
                                 <div>
-                                    <LuCalendarClock />
-                                    <DateSpan>
-                                        {formatDate(new Date(formData.end))}
-                                    </DateSpan>
+                                    {formData.end && (
+                                        <>
+                                            <LuCalendarClock />
+                                            <DateSpan>
+                                                {formatDate(
+                                                    new Date(formData.end)
+                                                )}
+                                            </DateSpan>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>

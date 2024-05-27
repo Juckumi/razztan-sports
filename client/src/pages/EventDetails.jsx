@@ -16,10 +16,12 @@ import { formatDate } from "../utils/dateFormatter";
 import DateSpan from "../ui/DateSpan";
 import Button from "../ui/Button";
 import Switch from "../ui/Switch";
-import { useNavigate } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 
 const Img = styled.img`
     width: 100%;
+    height: 18rem;
+    object-fit: cover;
 `;
 const DivImg = styled.div`
     position: relative;
@@ -43,7 +45,6 @@ const EventBody = styled.div`
 
 const SideBody = styled.div`
     flex: 1;
-    overflow: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -108,6 +109,35 @@ const SportsContainer = styled.div`
             transform-origin: bottom right;
         }
     }
+
+    @media (max-width: 480px) {
+        flex-wrap: wrap;
+        height: fit-content;
+
+        span {
+            font-size: 0.9rem;
+        }
+    }
+`;
+
+const OccurenceButton = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+    background-color: var(--color-brand-green-500);
+    cursor: pointer;
+    padding: 0.2rem 1rem;
+    color: var(--color-white);
+    border-radius: 3rem;
+    align-self: flex-start;
+    * {
+        background-color: var(--color-brand-green-500);
+    }
+
+    &&:hover {
+        background-color: var(--color-grey-200);
+    }
 `;
 
 function EventDetails() {
@@ -122,6 +152,9 @@ function EventDetails() {
     }, [setThemeMode]);
 
     const { event, isLoading, error } = useGetEventBySlug();
+
+    const eventId = event?.id;
+    console.log(eventId);
 
     if (isLoading) return <Spinner />;
     return (
@@ -140,30 +173,42 @@ function EventDetails() {
                             )
                         }
                     >
-                        <Icon sportName={sport.name}></Icon>{" "}
+                        <Icon sportName={sport.name}></Icon>
                     </StyledIcon>
                 ))}
             </SportsContainer>
             <EventInfo>
                 <StyledIcon>
                     <DateSpan>Empieza</DateSpan>
-                    <LuCalendar />{" "}
-                    <DateSpan>{formatDate(new Date(event.start))}</DateSpan>
+                    <LuCalendar />
+                    <DateSpan>
+                        {formatDate(new Date(event.start), true)}
+                    </DateSpan>
                 </StyledIcon>
                 <StyledIcon>
                     <DateSpan>Acaba</DateSpan>
-                    <LuCalendarClock />{" "}
-                    <DateSpan> {formatDate(new Date(event.end))}</DateSpan>
+                    <LuCalendarClock />
+                    <DateSpan>
+                        {" "}
+                        {formatDate(new Date(event.end), true)}
+                    </DateSpan>
                 </StyledIcon>
             </EventInfo>
             <SignUpEventContainer>
-                <Switch
-                    icon={<LuCalendarPlus />}
-                    checkedIcon={<LuCalendarCheck2 />}
-                    checked={false}
-                    message={"¡Apuntate!"}
-                    checkedMessage={"Ya estas apuntado"}
-                />
+                {true ? (
+                    <OccurenceButton onClick={() => navigate("invite")}>
+                        Invita
+                        <Button.Animated $rounded>+</Button.Animated>
+                    </OccurenceButton>
+                ) : (
+                    <Switch
+                        icon={<LuCalendarPlus />}
+                        checkedIcon={<LuCalendarCheck2 />}
+                        checked={false}
+                        message={"¡Apuntate!"}
+                        checkedMessage={"Ya estas apuntado"}
+                    />
+                )}
             </SignUpEventContainer>
             <EventBody>
                 <SideBody></SideBody>
@@ -192,6 +237,7 @@ function EventDetails() {
                 ))}
             </div>
             <Occurrence eventId={event?.id} />
+            <Outlet context={[eventId]} />
         </>
     );
 }

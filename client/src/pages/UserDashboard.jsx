@@ -9,6 +9,12 @@ const StyledSection = styled.section`
     background-image: url("/razztan-sports-assets-2.svg");
     background-repeat: no-repeat;
     background-size: cover;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 77vh;
+    @media (max-width: 970px) {
+        grid-template-columns: 1fr;
+    }
 `;
 
 const StyledACalendarArticle = styled.article`
@@ -21,11 +27,11 @@ const StyledACalendarArticle = styled.article`
 
 function UserDashboard() {
     return (
-        <StyledSection style={{ height: "67vh", zIndex: "10" }}>
-            <Dashboard />
+        <StyledSection>
             <StyledACalendarArticle>
                 <Calendar />
             </StyledACalendarArticle>
+            <Dashboard />
         </StyledSection>
     );
 }

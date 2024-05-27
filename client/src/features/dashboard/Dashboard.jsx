@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useGetAllEvents } from "../events/useGetAllEvents";
-import EventsCard from "../events/EventsCard";
-import EventRow from "./EventRow";
+import InvitesRow from "./EventRow";
 import { useEffect } from "react";
 
 const StyledDashboardArticle = styled.article`
@@ -10,16 +9,11 @@ const StyledDashboardArticle = styled.article`
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: fit-content;
 `;
-const EventsContainer = styled.article`
-    display: grid;
-    padding: 1rem 3rem 1rem 3rem;
-    grid-template-columns: 1fr;
-    grid-auto-rows: fit-content;
-    grid-gap: 0.5rem;
+const InvitesContainer = styled.article`
     width: fit-content;
-    max-height: 18rem;
-    overflow-x: hidden;
+    overflow-x: auto;
     overflow-y: auto;
+    height: 20rem;
 `;
 const StyledEvents = styled.div`
     grid-column: 1 /-1;
@@ -35,16 +29,13 @@ function Dashboard() {
     return (
         <StyledDashboardArticle>
             <StyledEvents>
-                <h1 style={{ fontSize: "2rem" }}> Eventos </h1>
-                <EventsContainer>
+                <h1 style={{ fontSize: "2rem" }}>Invitaciones & solicitudes</h1>
+                <InvitesContainer>
                     {events?.data?.map((event) => (
-                        <EventRow key={event.id} event={event} />
+                        <InvitesRow key={event.id} invites={event} />
                     ))}
-                </EventsContainer>
+                </InvitesContainer>
             </StyledEvents>
-            <div>
-                <h1 style={{ fontSize: "2rem" }}> Ahead Occurrences </h1>
-            </div>
             <div></div>
             <div></div>
         </StyledDashboardArticle>
