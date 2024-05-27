@@ -16,9 +16,41 @@ class InvitationController extends Controller
             return response()->json(['error'=> $th->getMessage()],500);
         }
     }
-    /**
-     * Display a listing of the resource.
-     */
+    function createInvitation(){
+
+        try {
+                
+        $validator = Validator::make(request()->all(), [
+            'title' => 'required|max:23',
+            'text ' => 'required|max:255',
+        ],$messages = [
+            'required' => 'el campo  :attribute es obligatorio',
+            'title.max' => 'el campo :attribute es demsaiado largo el maximo es :max',
+        ]);
+        if ($validator->fails()) {  
+            return response()->json(['errors'=> $validator->errors()],401);
+
+        }
+
+          
+
+            $invitation = new Invitation();
+            $invitation->title = request()->title;
+            $invitation->text = request()->text;
+            $invitation->user_id = request()->userId ;
+            $invitation->event_id = request()->eventId ;
+            $invitation->save();
+
+            
+            return response()->json(['data'=> request()->all()],201);
+
+
+
+        } catch (\Throwable $th) {
+
+            return response()->json(['error'=> $th->getMessage()],500);
+        }
+    }
     public function index()
     {
         //

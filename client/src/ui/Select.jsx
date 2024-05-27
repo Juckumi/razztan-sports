@@ -15,6 +15,12 @@ const Container = styled.div`
     align-items: center;
     margin: 0 1rem;
 
+    @media (max-width: 1200px) {
+        align-items: flex;
+
+        flex-direction: column;
+    }
+
     flex-direction: ${({ $direction }) =>
         $direction === "column" ? $direction : "row"};
 
@@ -34,8 +40,9 @@ const StyledSpan = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    text-overflow: ellipsis;
     color: var(--color-brand-green-500);
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     border: 1px solid;
     border-radius: 0.5rem 0.5rem
         ${({ $isOpen }) => ($isOpen ? " 0 0" : "0.5rem 0.5rem ")};
@@ -45,6 +52,13 @@ const StyledSpan = styled.div`
     }
     ${(props) =>
         props.$error && "outline:2px solid var(--color-warning);border:none;"};
+
+    span {
+        max-width: 5rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
 `;
 
 const StyledArrow = styled.span`
@@ -173,7 +187,7 @@ function Select({
     clearError,
 }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedItems, setSelectedItems] = useState(initialvalue || []);
+    const [selectedItems, setSelectedItems] = useState(initialvalue || "");
 
     const ref = useClickOutside(() => setIsOpen(false));
     useEffect(() => {
@@ -205,12 +219,13 @@ function Select({
                     $error={error || null}
                 >
                     {isFilter && <FaFilter />}
-
-                    {!multiple && selectedItems.length !== 0
-                        ? selectedItems
-                        : selectedItems.length !== 0
-                        ? selectedItems.length + " " + selectTitle
-                        : selectTitle}
+                    <span>
+                        {!multiple && selectedItems.length !== 0
+                            ? selectedItems
+                            : selectedItems.length !== 0
+                            ? selectedItems.length + " " + selectTitle
+                            : selectTitle}
+                    </span>
                     <StyledArrow>
                         {isOpen ? (
                             <MdKeyboardArrowUp />

@@ -18,6 +18,7 @@ const ClearButton = styled(Button)`
     padding: 0.3rem;
     display: flex;
     align-items: center;
+    border-radius: 50%;
     * {
         margin: 0;
         padding: 0;
@@ -32,15 +33,19 @@ const StyledTable = styled.div`
     grid-auto-rows: auto;
 
     grid-gap: 10px;
+
+    @media (max-width: 1250px) {
+        grid-template-columns: 1fr;
+    }
 `;
 const SearcherContainer = styled.div`
-    background-color: var(--color-brand-bone-300);
+    /* background-color: var(--color-brand-bone-300); */
     display: flex;
     justify-content: center;
     align-items: center;
 `;
 const FiltersContainer = styled(SearcherContainer)`
-    background-color: var(--color-brand-bone-300);
+    /* background-color: var(--color-brand-bone-300); */
     display: flex;
     justify-content: space-between;
     align-items: center;

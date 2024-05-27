@@ -64,7 +64,7 @@ export const createEvent = async (body) => {
         if (!res.ok) {
             const errorData = await res.json();
             console.error(errorData);
-            throw errorData;
+            throw { errorData, res };
         }
 
         return res;

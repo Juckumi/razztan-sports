@@ -18,10 +18,11 @@ const StyledEventCard = styled.div`
     overflow: hidden;
     display: flex;
     cursor: pointer;
+    position: relative;
 `;
 
 const StyledGrid = styled.div`
-    width: 100%;
+    width: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -43,17 +44,35 @@ const EventName = styled.h2`
 const Img = styled.img`
     width: 100%;
     height: 100%;
+    object-fit: cover;
     transition: 1s transform;
     &&:hover {
         transform: scale(1.2);
     }
 `;
+
 const StyledDivImg = styled.div`
     position: relative;
     overflow: hidden;
-    width: auto;
+
+    width: 12rem;
     height: 100%;
     border-radius: var(--b-radius-lg) 0 0 var(--b-radius-lg);
+`;
+const StyledSportsContainer = styled.div`
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    @media (max-width: 620px) {
+        * {
+            font-size: 1rem;
+        }
+        /* align-items: flex-start;
+
+        flex-direction: column; */
+    }
 `;
 
 export const Icon = ({ sportName, withText = true }) => {
@@ -62,7 +81,6 @@ export const Icon = ({ sportName, withText = true }) => {
         case "Futbol":
             icon = (
                 <StyledIcon>
-                    {" "}
                     <MdOutlineSportsFootball /> {withText && sportName}{" "}
                 </StyledIcon>
             );
@@ -70,7 +88,6 @@ export const Icon = ({ sportName, withText = true }) => {
         case "Baloncesto":
             icon = (
                 <StyledIcon>
-                    {" "}
                     <MdOutlineSportsBasketball /> {withText && sportName}{" "}
                 </StyledIcon>
             );
@@ -78,7 +95,6 @@ export const Icon = ({ sportName, withText = true }) => {
         case "Polo":
             icon = (
                 <StyledIcon>
-                    {" "}
                     <MdOutlineSportsBaseball /> {withText && sportName}{" "}
                 </StyledIcon>
             );
@@ -86,7 +102,6 @@ export const Icon = ({ sportName, withText = true }) => {
         case "Tenis":
             icon = (
                 <StyledIcon>
-                    {" "}
                     <MdOutlineSportsBaseball /> {withText && sportName}{" "}
                 </StyledIcon>
             );
@@ -94,7 +109,6 @@ export const Icon = ({ sportName, withText = true }) => {
         case "Cricket":
             icon = (
                 <StyledIcon>
-                    {" "}
                     <MdOutlineSportsCricket /> {withText && sportName}{" "}
                 </StyledIcon>
             );
@@ -110,7 +124,10 @@ function EventsCard({ event }) {
     return (
         <StyledEventCard onClick={() => navigate(`/event/${event.slug}`)}>
             <StyledDivImg>
-                <Img src={event.bannerPhotoUrl} />
+                <picture>
+                    <source srcSet={event.bannerPhotoUrl} />
+                    <Img src={"/EVENT.png"} alt="EVENT.jpg" />
+                </picture>
             </StyledDivImg>
             <div style={{ flex: "2", display: "flex", flexFlow: "column" }}>
                 <EventName color={event.backgroundColor}>
@@ -125,19 +142,13 @@ function EventsCard({ event }) {
                     ></div>
                 </EventName>
                 <StyledGrid>
-                    <div
-                        style={{
-                            padding: "1rem",
-                            display: "flex",
-                            gap: "1rem",
-                        }}
-                    >
+                    <StyledSportsContainer>
                         {event?.sports?.map((sport) => (
                             <span key={Math.random()}>
                                 <Icon sportName={sport.name} withText={true} />
                             </span>
                         ))}
-                    </div>
+                    </StyledSportsContainer>
                     <div
                         style={{
                             display: "flex",
@@ -146,8 +157,7 @@ function EventsCard({ event }) {
                         }}
                     >
                         <DateSpan>
-                            {" "}
-                            <LuCalendarClock />{" "}
+                            <LuCalendarClock />
                             {formatDate(new Date(event.end))}
                         </DateSpan>
                     </div>

@@ -164,19 +164,19 @@ class EventController extends Controller
         $event->user_id = request()->userId ;
         $event->save();
 
-    if(isset(request()->sports)){
+        if(isset(request()->sports)){
 
-        $sports = explode(',',request()->sports);
-        
-        foreach ( $sports  as $sportName) {
-            $sport = Sport::where('name', $sportName)->first();
+            $sports = explode(',',request()->sports);
+            
+            foreach ( $sports  as $sportName) {
+                $sport = Sport::where('name', $sportName)->first();
 
-            if ($sport) {
-                $event->sports()->attach($sport->id);
+                if ($sport) {
+                    $event->sports()->attach($sport->id);
+                }
             }
-        }
 
-    }
+        }
             
             
             return response()->json(['data'=> request()->all()],201);

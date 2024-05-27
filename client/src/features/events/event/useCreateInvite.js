@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { createEvent } from "../../../api/eventApi";
+import { useState } from "react";
+import { createInvite } from "../../../api/inviteApi";
 
-export function useCreateEvent() {
+export function useCreateInvite() {
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState(null);
 
-    async function postEvent(event) {
+    async function postInvite(event) {
         try {
             setIsLoading(true);
-            const res = await createEvent(event);
+            const res = await createInvite(event);
 
             return res;
         } catch ({ errorData, res }) {
@@ -18,6 +18,5 @@ export function useCreateEvent() {
             setIsLoading(false);
         }
     }
-
-    return { postEvent, isLoading, errors, setErrors };
+    return { postInvite };
 }

@@ -1,26 +1,10 @@
-import styled, { keyframes } from "styled-components";
 import EventsCard from "./EventsCard";
-import { useGetAllEvents } from "./useGetAllEvents";
 import Pagination from "../../ui/Pagination";
 import Spinner from "../../ui/Spinner";
 import Button from "../../ui/Button";
 import { Outlet, useNavigate } from "react-router";
 import { useGetEventsByUser } from "./useGetEventsByUser";
-
-const SpinAnimation = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(0deg);
-  }
-  75% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(1080deg);
-  }
-`;
+import styled from "styled-components";
 
 const StyledTable = styled.div`
     width: 100%;
@@ -30,6 +14,9 @@ const StyledTable = styled.div`
     grid-auto-rows: auto;
 
     grid-gap: 10px;
+    @media (max-width: 1250px) {
+        grid-template-columns: 1fr;
+    }
 `;
 const StyledEmptyDiv = styled.div`
     padding: 3rem;
@@ -42,58 +29,67 @@ const StyledEmptyDiv = styled.div`
         margin: 1rem;
     }
 `;
-const ButtonAnimated = styled(Button)`
-    animation: ${SpinAnimation} 4s ease-in-out infinite;
-    font-size: 2rem;
-`;
+
 function UserEvents() {
     const navigate = useNavigate();
     const { events, isLoading } = useGetEventsByUser();
     console.log("🚀 => UserEvents => events:", events);
     return (
         <>
-            {events.length > 0 ? (
+            {" "}
+            {!isLoading ? (
                 <>
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            flexFlow: "column",
-                            padding: "2rem",
-                        }}
-                    >
-                        <h1>¡Crea un nuevo evento!</h1>
-                        <ButtonAnimated
-                            $rounded
-                            onClick={() => navigate("crear-evento")}
-                        >
-                            +
-                        </ButtonAnimated>
-                    </div>
-                    <StyledTable>
-                        {!isLoading &&
-                            events?.map((event) => (
-                                <EventsCard event={event} key={event.id} />
-                            ))}
-                    </StyledTable>
+                    {events.length > 0 ? (
+                        <>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    flexFlow: "column",
+                                    padding: "2rem",
+                                }}
+                            >
+                                <h1>¡Crea un nuevo evento!</h1>
+                                <Button.Animated
+                                    $rounded
+                                    onClick={() => navigate("crear-evento")}
+                                >
+                                    +
+                                </Button.Animated>
+                            </div>
+                            <StyledTable>
+                                {!isLoading &&
+                                    events?.map((event) => (
+                                        <EventsCard
+                                            event={event}
+                                            key={event.id}
+                                        />
+                                    ))}
+                            </StyledTable>
+                        </>
+                    ) : (
+                        <StyledEmptyDiv>
+                            <div>
+                                <h1>No hay nada por aqui aún</h1>
+                                <h3>
+                                    Empieza a crear dale al boton y comencemos
+                                </h3>
+                            </div>
+
+                            <Button.Animated
+                                $rounded
+                                onClick={() => navigate("crear-evento")}
+                            >
+                                +
+                            </Button.Animated>
+                        </StyledEmptyDiv>
+                    )}
+                    <Outlet />
                 </>
             ) : (
-                <StyledEmptyDiv>
-                    <div>
-                        <h1>No hay nada por aqui aún</h1>
-                        <h3>Empieza a crear dale al boton y comencemos</h3>
-                    </div>
-
-                    <ButtonAnimated
-                        $rounded
-                        onClick={() => navigate("crear-evento")}
-                    >
-                        +
-                    </ButtonAnimated>
-                </StyledEmptyDiv>
+                <Spinner />
             )}
-            <Outlet />
         </>
     );
 }

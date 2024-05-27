@@ -7,7 +7,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     // <React.StrictMode>
     <AppContextProvider>
         <Toaster
-            position="top-center"
+            position="top-right"
             reverseOrder={false}
             gutter={8}
             containerClassName=""
@@ -18,6 +18,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 style: {
                     background: "var(--color-brand-green-100)",
                     color: "var(--color-white)",
+                    whiteSpace: "nowrap",
+                    display: "flex",
+                    flexWrap: "noWrap",
+                    minWidth: "fit-content",
                 },
 
                 success: {
