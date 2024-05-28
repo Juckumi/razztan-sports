@@ -141,6 +141,7 @@ const OccurenceButton = styled.div`
 `;
 
 function EventDetails() {
+    var variable = true;
     const { setThemeMode } = useContext(AppContext);
     const navigate = useNavigate();
     useLayoutEffect(() => {
@@ -195,7 +196,7 @@ function EventDetails() {
                 </StyledIcon>
             </EventInfo>
             <SignUpEventContainer>
-                {true ? (
+                {variable ? (
                     <OccurenceButton onClick={() => navigate("invite")}>
                         Invita
                         <Button.Animated $rounded>+</Button.Animated>
