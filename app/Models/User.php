@@ -65,4 +65,9 @@ public function ownedEvents()
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function invitations()
+    {
+        return $this->belongsToMany(Invitation::class);
+    }
 }

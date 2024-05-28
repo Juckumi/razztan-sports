@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { useGetAllEvents } from "../events/useGetAllEvents";
 import InvitesRow from "./EventRow";
 import { useEffect } from "react";
+import { useInbox } from "./useInbox";
+import Spinner from "../../ui/Spinner";
 
 const StyledDashboardArticle = styled.article`
     display: grid;
@@ -10,31 +12,47 @@ const StyledDashboardArticle = styled.article`
     grid-auto-rows: fit-content;
 `;
 const InvitesContainer = styled.article`
-    width: fit-content;
+    width: 100%;
     overflow-x: auto;
     overflow-y: auto;
     height: 20rem;
+    background-color: var(--color-brand-bone-300);
+    box-shadow: 10px 10px 10px var(--color-brand-bone-400);
 `;
 const StyledEvents = styled.div`
     grid-column: 1 /-1;
 `;
 
 function Dashboard() {
-    const { events, isLoading, error, setLimit } = useGetAllEvents();
-    useEffect(() => {
-        setLimit(3);
-    }, []);
+    const { invitations, isLoading } = useInbox();
+    console.log(invitations, "inv");
 
-    if (!events) return "";
+    if (isLoading) return <Spinner />;
     return (
         <StyledDashboardArticle>
             <StyledEvents>
                 <h1 style={{ fontSize: "2rem" }}>Invitaciones & solicitudes</h1>
-                <InvitesContainer>
-                    {events?.data?.map((event) => (
-                        <InvitesRow key={event.id} invites={event} />
-                    ))}
-                </InvitesContainer>
+                {!isLoading ? (
+                    <InvitesContainer>
+                        {invitations?.length > 0 ? (
+                            <>
+                                {invitations?.map((invitation) => (
+                                    <InvitesRow
+                                        key={invitation.id}
+                                        invites={invitation}
+                                    />
+                                ))}
+                            </>
+                        ) : (
+                            <h1 style={{ textAlign: "center" }}>
+                                {" "}
+                                Esto esta un poco vacio :({" "}
+                            </h1>
+                        )}
+                    </InvitesContainer>
+                ) : (
+                    <Spinner />
+                )}
             </StyledEvents>
             <div></div>
             <div></div>

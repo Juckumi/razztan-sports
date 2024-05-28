@@ -13,13 +13,15 @@ class AuthController extends Controller
         try {
             $search = request()->input('search', '');
     
-            $allusers = User::where('username', 'LIKE', '%' . $search . '%')->get();
+            $perPage = 50; 
+            $allusers = User::where('username', 'LIKE', '%' . $search . '%')->paginate($perPage);
     
-            return response()->json(['data'=> $allusers], 200);
+            return response()->json(['data' => $allusers->items()], 200);
         } catch (\Throwable $th) {
-            return response()->json(['error'=> $th->getMessage()], 500);
+            return response()->json(['error' => $th->getMessage()], 500);
         }
     }
+    
     
 
     

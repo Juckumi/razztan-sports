@@ -5,10 +5,10 @@ export function useCreateInvite() {
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState(null);
 
-    async function postInvite(event) {
+    async function postInvite(invite) {
         try {
             setIsLoading(true);
-            const res = await createInvite(event);
+            const res = await createInvite(invite);
 
             return res;
         } catch ({ errorData, res }) {
@@ -18,5 +18,5 @@ export function useCreateInvite() {
             setIsLoading(false);
         }
     }
-    return { postInvite };
+    return { postInvite, errors, setErrors };
 }

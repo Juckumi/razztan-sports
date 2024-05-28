@@ -13,19 +13,8 @@ import { toast } from "react-hot-toast";
 import DateSpan from "../../ui/DateSpan";
 import { LuCalendarClock } from "react-icons/lu";
 import { formatDate } from "../../utils/dateFormatter";
+import DivFlex from "../../ui/DivFlex";
 
-const DivFlex = styled.div`
-    margin: 0.5rem;
-    background-color: var(--color-brand-bone-300);
-    border-radius: var(--b-radius-lg);
-    min-height: 20rem;
-    min-width: 30rem;
-    & > :last-child {
-        border: none;
-    }
-    display: flex;
-    gap: 1.5rem;
-`;
 const Checked = styled.div`
     display: flex;
     margin: 1rem 0 0 1rem;

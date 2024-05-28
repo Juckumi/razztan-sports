@@ -10,6 +10,9 @@ import { formatDate } from "../../utils/dateFormatter";
 import { LuCalendarClock } from "react-icons/lu";
 import StyledIcon from "../../ui/StyledIcon";
 import DateSpan from "../../ui/DateSpan";
+import { BiWorld } from "react-icons/bi";
+import { FaLock } from "react-icons/fa";
+import { MdOutlinePendingActions } from "react-icons/md";
 
 const StyledEventCard = styled.div`
     height: 12rem;
@@ -113,6 +116,27 @@ export const Icon = ({ sportName, withText = true }) => {
                 </StyledIcon>
             );
             break;
+        case "publico":
+            icon = (
+                <StyledIcon>
+                    <BiWorld /> {withText && sportName}{" "}
+                </StyledIcon>
+            );
+            break;
+        case "privado":
+            icon = (
+                <StyledIcon>
+                    <FaLock /> {withText && sportName}{" "}
+                </StyledIcon>
+            );
+            break;
+        case "revisado":
+            icon = (
+                <StyledIcon>
+                    <MdOutlinePendingActions /> {withText && sportName}{" "}
+                </StyledIcon>
+            );
+            break;
     }
 
     return icon;
@@ -140,6 +164,7 @@ function EventsCard({ event }) {
                             borderRadius: "1rem",
                         }}
                     ></div>
+                    <Icon sportName={event.status} withText={false} />
                 </EventName>
                 <StyledGrid>
                     <StyledSportsContainer>

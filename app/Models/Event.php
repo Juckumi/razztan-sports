@@ -43,4 +43,9 @@ public function occurrences()
 {
     return $this->hasMany(Occurrence::class)->orderBy('start', 'ASC');;
 }
+
+public function invitations()
+{
+    return $this->hasMany(Invitation::class)->orderBy('start', 'ASC');;
+}
 }

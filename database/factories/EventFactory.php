@@ -21,6 +21,12 @@ class EventFactory extends Factory
         ];
 
         $randomColor = $colorNames[array_rand($colorNames)];
+
+        $status = [
+            'publico', 'privado', 'revisado'
+        ];
+
+        $randomStatus = $status[array_rand($status)];
         $maxEvents = 10; // Número máximo de eventos
 $events = [];
 
@@ -55,8 +61,10 @@ if (count($events) >= $maxEvents) {
             'price' => $this->faker->randomFloat(2, 0, 1000),
             'eventPhotosUrls' => ['https://picsum.photos/200?random=1','https://picsum.photos/200?random=2','https://picsum.photos/200?random=3'],
             'start' => $start,
+            'status' => $randomStatus,
             'end' => $end,
             'catering' => $this->faker->boolean,
+            'isActive' => true,
             'user_id' => function () {
                 return \App\Models\User::factory()->create()->id;
             },

@@ -33,6 +33,9 @@ class EventController extends Controller
             $paginateEvents = Event::with('sports')->orderBy('created_at', 'desc')
 
                 ->where('title', 'LIKE', "%{$searchQuery}%")
+                ->where('isActive', '=', 1)
+                ->where('status', '=', 'publico')
+                ->where('status',['publico', 'revisado'])
                 ->when(!empty($filter), function($query) use ($filter) {
                     $query->whereHas('sports', function($query) use ($filter) {
                         $query->whereIn('name', $filter);
@@ -159,6 +162,10 @@ class EventController extends Controller
         $event->price = request()->price;
         $event->eventPhotosUrls = $eventsPhotosUrls;
         $event->bannerPhotoUrl = $bannerPhotoUrl;
+        $event->status = request()->publicStatus;
+        $event->isActive = true;
+
+
 
         $event->catering = request()->catering == 'si';
         $event->user_id = request()->userId ;

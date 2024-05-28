@@ -7,6 +7,8 @@ import { useAllusers } from "./useAllUsers";
 import UserRow from "./UserRow";
 import Spinner from "../../../ui/Spinner";
 
+import InviteForm from "./InviteForm";
+
 const Table = styled.div`
     height: 30rem;
     overflow-y: auto;
@@ -48,6 +50,9 @@ function EventInvite() {
     const ref = useRef();
     const { users, search, setSearch, isLoading } = useAllusers();
 
+    const [selectedUsersIds, setSelectedUsersIds] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
+
     console.log(users, "usersss");
 
     let searchTimeout;
@@ -75,12 +80,18 @@ function EventInvite() {
                     <MdOutlineCancel />
                 </ClearButton>
             </SearcherContainer>
+            <Button onClick={() => setIsOpen(!isOpen)}>Invitacion</Button>
             <Table>
                 {!isLoading ? (
                     <>
                         {users.length > 0
                             ? users.map((user) => (
-                                  <UserRow key={user.id} user={user} />
+                                  <UserRow
+                                      key={user.id}
+                                      user={user}
+                                      selectedUsersIds={selectedUsersIds}
+                                      setSelectedUsersIds={setSelectedUsersIds}
+                                  />
                               ))
                             : `No se ha encontrado ningun usuario   "${search}" `}
                     </>
@@ -88,6 +99,9 @@ function EventInvite() {
                     <Spinner />
                 )}
             </Table>
+            {isOpen && (
+                <InviteForm selectedUsersIds={selectedUsersIds} users={users} />
+            )}
         </InviteContainer>
     );
 }
