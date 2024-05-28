@@ -8,19 +8,7 @@ import { useCreateOccurence } from "./useCreateOccurence";
 import { toast } from "react-hot-toast";
 import Logo from "../../../ui/Logo";
 import { useOutletContext } from "react-router";
-
-const DivFlex = styled.div`
-    margin: 0.5rem;
-    background-color: var(--color-brand-bone-300);
-    border-radius: var(--b-radius-lg);
-    min-height: 20rem;
-    min-width: 30rem;
-    & > :last-child {
-        border: none;
-    }
-    display: flex;
-    gap: 1.5rem;
-`;
+import DivFlex from "../../../ui/DivFlex";
 
 const ButtonGroup = styled.div`
     display: flex;
@@ -41,7 +29,6 @@ const ImgViewerContainer = styled.div`
 
 function CreateOccurenceForm() {
     const [eventId] = useOutletContext();
-    console.log(eventId, "propsssssssssssssssssss");
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         title: "",

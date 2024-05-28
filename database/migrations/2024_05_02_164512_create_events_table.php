@@ -25,7 +25,8 @@ return new class extends Migration
             $table->dateTime('start');
             $table->dateTime('end');
             $table->boolean('catering');
-            $table->enum('publishStatus',['publico','privado','revisado']);
+            $table->boolean('isActive');
+            $table->enum('status',['publico','privado','revisado']);
 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); //TODO: hay que sarse cuenta de este campo cuando se haga migrate fresh
 

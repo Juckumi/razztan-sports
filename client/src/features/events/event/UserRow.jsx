@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import Button from "../../../ui/Button";
-import { useCreateInvite } from "./useCreateInvite";
 
 const StyledUserRow = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 1rem;
+    padding: 1rem;
+    background-color: ${(props) =>
+        props.$isSelected ? "var(--color-brand-beige-100)" : "initial"};
 `;
 
 const ImgDiv = styled.div`
@@ -24,19 +25,58 @@ const ImgDiv = styled.div`
     }
 `;
 
-function UserRow({ user }) {
-    const { postInvite } = useCreateInvite();
+function UserRow({ user, selectedUsersIds, setSelectedUsersIds }) {
+    // const isSelected = selectedUsersIds.find(user.id);
+    const isSelected = selectedUsersIds?.includes(user.id);
+
+    return (
+        <StyledUserRow $isSelected={isSelected}>
+            <ImgDiv>
+                <img src={user.profilePictureUrl} />
+            </ImgDiv>
+            {user.username}
+            {!isSelected ? (
+                <Button
+                    $size="small"
+                    $rounded
+                    onClick={() =>
+                        setSelectedUsersIds([...selectedUsersIds, user.id])
+                    }
+                >
+                    +
+                </Button>
+            ) : (
+                <Button
+                    $size="small"
+                    $rounded
+                    onClick={() => {
+                        setSelectedUsersIds([
+                            ...selectedUsersIds.filter((id) => id !== user.id),
+                        ]);
+                    }}
+                >
+                    -
+                </Button>
+            )}
+        </StyledUserRow>
+    );
+}
+
+function UserRowFinal({ user }) {
+    // const isSelected = selectedUsersIds.find(user.id);
+
     return (
         <StyledUserRow>
             <ImgDiv>
                 <img src={user.profilePictureUrl} />
             </ImgDiv>
+            <div></div>
+
             {user.username}
-            <Button $size="small" $rounded>
-                +
-            </Button>
         </StyledUserRow>
     );
 }
+
+UserRow.Final = UserRowFinal;
 
 export default UserRow;

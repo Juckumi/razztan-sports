@@ -72,6 +72,8 @@ Route::prefix('api')->group(function () {
     Route::prefix('invitations')->group(function() {
         Route::get('/',[InvitationController::class,'getAllInvitations']);
         Route::post('/',[InvitationController::class,'createInvitation']);
+        Route::get('/user/{id}',[InvitationController::class,'getAllInvitationsByUserId']);
+
 
     });
 });
