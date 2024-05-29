@@ -48,7 +48,6 @@ function CreateOccurenceForm() {
         const data = new FormData();
 
         for (const property in formData) {
-            console.log(property);
             data.append(property, formData[property]);
         }
         data.append("occurencePhotoUrl", formData.occurencePhotoUrl);
@@ -104,8 +103,10 @@ function CreateOccurenceForm() {
                             error={errors?.title}
                             tooltip={errors?.title}
                             clearError={() => {
-                                let { title, ...data } = errors;
-                                setErrors({ ...data });
+                                if (errors?.title) {
+                                    let { title, ...data } = errors;
+                                    setErrors({ ...data });
+                                }
                             }}
                         />
                         <InputForm
@@ -118,8 +119,10 @@ function CreateOccurenceForm() {
                             error={errors?.description}
                             tooltip={errors?.description}
                             clearError={() => {
-                                let { description, ...data } = errors;
-                                setErrors({ ...data });
+                                if (errors?.description) {
+                                    let { description, ...data } = errors;
+                                    setErrors({ ...data });
+                                }
                             }}
                         />
                         <InputForm
@@ -128,12 +131,14 @@ function CreateOccurenceForm() {
                             label="fecha inicio"
                             formData={formData}
                             setFormData={setFormData}
-                            initialValue={formData.description}
-                            error={errors?.description}
-                            tooltip={errors?.description}
+                            initialValue={formData.start}
+                            error={errors?.start}
+                            tooltip={errors?.start}
                             clearError={() => {
-                                let { start, ...data } = errors;
-                                setErrors({ ...data });
+                                if (errors?.start) {
+                                    let { start, ...data } = errors;
+                                    setErrors({ ...data });
+                                }
                             }}
                         />
                     </div>

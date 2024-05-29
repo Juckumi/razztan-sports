@@ -28,7 +28,6 @@ export const getOccurrencesById = async (eventId) => {
 
 export const createOccurence = async (body) => {
     try {
-        console.log(body, "bodyyyyyyy");
         const res = await fetch(`/api/occurrences`, {
             method: "POST",
             body,

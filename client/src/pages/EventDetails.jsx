@@ -155,7 +155,6 @@ function EventDetails() {
     const { event, isLoading, error } = useGetEventBySlug();
 
     const eventId = event?.id;
-    console.log(eventId);
 
     if (isLoading) return <Spinner />;
     return (

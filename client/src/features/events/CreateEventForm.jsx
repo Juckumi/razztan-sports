@@ -126,7 +126,6 @@ function CreateEventForm() {
                 );
             }
             const res = await postEvent(data);
-            console.log(res);
 
             if (res?.status === 201) {
                 toast.success("se ha creado con exito el evento");
@@ -226,8 +225,10 @@ function CreateEventForm() {
                                 error={errors?.title}
                                 tooltip={errors?.title}
                                 clearError={() => {
-                                    let { title, ...data } = errors;
-                                    setErrors({ ...data });
+                                    if (errors?.title) {
+                                        let { title, ...data } = errors;
+                                        setErrors({ ...data });
+                                    }
                                 }}
                             />
                             <InputForm
@@ -240,8 +241,10 @@ function CreateEventForm() {
                                 error={errors?.description}
                                 tooltip={errors?.description}
                                 clearError={() => {
-                                    let { description, ...data } = errors;
-                                    setErrors({ ...data });
+                                    if (errors?.description) {
+                                        let { description, ...data } = errors;
+                                        setErrors({ ...data });
+                                    }
                                 }}
                             />
                         </div>
@@ -308,8 +311,10 @@ function CreateEventForm() {
                                     error={errors?.sports}
                                     tooltip={errors?.sports}
                                     clearError={() => {
-                                        let { sports, ...data } = errors;
-                                        setErrors({ ...data });
+                                        if (errors?.sports) {
+                                            let { sports, ...data } = errors;
+                                            setErrors({ ...data });
+                                        }
                                     }}
                                 />
                             </div>
@@ -338,8 +343,11 @@ function CreateEventForm() {
                                     error={errors?.publicStatus}
                                     tooltip={errors?.publicStatus}
                                     clearError={() => {
-                                        let { publicStatus, ...data } = errors;
-                                        setErrors({ ...data });
+                                        if (errors?.publicStatus) {
+                                            let { publicStatus, ...data } =
+                                                errors;
+                                            setErrors({ ...data });
+                                        }
                                     }}
                                 />
                             </div>
@@ -354,8 +362,10 @@ function CreateEventForm() {
                                     error={errors?.start}
                                     tooltip={errors?.start}
                                     clearError={() => {
-                                        let { start, ...data } = errors;
-                                        setErrors({ ...data });
+                                        if (errors?.start) {
+                                            let { start, ...data } = errors;
+                                            setErrors({ ...data });
+                                        }
                                     }}
                                 />
                                 <Checked>
@@ -377,8 +387,10 @@ function CreateEventForm() {
                                     initialValue={formData.price}
                                     style={{ width: "6rem" }}
                                     clearError={() => {
-                                        let { price, ...data } = errors;
-                                        setErrors({ ...data });
+                                        if (errors?.price) {
+                                            let { price, ...data } = errors;
+                                            setErrors({ ...data });
+                                        }
                                     }}
                                 />
                             </div>
@@ -405,8 +417,10 @@ function CreateEventForm() {
                                     error={errors?.catering}
                                     tooltip={errors?.catering}
                                     clearError={() => {
-                                        let { catering, ...data } = errors;
-                                        setErrors({ ...data });
+                                        if (errors?.catering) {
+                                            let { catering, ...data } = errors;
+                                            setErrors({ ...data });
+                                        }
                                     }}
                                 />
                             </div>
@@ -420,8 +434,10 @@ function CreateEventForm() {
                                     setFormData={setFormData}
                                     error={errors?.end}
                                     clearError={() => {
-                                        let { end, ...data } = errors;
-                                        setErrors({ ...data });
+                                        if (errors?.end) {
+                                            let { end, ...data } = errors;
+                                            setErrors({ ...data });
+                                        }
                                     }}
                                     tooltip={errors?.end || null}
                                 />

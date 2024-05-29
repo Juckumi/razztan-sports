@@ -1,8 +1,6 @@
 export const createInvite = async (data) => {
     try {
-        console.log(data);
         const body = JSON.stringify(data);
-        console.log(body, "este es mi bodyyy stringfy");
 
         const res = await fetch(`/api/invitations`, {
             method: "POST",
@@ -11,7 +9,6 @@ export const createInvite = async (data) => {
             },
             body,
         });
-        console.log(res);
 
         if (!res.ok) {
             const errorData = await res.json();

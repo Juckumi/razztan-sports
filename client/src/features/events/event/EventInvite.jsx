@@ -53,8 +53,6 @@ function EventInvite() {
     const [selectedUsersIds, setSelectedUsersIds] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
 
-    console.log(users, "usersss");
-
     let searchTimeout;
     const handleSearch = (e) => {
         const searchValue = e.target.value;

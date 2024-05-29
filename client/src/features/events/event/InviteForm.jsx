@@ -33,7 +33,6 @@ function InviteForm({ selectedUsersIds, users }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log(formData, "este es el formData");
 
         const res = await postInvite(formData);
 

@@ -16,10 +16,6 @@ export function useGetAllEvents() {
             ? searchParams.get("sport-filter").split("-")
             : []
     );
-    console.log(
-        "🚀 => useGetAllEvents => searchParams.get('sport-filter'):",
-        searchParams.get("sport-filter")
-    );
 
     useEffect(() => {
         setSearchParams({
