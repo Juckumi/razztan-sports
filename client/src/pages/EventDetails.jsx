@@ -66,7 +66,7 @@ const EventInfo = styled.div`
     display: flex;
     align-items: center;
     flex-direction: row;
-    align-items: flex-start;
+    justify-content: center;
 `;
 const SportsContainer = styled.div`
     display: flex;
@@ -188,10 +188,17 @@ function EventDetails() {
                 <StyledIcon>
                     <DateSpan>Acaba</DateSpan>
                     <LuCalendarClock />
-                    <DateSpan>
-                        {" "}
-                        {formatDate(new Date(event.end), true)}
-                    </DateSpan>
+                    <DateSpan>{formatDate(new Date(event.end), true)}</DateSpan>
+                </StyledIcon>
+                <StyledIcon>
+                    <DateSpan>Status Publico</DateSpan>
+                    <Icon sportName={event.status} withText={false} />
+                    <DateSpan>{event.status}</DateSpan>
+                </StyledIcon>
+                <StyledIcon>
+                    <DateSpan>Catering</DateSpan>
+                    <Icon sportName={event.catering} withText={false} />
+                    <DateSpan>{event.catering == 1 ? "si" : "no"}</DateSpan>
                 </StyledIcon>
             </EventInfo>
             <SignUpEventContainer>

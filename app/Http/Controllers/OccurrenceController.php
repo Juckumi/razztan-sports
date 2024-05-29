@@ -14,7 +14,7 @@ class OccurrenceController extends Controller
 {
     function getAllOccurrences(){
         try {
-            $allOccurrencies = Occurrence::all();
+            $allOccurrencies = Occurrence::with('event')->get();
             return response()->json(['data'=> $allOccurrencies],201);
         } catch (\Throwable $th) {
             return response()->json(['error'=> $th->getMessage()],500);

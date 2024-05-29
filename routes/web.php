@@ -59,9 +59,12 @@ Route::prefix('api')->group(function () {
     });
     Route::prefix('bookings')->group(function() {
         Route::get('/',[BookingController::class,'getAllBookings']);
+        
     });
     Route::prefix('fields')->group(function() {
         Route::get('/',[FieldController::class,'getAllFields']);
+        Route::get('/paginated',[FieldController::class,'getAllPaginatedFields']);
+
     });
     Route::prefix('sports')->group(function() {
         Route::get('/',[SportController::class,'getAllSports']);

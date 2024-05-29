@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique()->nullable();
-            $table->string('backgroundColor')->nullable();
+            $table->string('backgroundColor')->default('#042616');
             $table->text('description');
             $table->float('price')->nullable();
             $table->json('eventPhotosUrls')->nullable();

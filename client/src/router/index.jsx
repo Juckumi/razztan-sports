@@ -15,6 +15,7 @@ import EventDetails from "../pages/EventDetails";
 import CreateEventForm from "../features/events/CreateEventForm";
 import CreateOccurenceForm from "../features/events/event/CreateOccurrenceForm";
 import EventInvite from "../features/events/event/EventInvite";
+import Fields from "../pages/Fields";
 
 const router = createBrowserRouter([
     {
@@ -107,7 +108,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "user/fields",
-                element: <UserDashboard />,
+                element: <Fields />,
             },
             {
                 path: "user/chat",

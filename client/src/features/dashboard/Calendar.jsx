@@ -31,9 +31,14 @@ function Calendar() {
     const navigate = useNavigate();
     const handleEventClick = (info) => {
         const event = info.event.extendedProps;
-        if (event) {
+        console.log(event);
+        if (event.bannerPhotoUrl) {
             requestAnimationFrame(() => {
                 navigate(`/event/${event.slug}`);
+            });
+        } else if (event.occurencePhotoUrl) {
+            requestAnimationFrame(() => {
+                navigate(`/event/${event.event.slug}/#${event.slug}`);
             });
         } else {
             console.error("Event slug is missing");
@@ -65,7 +70,7 @@ function Calendar() {
                 locale={esLocale}
                 height={"100%"}
                 eventClick={handleEventClick}
-                events={events}
+                events={[...events, ...occurrences]}
                 dayMaxEventRows={3}
             />
         </StyledCalendar>

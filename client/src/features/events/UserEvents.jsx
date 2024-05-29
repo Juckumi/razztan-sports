@@ -35,7 +35,6 @@ function UserEvents() {
     const { events, isLoading } = useGetEventsByUser();
     return (
         <>
-            {" "}
             {!isLoading ? (
                 <>
                     {events.length > 0 ? (

@@ -4,7 +4,10 @@ import {
     MdOutlineSportsBasketball,
     MdOutlineSportsCricket,
     MdOutlineSportsFootball,
+    MdOutlineFastfood,
+    MdOutlineNoFood,
 } from "react-icons/md";
+
 import { useNavigate } from "react-router";
 import { formatDate } from "../../utils/dateFormatter";
 import { LuCalendarClock } from "react-icons/lu";
@@ -134,6 +137,20 @@ export const Icon = ({ sportName, withText = true }) => {
             icon = (
                 <StyledIcon>
                     <MdOutlinePendingActions /> {withText && sportName}{" "}
+                </StyledIcon>
+            );
+            break;
+        case 1:
+            icon = (
+                <StyledIcon>
+                    <MdOutlineFastfood /> {withText && sportName}{" "}
+                </StyledIcon>
+            );
+            break;
+        case 0:
+            icon = (
+                <StyledIcon>
+                    <MdOutlineNoFood /> {withText && sportName}{" "}
                 </StyledIcon>
             );
             break;
