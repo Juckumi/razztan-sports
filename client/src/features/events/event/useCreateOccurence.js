@@ -6,7 +6,6 @@ export function useCreateOccurence() {
     const [errors, setErrors] = useState(null);
 
     async function postOccurence(event) {
-        console.log(event, "occurenciaaaa");
         try {
             setIsLoading(true);
             const res = await createOccurence(event);

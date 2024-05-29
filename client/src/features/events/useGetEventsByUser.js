@@ -12,7 +12,6 @@ export function useGetEventsByUser() {
             try {
                 setIsLoading(true);
                 const events = await getEventsByUserId(userId);
-                console.log("🚀 => fetchData => events:", events);
 
                 setEvents(events);
             } catch (err) {

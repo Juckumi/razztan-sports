@@ -33,7 +33,6 @@ const StyledEmptyDiv = styled.div`
 function UserEvents() {
     const navigate = useNavigate();
     const { events, isLoading } = useGetEventsByUser();
-    console.log("🚀 => UserEvents => events:", events);
     return (
         <>
             {" "}

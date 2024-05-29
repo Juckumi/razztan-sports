@@ -139,7 +139,7 @@ const SelectedItemDelete = styled.span`
     transition: 0.3s;
 
     &:hover {
-        background-color: red;
+        background-color: var(--color-warning);
     }
 `;
 const Tooltip = styled.ul`
@@ -235,7 +235,7 @@ function Select({
                     </StyledArrow>
                 </StyledSpan>
                 {isOpen && (
-                    <Ul isopen={isOpen}>
+                    <Ul>
                         {data.filter((item) => {
                             if (multiple) {
                                 return !selectedItems.includes(item.name);

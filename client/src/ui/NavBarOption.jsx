@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useHeaderAnimation } from "../hooks/useHeaderAnimation";
 
 const NavOption = styled.div`
-    ${(props) => (props.right === "true" ? "" : "")}
+    ${(props) => (props.$right === "true" ? "" : "")}
     text-align: center;
     font-size: 1.1rem;
     font-weight: 700;
@@ -14,7 +14,7 @@ const NavOption = styled.div`
 
     /* Verificar si la propiedad active es falsa */
     ${(props) =>
-        props.active === "false"
+        props.$active === "false"
             ? `
         &:hover span:after {
             content: '';
@@ -132,7 +132,7 @@ function NavBarOption({ navLink }) {
     return list.length > 0 ? (
         <>
             <NavOption
-                active={!isOpen ? "false" : "true"}
+                $active={!isOpen ? "false" : "true"}
                 $right={right}
                 onClick={handleClickSelect}
             >
@@ -158,8 +158,8 @@ function NavBarOption({ navLink }) {
         //TODO:Falta que cuando se le de a events se marque como activo events y el navOtions de mas abajo
 
         <NavOption
-            active={location.pathname.includes(link) ? "true" : "false"}
-            right={right}
+            $active={location.pathname.includes(link) ? "true" : "false"}
+            $right={right}
             onClick={() => handleLink(link)}
         >
             <Icon>

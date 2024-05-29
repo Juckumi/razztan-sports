@@ -19,7 +19,6 @@ export const loginUser = async (body) => {
             body: JSON.stringify(body),
             headers,
         });
-        console.log(res);
 
         if (!res.ok) {
             throw new Error("No se ha podido crear el usuario");
@@ -36,7 +35,6 @@ export const loginUser = async (body) => {
 };
 
 export const createUser = async (body) => {
-    console.log(body, "bodyyyyy");
     const headers = {
         "Content-Type": "application/json",
     };
@@ -46,10 +44,8 @@ export const createUser = async (body) => {
         body: JSON.stringify(body),
         headers,
     });
-    console.log(res);
 
     const data = await res.json();
-    console.log(data);
     if (data?.data?.token) {
         const token = data.data.token;
         localStorage.setItem("token", token);
@@ -63,7 +59,6 @@ export const getAllUsers = async ({ search }) => {
         const res = await fetch(`/api/users?search=${search}`);
 
         const data = await res.json();
-        console.log(data);
         if (!res.ok) {
             throw new Error("No se ha fetchear la data usuario");
         }
@@ -84,7 +79,6 @@ export const verifyToken = async (token) => {
         method: "POST",
         headers,
     });
-    console.log(res, "resssTiken");
     if (res.ok && res.status === 201) {
         return true;
     } else {

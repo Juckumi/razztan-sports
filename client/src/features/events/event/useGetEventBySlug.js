@@ -13,7 +13,6 @@ export function useGetEventBySlug() {
             try {
                 setIsLoading(true);
                 const events = await getEventBySlug(eventSlug);
-                console.log("🚀 => fetchData => events:", events);
 
                 setEvent(events);
             } catch (err) {

@@ -35,7 +35,6 @@ function LogInForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const login = await loginUser(formData);
-        // console.log(login)
         // if(login.status == 200){
         //   navigate('/user/dashboard')
         // }

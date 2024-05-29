@@ -67,7 +67,7 @@ const Point = styled.div`
             ? "yellow"
             : props.$status === "aceptada"
             ? "green"
-            : "red"};
+            : "var(--color-warning)"};
 `;
 function InvitesRow({ invites }) {
     return (

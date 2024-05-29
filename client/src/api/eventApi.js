@@ -46,13 +46,11 @@ export const getEventsByUserId = async (userId) => {
     }
 
     const data = await res.json();
-    console.log("🚀 => getEventsByUserId => data:", data);
 
     return data.data;
 };
 
 export const createEvent = async (body) => {
-    console.log("🚀 => createEvent => body:", body);
     // const body = JSON.stringify(event);
 
     try {
