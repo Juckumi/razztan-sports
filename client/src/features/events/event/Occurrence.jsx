@@ -142,6 +142,7 @@ function Occurrence({ eventId }) {
                     {occurrences?.length > 0 &&
                         occurrences.map((occurr, index) => (
                             <OccurenceNode
+                                id={occurr.slug}
                                 key={occurr?.id}
                                 $index={index}
                                 $date={occurr?.start}

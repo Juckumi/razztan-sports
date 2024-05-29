@@ -71,7 +71,9 @@ function LogInForm() {
                         alignItems: "center",
                     }}
                 >
-                    <Button>Iniciar Sesion</Button>
+                    <Button onClick={() => navigate("/user/dashboard")}>
+                        Iniciar Sesion
+                    </Button>
                 </div>
             </Form>
         </>

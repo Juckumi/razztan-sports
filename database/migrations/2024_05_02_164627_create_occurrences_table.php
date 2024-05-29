@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('event_id')->constrained('events')->onDelete('cascade');
             $table->text('description');
             $table->datetime('start');
+            $table->string('backgroundColor')->default('#f2f2f2');
+
             $table->text('title');
             $table->string('slug')->unique()->nullable();
             $table->text('occurencePhotoUrl')->nullable();

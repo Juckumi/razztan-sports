@@ -16,11 +16,7 @@ class EventFactory extends Factory
      */
     public function definition(): array
     {
-        $colorNames = [
-            '#042940', '#005C53', '#9FC131', '#DBF227', '#D6D58E', '#2A8C82', '#41BFB3', '#275950', '#260101', '#2E5902'
-        ];
 
-        $randomColor = $colorNames[array_rand($colorNames)];
 
         $status = [
             'publico', 'privado', 'revisado'
@@ -56,8 +52,6 @@ if (count($events) >= $maxEvents) {
         return [
             'title' => $this->faker->word,
             'description' => $this->faker->paragraph(30),
-            'backgroundColor' =>  $randomColor ,
-
             'price' => $this->faker->randomFloat(2, 0, 1000),
             'eventPhotosUrls' => ['https://picsum.photos/200?random=1','https://picsum.photos/200?random=2','https://picsum.photos/200?random=3'],
             'start' => $start,
