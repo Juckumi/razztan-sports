@@ -12,8 +12,21 @@ import { Navigate, useNavigate, useOutletContext } from "react-router";
 import toast from "react-hot-toast";
 
 const UsersInvited = styled.div`
-    overflow-y: auto;
-    max-height: 21rem;
+    flex: 2;
+    && > * {
+        overflow-y: auto;
+        max-height: 21rem;
+
+        display: flex;
+        flex-flow: column;
+        flex-wrap: nowrap;
+    }
+
+    @media (max-width: 610px) {
+        && > * {
+            flex-flow: row;
+        }
+    }
 `;
 
 function InviteForm({ selectedUsersIds, users }) {
@@ -32,13 +45,14 @@ function InviteForm({ selectedUsersIds, users }) {
     });
 
     async function handleSubmit(e) {
+        console.log(e, "mi eee");
         e.preventDefault();
 
         const res = await postInvite(formData);
 
         if (res?.status === 201) {
             toast.success("se ha creado la invitacion");
-            navigate(-1);
+            navigate(-2);
         } else if (res?.status === 401) {
             toast.error("Algo ha salido mal, revise los datos introducidos");
         } else {
@@ -62,8 +76,10 @@ function InviteForm({ selectedUsersIds, users }) {
                             error={errors?.title}
                             tooltip={errors?.title}
                             clearError={() => {
-                                let { title, ...data } = errors;
-                                setErrors({ ...data });
+                                if (errors.title) {
+                                    let { title, ...data } = errors;
+                                    setErrors({ ...data });
+                                }
                             }}
                         />
                         <InputForm
@@ -76,13 +92,14 @@ function InviteForm({ selectedUsersIds, users }) {
                             error={errors?.title}
                             tooltip={errors?.title}
                             clearError={() => {
-                                let { text, ...data } = errors;
-                                setErrors({ ...data });
+                                if (errors.text) {
+                                    let { text, ...data } = errors;
+                                    setErrors({ ...data });
+                                }
                             }}
                         />
                     </div>
                     <UsersInvited>
-                        {" "}
                         {selectedUsersIds.length.toString()} personas
                         <div>
                             {selectedUsers?.map((user) => (

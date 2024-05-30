@@ -18,6 +18,19 @@ import Button from "../ui/Button";
 import Switch from "../ui/Switch";
 import { Outlet, useNavigate } from "react-router";
 
+const Badge = styled(StyledIcon)`
+    background-color: var(--color-grey-100);
+    width: fit-content;
+    border-radius: 1rem;
+    color: var(--color-white);
+    * {
+        color: var(--color-white);
+        white-space: nowrap;
+    }
+    margin: 0.2rem;
+    padding: 3px;
+`;
+
 const Img = styled.img`
     width: 100%;
     height: 18rem;
@@ -50,6 +63,9 @@ const SideBody = styled.div`
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    @media (max-width: 650px) {
+        display: none;
+    }
 `;
 const Description = styled.div`
     flex: 3;
@@ -67,6 +83,11 @@ const EventInfo = styled.div`
     align-items: center;
     flex-direction: row;
     justify-content: center;
+    flex-wrap: wrap;
+    @media (max-width: 650px) {
+        flex-wrap: nowrap;
+        overflow: auto;
+    }
 `;
 const SportsContainer = styled.div`
     display: flex;
@@ -140,6 +161,18 @@ const OccurenceButton = styled.div`
     }
 `;
 
+const ImgContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    overflow: auto;
+    transition: 1s translate;
+    img {
+        border-radius: 1rem;
+    }
+`;
+
 function EventDetails() {
     var variable = true;
     const { setThemeMode } = useContext(AppContext);
@@ -164,9 +197,9 @@ function EventDetails() {
                 <h1>{event.title}</h1>
             </DivImg>
             <SportsContainer>
-                {event?.sports?.map((sport) => (
+                {event?.sports?.map((sport, index) => (
                     <StyledIcon
-                        key={sport.id}
+                        key={index}
                         onClick={() =>
                             navigate(
                                 `/user/events/all?page=1&sport-filter=${sport.name}`
@@ -178,28 +211,28 @@ function EventDetails() {
                 ))}
             </SportsContainer>
             <EventInfo>
-                <StyledIcon>
+                <Badge>
                     <DateSpan>Empieza</DateSpan>
                     <LuCalendar />
                     <DateSpan>
                         {formatDate(new Date(event.start), true)}
                     </DateSpan>
-                </StyledIcon>
-                <StyledIcon>
+                </Badge>
+                <Badge>
                     <DateSpan>Acaba</DateSpan>
                     <LuCalendarClock />
                     <DateSpan>{formatDate(new Date(event.end), true)}</DateSpan>
-                </StyledIcon>
-                <StyledIcon>
-                    <DateSpan>Status Publico</DateSpan>
+                </Badge>
+                <Badge>
+                    <DateSpan>Status</DateSpan>
                     <Icon sportName={event.status} withText={false} />
                     <DateSpan>{event.status}</DateSpan>
-                </StyledIcon>
-                <StyledIcon>
+                </Badge>
+                <Badge>
                     <DateSpan>Catering</DateSpan>
                     <Icon sportName={event.catering} withText={false} />
                     <DateSpan>{event.catering == 1 ? "si" : "no"}</DateSpan>
-                </StyledIcon>
+                </Badge>
             </EventInfo>
             <SignUpEventContainer>
                 {variable ? (
@@ -223,18 +256,12 @@ function EventDetails() {
 
                 <SideBody></SideBody>
             </EventBody>
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: "1rem",
-                }}
-            >
+            <ImgContainer>
                 {event?.eventPhotosUrls?.map((url, index) => (
                     <img
                         style={{
-                            width: "10rem",
-                            height: "10rem",
+                            width: "16rem",
+                            height: "16rem",
                             objectFit: "cover",
                         }}
                         key={index}
@@ -242,7 +269,7 @@ function EventDetails() {
                         alt="hola"
                     />
                 ))}
-            </div>
+            </ImgContainer>
             <Occurrence eventId={event?.id} />
             <Outlet context={[eventId]} />
         </>

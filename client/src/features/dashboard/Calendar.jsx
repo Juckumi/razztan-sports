@@ -24,6 +24,15 @@ const StyledCalendar = styled.div`
     .fc .fc-button-primary:not(:disabled).fc-button-active {
         background-color: var(--color-brand-green-500);
     }
+
+    width: 30rem;
+    height: 30rem;
+    color: var(--color-brand-green-100);
+
+    @media (max-width: 519px) {
+        width: 20rem;
+        height: 20rem;
+    }
 `;
 
 function Calendar() {
@@ -48,13 +57,7 @@ function Calendar() {
     if (events.length === 0 || occurrences.length === 0) return <Spinner />;
 
     return (
-        <StyledCalendar
-            style={{
-                width: "30rem",
-                height: "30rem",
-                color: "var(--color-brand-green-100)",
-            }}
-        >
+        <StyledCalendar>
             <FullCalendar
                 plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
                 headerToolbar={{
@@ -71,7 +74,7 @@ function Calendar() {
                 height={"100%"}
                 eventClick={handleEventClick}
                 events={[...events, ...occurrences]}
-                dayMaxEventRows={3}
+                dayMaxEventRows={2}
             />
         </StyledCalendar>
     );

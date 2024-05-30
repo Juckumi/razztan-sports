@@ -41,6 +41,10 @@ const Button = styled.button`
     &&:hover {
         background-color: var(--color-grey-200);
     }
+    &&:disabled {
+        cursor: not-allowed;
+        background-color: grey;
+    }
 `;
 
 const ButtonAnimated = styled(Button)`

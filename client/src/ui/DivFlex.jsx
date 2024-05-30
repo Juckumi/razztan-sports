@@ -9,6 +9,13 @@ const DivFlex = styled.div`
     & > :last-child {
         border: none;
     }
+
+    @media (max-width: 610px) {
+        flex-direction: column;
+        min-height: 20rem;
+        width: 100%;
+        min-width: initial;
+    }
     display: flex;
     gap: 1.5rem;
 `;

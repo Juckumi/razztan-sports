@@ -26,6 +26,7 @@ const StyledHeader = styled.header`
         flex: 1;
         text-align: right;
     }
+    width: 100%;
 `;
 const ButtonGroup = styled.div`
     * {
@@ -34,7 +35,27 @@ const ButtonGroup = styled.div`
     }
 `;
 
-function Header({ isAuth = true, themeMode, navbarRef }) {
+const Hamburguesa = styled.div`
+    display: none;
+    position: relative;
+    top: 1rem;
+    left: 1rem;
+    width: 3em;
+    height: 5em;
+    * {
+        transition: transform 1s;
+        background-color: var(--color-black);
+        margin: 12%;
+        height: 5%;
+        border-radius: 1rem;
+    }
+    @media (max-width: 610px) {
+        display: block;
+        /* ${(props) => props.$isOpen === "true" && "max-width: 20rem ;"} */
+    }
+`;
+
+function Header({ isAuth = true, themeMode, setIsOpen, isOpen }) {
     const navigate = useNavigate();
     const { ref } = useHeaderAnimation();
 
@@ -44,7 +65,13 @@ function Header({ isAuth = true, themeMode, navbarRef }) {
 
     return (
         <StyledHeader $thememode={themeMode} ref={ref}>
-            <div></div>
+            <div>
+                <Hamburguesa onClick={() => setIsOpen(!isOpen)}>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </Hamburguesa>
+            </div>
             <Logo themeMode={themeMode} />
             <div>
                 {!isAuth ? (

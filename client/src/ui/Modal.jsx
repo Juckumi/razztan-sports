@@ -24,6 +24,14 @@ const StyledModal = styled.div`
     border-radius: var(--b-radius-md);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: center;
+
+    @media (max-width: 610px) {
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        overflow: auto;
+        ${(props) => props.$isOpen === "true" && "width: 15rem ;"}
+    }
 `;
 const Close = styled.div`
     position: absolute;
