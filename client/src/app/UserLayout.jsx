@@ -5,7 +5,7 @@ import { FiSettings, FiCalendar, FiMessageSquare } from "react-icons/fi";
 import { TbSoccerField } from "react-icons/tb";
 import { RxDashboard } from "react-icons/rx";
 import { AppContext } from "../context/AppContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const navLinks = [
     {
@@ -24,7 +24,7 @@ const navLinks = [
     },
     {
         label: "Pistas",
-        link: "/user/fields",
+        link: "/user/fields?page=1",
         icon: <TbSoccerField />,
         right: "false",
         list: [],
@@ -51,6 +51,7 @@ const navLinks = [
 ];
 const UserLayout = () => {
     const { themeMode } = useContext(AppContext);
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
         <>
@@ -58,10 +59,19 @@ const UserLayout = () => {
                 style={{
                     position: themeMode === "event" ? "fixed" : "initial",
                     zIndex: "30",
+                    width: "100vw",
                 }}
             >
-                <Header themeMode={themeMode} />
-                <NavBar navLinks={navLinks} themeMode={themeMode} />
+                <Header
+                    themeMode={themeMode}
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                />
+                <NavBar
+                    navLinks={navLinks}
+                    themeMode={themeMode}
+                    isOpen={isOpen}
+                />
             </div>
 
             <Outlet />

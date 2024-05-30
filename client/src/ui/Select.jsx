@@ -184,7 +184,7 @@ function Select({
     initialvalue,
     error,
     tooltip,
-    clearError,
+    clearError = () => {},
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedItems, setSelectedItems] = useState(initialvalue || "");

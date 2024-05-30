@@ -7,7 +7,7 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
     padding: 10px;
     height: 2rem;
     border-radius: var(--b-radius-md);
@@ -20,7 +20,7 @@ const Input = styled.input`
 `;
 
 const TextArea = styled.textarea`
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     padding: 10px;
     height: 10rem;
     border-radius: var(--b-radius-md);

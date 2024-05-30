@@ -64,6 +64,7 @@ function AllEvents() {
         selectedFilters,
     } = useGetAllEvents();
     const { sports } = useGetAllSports();
+    console.log(events, "eventsss");
     const [searchParams, setSearchparams] = useSearchParams();
 
     const ref = useRef();

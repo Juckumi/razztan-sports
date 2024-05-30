@@ -7,7 +7,7 @@ function useFields() {
     const [fields, setFields] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [page, setPage] = useState(searchParams.get("page") * 1);
+    const [page, setPage] = useState(searchParams.get("page") * 1 || 1);
     const [limit, setLimit] = useState(6);
     const [search, setSearch] = useState("");
 

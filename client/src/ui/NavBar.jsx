@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import NavBarOption from "./NavBarOption";
 import { useHeaderAnimation } from "../hooks/useHeaderAnimation";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 
 const StyledNav = styled.div`
     display: flex;
@@ -18,18 +18,32 @@ const StyledNav = styled.div`
         $thememode === "event"
             ? "var(--color-black)"
             : "var(--color-brand-bone-300)"};
-    width: 100vw;
+    /* width: 100%; */
+    transition: 0.5s ease-in-out;
+    @media (max-width: 610px) {
+        ${(props) =>
+            props.$responsive &&
+            " position: fixed; z-index: 10; flex-direction: column;  align-items: flex-start;  justify-content: flex-start;  width: 0rem;  overflow: hidden;  height: 100vh;   "}
+        ${(props) => props.$isOpen === "true" && "width: 15rem ;"}
+    }
 `;
 
-function NavBar({ navLinks, themeMode }) {
+function NavBar({ navLinks, themeMode, isOpen, reponsive = true }) {
     const { ref } = useHeaderAnimation();
 
     return (
-        <StyledNav $thememode={themeMode} ref={ref}>
-            {navLinks?.map((navLink, index) => (
-                <NavBarOption key={index} navLink={navLink} />
-            ))}
-        </StyledNav>
+        <>
+            <StyledNav
+                $thememode={themeMode}
+                ref={ref}
+                $isOpen={isOpen ? "true" : "false"}
+                $responsive={reponsive}
+            >
+                {navLinks?.map((navLink, index) => (
+                    <NavBarOption key={index} navLink={navLink} />
+                ))}
+            </StyledNav>
+        </>
     );
 }
 

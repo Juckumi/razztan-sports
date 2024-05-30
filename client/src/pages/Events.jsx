@@ -30,7 +30,7 @@ const navLinks = [
 function Events() {
     return (
         <Section>
-            <NavBar navLinks={navLinks} color={"var(--color-grey-100)"} />
+            <NavBar navLinks={navLinks} reponsive={false} />
 
             <Outlet />
         </Section>

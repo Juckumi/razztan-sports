@@ -18,7 +18,7 @@ const Div = styled.div`
 `;
 const ForwardPage = styled(Div)`
     background-color: ${(props) =>
-        props.pages * 1 + 1 <= props.$totalpages * 1
+        props.$pages * 1 + 1 <= props.$totalpages * 1
             ? "var(--color-brand-green-500);cursor:pointer;&&:hover{background-color: var(--color-brand-green-300);} "
             : "var(--color-brand-green-100)"};
 `;
@@ -57,14 +57,14 @@ function Pagination({ page, totalPages, setPage }) {
             <ForwardPage
                 onClick={handleNextPage}
                 $pages={page}
-                $totalpages={totalPages.toString()}
+                $totalpages={totalPages}
             >
                 <FiSkipForward />
             </ForwardPage>
             <ForwardPage
                 onClick={handleLastPage}
                 $pages={page}
-                $totalpages={totalPages.toString()}
+                $totalpages={totalPages}
             >
                 <FiRewind style={{ transform: "rotate(180deg)" }} />
             </ForwardPage>

@@ -26,6 +26,8 @@ const StyledEvents = styled.div`
 function Dashboard() {
     const { invitations, isLoading } = useInbox();
 
+    console.log("esteeeeeeeeeeeeeeeeeeee es mi clllllllllllllllll");
+
     if (isLoading) return <Spinner />;
     return (
         <StyledDashboardArticle>

@@ -7,7 +7,7 @@ import { formatDate } from "../../../utils/dateFormatter";
 import { useRef } from "react";
 
 const Container = styled.div`
-    width: 90vw;
+    width: 100%;
     overflow-x: auto;
     position: relative;
 `;
@@ -18,7 +18,6 @@ const EventOccurences = styled.div`
     align-items: center;
     height: 20rem;
     flex-wrap: nowrap;
-    min-width: 120%; /* Ajusta según la necesidad de contenido */
     && > * {
         margin: 0.5rem;
     }
@@ -136,7 +135,7 @@ function Occurrence({ eventId }) {
                 <Button.Animated $rounded>+</Button.Animated>
             </OccurenceButton>
             <Container>
-                <TimeLine />
+                {/* <TimeLine /> */}
 
                 <EventOccurences>
                     {occurrences?.length > 0 &&

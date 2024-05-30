@@ -20,16 +20,22 @@ const StyledTable = styled.div`
         grid-template-columns: 1fr;
     }
 `;
-
+const StyledSection = styled.section`
+    background-image: url("/razztan-sports-assets-2.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 77vh;
+`;
 function Fields() {
     const [searchParams, setSearchparams] = useSearchParams();
 
     const { fields, isLoading, limit, setPage, page } = useFields();
-    console.log(fields, "fieldss");
     const navigate = useNavigate();
     if (isLoading) return <Spinner />;
     return (
-        <>
+        <StyledSection>
             <div
                 style={{
                     display: "flex",
@@ -57,7 +63,7 @@ function Fields() {
                                     fields?.data?.map((field) => (
                                         <FieldCard
                                             field={field}
-                                            key={event.slug}
+                                            key={field.id}
                                         />
                                     ))}
                             </StyledTable>
@@ -82,7 +88,7 @@ function Fields() {
             ) : (
                 <Spinner />
             )}
-        </>
+        </StyledSection>
     );
 }
 
