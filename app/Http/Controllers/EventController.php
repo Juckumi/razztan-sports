@@ -184,6 +184,8 @@ class EventController extends Controller
             }
 
         }
+
+        
             
             
             return response()->json(['data'=> request()->all()],201);
