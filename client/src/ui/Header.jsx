@@ -5,6 +5,7 @@ import UserProfilePic from "../ui/UserProfilePic";
 
 import { useNavigate } from "react-router";
 import { useHeaderAnimation } from "../hooks/useHeaderAnimation";
+import { isAuthenticated } from "../api/userApi";
 
 const StyledHeader = styled.header`
     display: flex;
@@ -29,6 +30,9 @@ const StyledHeader = styled.header`
     width: 100%;
 `;
 const ButtonGroup = styled.div`
+    display: flex;
+
+    justify-content: center;
     * {
         margin: 1rem;
         padding: 0.7rem;
@@ -55,7 +59,7 @@ const Hamburguesa = styled.div`
     }
 `;
 
-function Header({ isAuth = true, themeMode, setIsOpen, isOpen }) {
+function Header({ themeMode, setIsOpen, isOpen }) {
     const navigate = useNavigate();
     const { ref } = useHeaderAnimation();
 
@@ -74,19 +78,22 @@ function Header({ isAuth = true, themeMode, setIsOpen, isOpen }) {
             </div>
             <Logo themeMode={themeMode} />
             <div>
-                {!isAuth ? (
+                {/* {!isAuthenticated() ? (
                     <ButtonGroup>
-                        <Button onClick={() => handleLink("/auth/registrarse")}>
+                        <Button onClick={() => handleLink("/registrarse")}>
                             registrarse
                         </Button>
-                        <Button
-                            onClick={() => handleLink("/auth/iniciar-sesion")}
-                        >
+                        <Button onClick={() => handleLink("/iniciar-sesion")}>
                             iniciar sesion
                         </Button>
                     </ButtonGroup>
                 ) : (
                     <UserProfilePic />
+                )} */}
+                {location.pathname == "/" && (
+                    <Button onClick={() => handleLink("/user/dashboard")}>
+                        Ir a la app
+                    </Button>
                 )}
             </div>
         </StyledHeader>

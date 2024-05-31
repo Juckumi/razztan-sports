@@ -5,39 +5,46 @@ import FormRow from "../../ui/FormRow";
 import InputForm from "../../ui/InputForm";
 import Logo from "../../ui/Logo";
 import { FiUser, FiLock } from "react-icons/fi";
-import { loginUser } from "../../api/userApi";
 import { useNavigate } from "react-router";
+import { useLoginUser } from "./useLoginUser";
+import toast from "react-hot-toast";
 
 const inputs = [
     {
-        label: "Usuario",
-        type: "text",
+        label: "Email",
+        type: "email",
         icon: <FiUser />,
-        rule: new RegExp("^[a-zA-Z0-9]{6,13}$"),
-        name: "username",
+        name: "email",
     },
     {
         label: "Contraseña",
         type: "password",
         icon: <FiLock />,
         rule: new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{5,}$"),
-        name: "passwd",
+        name: "password",
     },
 ];
 //TODO:falta ajustar esta llamada a la api no tengo claro como deberia de hacerlo aún
 
 function LogInForm() {
     const [formData, setFormData] = useState({
-        name: "",
-        passwd: "",
+        email: "",
+        password: "",
     });
+
+    const { login, errors, setErrors } = useLoginUser();
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const login = await loginUser(formData);
-        // if(login.status == 200){
-        //   navigate('/user/dashboard')
-        // }
+        const res = await login(formData);
+        if (res?.status === 201) {
+            toast.success("Se ha iniciado sesion con exito");
+            navigate(-1);
+        } else if (res?.status === 401) {
+            toast.error("Algo ha salido mal, revise los datos introducidos");
+        } else {
+            toast.error("No se ha podido iniciar sesion");
+        }
     };
     return (
         <>
@@ -61,6 +68,14 @@ function LogInForm() {
                             type={input.type}
                             icon={input.icon}
                             rule={input.rule}
+                            error={errors?.start}
+                            tooltip={errors?.name}
+                            clearError={() => {
+                                if (errors?.name) {
+                                    let { name, ...data } = errors;
+                                    setErrors({ ...data });
+                                }
+                            }}
                         />
                     </FormRow>
                 ))}
@@ -71,9 +86,7 @@ function LogInForm() {
                         alignItems: "center",
                     }}
                 >
-                    <Button onClick={() => navigate("/user/dashboard")}>
-                        Iniciar Sesion
-                    </Button>
+                    <Button>Iniciar Sesion</Button>
                 </div>
             </Form>
         </>

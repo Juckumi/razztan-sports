@@ -32,6 +32,16 @@ Route::prefix('api')->group(function () {
 
 
     });
+    
+    Route::group(['prefix' => 'auth'], function() {
+        Route::post('register', [AuthController::class, 'register']);
+        Route::post('login', [AuthController::class, 'login']);
+    
+        Route::group(['middleware' => 'auth:api'], function() {
+            Route::post('logout', [AuthController::class, 'logout']);
+            Route::get('me', [AuthController::class, 'me']);
+        });
+    });
 
     Route::prefix('users')->group(function() {
         Route::get('/',[AuthController::class,'getAllUsers']);

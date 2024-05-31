@@ -109,13 +109,13 @@ function InputForm({
 
     const ref = useRef();
     const handleRequirements = (e) => {
-        if (rule.test(e.target.value) === false) {
-            e.target.style.outline = "2px solid var(--color-warning)";
-        } else {
-            e.target.style.outline = "3px solid green";
-            const { name, value } = e.target;
-            setFormData({ ...formData, [name]: value });
-        }
+        // if (rule.test(e.target.value) === false) {
+        //     e.target.style.outline = "2px solid var(--color-warning)";
+        // } else {
+        //     e.target.style.outline = "3px solid green";
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+        // }
     };
 
     return (

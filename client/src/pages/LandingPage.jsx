@@ -49,7 +49,10 @@ function LandingPage() {
                         height: "100%",
                     }}
                 />
-                <LandingArticle header="mi cabezerita" text="mi textito" />
+                <LandingArticle
+                    header="Razztan Sports"
+                    text="En esta aplicacion nos comprometemos con tu evento deportivo"
+                />
             </HeaderImg>
             <FirstSection></FirstSection>
 
