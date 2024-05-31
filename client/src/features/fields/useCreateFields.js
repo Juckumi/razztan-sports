@@ -1,17 +1,14 @@
 import { useState } from "react";
-import { createMessage } from "../../api/messageApi";
+import { createField } from "../../api/fieldApi";
 
-export function useCreateMessage() {
+export function useCreateFields() {
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState(null);
 
-    async function postMessage(invite) {
-        console.log(invite, "eventossssss");
-
+    async function postField(event) {
         try {
             setIsLoading(true);
-            const res = await createMessage(invite);
-
+            const res = await createField(event);
             return res;
         } catch ({ errorData, res }) {
             setErrors(errorData.errors);
@@ -20,5 +17,6 @@ export function useCreateMessage() {
             setIsLoading(false);
         }
     }
-    return { postMessage, errors, setErrors, isLoading };
+
+    return { postField, isLoading, errors, setErrors };
 }

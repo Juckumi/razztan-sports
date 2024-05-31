@@ -7,6 +7,9 @@ use App\Models\Chat;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
 
+use Illuminate\Support\Facades\Validator;
+
+
 class MessageController extends Controller
 {
     function getAllMessages(){
@@ -34,7 +37,7 @@ class MessageController extends Controller
         }
     }
 
-    function createInvitation(){
+    function createMessage(){
 
         try {
 
@@ -47,13 +50,13 @@ class MessageController extends Controller
 
         ],$messages = [
             'required' => 'el campo  :attribute es obligatorio',
-            'title.max' => 'el campo :attribute es demsaiado largo el maximo es :max',
+            'text.max' => 'el campo :attribute es demsaiado largo el maximo es :max',
         ]);
         if ($validator->fails()) {  
             return response()->json(['errors'=> $validator->errors()],401);
         }   
-            $message = new Invitation();
-            $message->title = request()->title;
+            $message = new Message();
+            $message->text = request()->text;
             $message->user_id = request()->userId;
             $message->chat_id = request()->chatId;
 
@@ -98,8 +101,8 @@ class MessageController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     */
-    public function edit(Message $message)
+     */ 
+    public function edit(Message $message)  
     {
         //
     }

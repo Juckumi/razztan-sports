@@ -8,6 +8,8 @@ import InputForm from "../ui/InputForm";
 import { LuSendHorizonal } from "react-icons/lu";
 import { useCreateMessage } from "../features/chat/useCreateMessage";
 import { useGetAllUserChats } from "../features/chat/useGetAllUserChats";
+import toast from "react-hot-toast";
+import Spinner from "../ui/Spinner";
 
 const StyledGrid = styled.div`
     position: relative;
@@ -34,9 +36,14 @@ const ChatPanel = styled.div`
 const Message = styled.div`
     position: relative;
     background-color: var(--color-grey-200);
+    margin: 0.5rem;
+    border-radius: 1rem;
     color: var(--color-white);
     white-space: wrap;
     padding: 0.4rem;
+    display: grid;
+    grid-template-columns: 1fr 0.06fr;
+    align-items: center;
 `;
 
 const ChatContainer = styled.div`
@@ -64,16 +71,17 @@ const MessagesSend = styled.form`
 `;
 
 const ForumInfo = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    align-content: center;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem;
+    align-items: center;
+    gap: 5rem;
 
     position: relative;
     background-color: var(--color-grey-100);
     color: var(--color-white);
     white-space: wrap;
     min-width: 100%;
-    height: 4rem;
     * {
         font-size: 1.6rem;
     }
@@ -92,11 +100,14 @@ const ShowChatButtom = styled(Button)`
 
 const Img = styled.img`
     border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    object-fit: fill;
 `;
 
 function ChatDashboard() {
     const [openChat, setOpenChat] = useState(4);
-    const [isOpen, setisOpen] = useState(false);
+    const [isOpen, setisOpen] = useState(true);
 
     const { postMessage, isLoading: isCreatingMessage } = useCreateMessage();
 
@@ -106,22 +117,38 @@ function ChatDashboard() {
     console.log(openChatInfo, openChatInfo);
 
     const [formData, setFormData] = useState({
-        title: "",
+        text: "",
         userId: 1, //TODO: id estatica
-        ChatId: openChat,
     });
 
-    const { messages } = useGetAllChatMessages(openChat);
+    const {
+        messages,
+        isLoading: isLoadingMessages,
+        refecht,
+    } = useGetAllChatMessages(openChat);
+    console.log(messages, "messages");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        if (formData.text !== "") {
+            const res = await postMessage({
+                ...formData,
+                chatId: openChatInfo.id,
+            });
+            if (res?.status === 201) {
+                toast.success("se ha creado la occurencia con exito");
+                refecht();
+                setFormData({ ...formData, text: "" });
+            } else {
+                toast.error("Algo ha fallado al crear mensaje");
+            }
+        }
     };
-
-    console.log(openChat, "abierto");
 
     return (
         <StyledGrid>
             <ChatList
+                isLoading={isLoading}
                 isOpen={isOpen}
                 setOpenChat={setOpenChat}
                 openChat={openChat}
@@ -132,16 +159,50 @@ function ChatDashboard() {
                     <ShowChatButtom $rounded onClick={() => setisOpen(!isOpen)}>
                         <FiMessageSquare />
                     </ShowChatButtom>
-
-                    <Img src={openChatInfo?.event?.bannerPhotoUrl} />
+                    {!isLoading ? (
+                        <>
+                            {" "}
+                            <h1>{openChatInfo?.name}</h1>
+                        </>
+                    ) : (
+                        <></>
+                    )}
+                    <picture>
+                        <source
+                            srcSet={openChatInfo?.event?.bannerPhotoUrl}
+                            alt="foto usuario"
+                        />
+                        <Img src="/EVENT.png" alt="foto usuario" />
+                    </picture>{" "}
                 </ForumInfo>
                 <ChatContainer>
-                    {messages.map((message) => (
-                        <Message key={message.id}>{message.text}</Message>
-                    ))}
+                    {!isLoadingMessages && !isCreatingMessage ? (
+                        messages.map((message) => (
+                            <Message key={message.id}>
+                                <div>{message.text}</div>
+                                <picture>
+                                    <source
+                                        srcSet={
+                                            openChatInfo?.event?.bannerPhotoUrl
+                                        }
+                                        alt="foto usuario"
+                                    />
+                                    <Img src="/EVENT.png" alt="foto usuario" />
+                                </picture>
+                            </Message>
+                        ))
+                    ) : (
+                        <Spinner />
+                    )}
                 </ChatContainer>
                 <MessagesSend onSubmit={handleSubmit}>
-                    <InputForm />
+                    <InputForm
+                        formData={formData}
+                        setFormData={setFormData}
+                        name="text"
+                        initialValue={formData.text}
+                        disabled={isCreatingMessage}
+                    />
                     <div>
                         <Button
                             style={{
@@ -149,6 +210,7 @@ function ChatDashboard() {
                                 color: "var(--color-grey-100)",
                                 padding: "0.5rem",
                             }}
+                            disabled={isCreatingMessage}
                         >
                             <LuSendHorizonal />
                         </Button>

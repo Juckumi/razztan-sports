@@ -16,6 +16,8 @@ import CreateEventForm from "../features/events/CreateEventForm";
 import CreateOccurenceForm from "../features/events/event/CreateOccurrenceForm";
 import EventInvite from "../features/events/event/EventInvite";
 import Fields from "../pages/Fields";
+import CreateFieldForm from "../features/fields/CreateFieldForm";
+import CreateBookingForm from "../features/fields/CreateBookingForm";
 
 const router = createBrowserRouter([
     {
@@ -109,6 +111,24 @@ const router = createBrowserRouter([
             {
                 path: "user/fields",
                 element: <Fields />,
+                children: [
+                    {
+                        path: "crear-pista",
+                        element: (
+                            <Modal>
+                                <CreateFieldForm />
+                            </Modal>
+                        ),
+                    },
+                    {
+                        path: "field/:fieldId",
+                        element: (
+                            <Modal>
+                                <CreateBookingForm />
+                            </Modal>
+                        ),
+                    },
+                ],
             },
             {
                 path: "user/forum",

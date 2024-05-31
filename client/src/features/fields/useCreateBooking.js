@@ -1,17 +1,14 @@
 import { useState } from "react";
-import { createMessage } from "../../api/messageApi";
+import { createBooking } from "../../api/bookingApi";
 
-export function useCreateMessage() {
+export function useCreateBooking() {
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState(null);
 
-    async function postMessage(invite) {
-        console.log(invite, "eventossssss");
-
+    async function postBooking(event) {
         try {
             setIsLoading(true);
-            const res = await createMessage(invite);
-
+            const res = await createBooking(event);
             return res;
         } catch ({ errorData, res }) {
             setErrors(errorData.errors);
@@ -20,5 +17,6 @@ export function useCreateMessage() {
             setIsLoading(false);
         }
     }
-    return { postMessage, errors, setErrors, isLoading };
+
+    return { postBooking, isLoading, errors, setErrors };
 }

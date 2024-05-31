@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('m2');
             $table->string('place');
+            $table->integer('dailyPrice');
+
             $table->text('fieldPhotosUrl');
 
 

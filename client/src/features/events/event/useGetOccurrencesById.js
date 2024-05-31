@@ -6,6 +6,11 @@ export function useGetOccurrencesById(eventId) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    const [refecthData, setRefecthData] = useState(false);
+    const refecht = () => {
+        setRefecthData(!refecthData);
+    };
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -22,7 +27,7 @@ export function useGetOccurrencesById(eventId) {
         if (eventId) {
             fetchData();
         }
-    }, [eventId]);
+    }, [eventId, refecthData]);
 
-    return { occurrences, isLoading, error };
+    return { occurrences, isLoading, error, refecht };
 }

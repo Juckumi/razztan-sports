@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { getMessagesByChatId } from "../../api/messageApi";
+import { getBookingsByEvent } from "../../../api/bookingApi";
 
-export function useGetAllChatMessages(openChat) {
-    const [messages, setMessages] = useState([]);
+export function useGetBookingsByEvent(eventId) {
+    const [bookings, setBookings] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+
     const [refecthData, setRefecthData] = useState(false);
     const refecht = () => {
         setRefecthData(!refecthData);
@@ -14,17 +15,19 @@ export function useGetAllChatMessages(openChat) {
         async function fetchData() {
             try {
                 setIsLoading(true);
-                const chatMessages = await getMessagesByChatId(openChat);
+                const bookings = await getBookingsByEvent(eventId);
 
-                setMessages(chatMessages);
+                setBookings(bookings);
             } catch (err) {
                 setError(err.message);
             } finally {
                 setIsLoading(false);
             }
         }
-        fetchData();
-    }, [openChat, refecthData]);
+        if (eventId) {
+            fetchData();
+        }
+    }, [eventId, refecthData]);
 
-    return { messages, isLoading, error, refecht };
+    return { bookings, isLoading, error, refecht };
 }

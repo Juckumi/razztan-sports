@@ -19,6 +19,7 @@ class ChatFactory extends Factory
     public function definition(): array
     {
 
+        
         $eventIds = DB::table('events')->pluck('id');
         $eventId = $eventIds->random();
 

@@ -5,6 +5,7 @@ import DateSpan from "../../../ui/DateSpan";
 import { useNavigate } from "react-router";
 import { formatDate } from "../../../utils/dateFormatter";
 import { useRef } from "react";
+import Spinner from "../../../ui/Spinner";
 
 const Container = styled.div`
     width: 100%;
@@ -138,35 +139,46 @@ function Occurrence({ eventId }) {
                 {/* <TimeLine /> */}
 
                 <EventOccurences>
-                    {occurrences?.length > 0 &&
-                        occurrences.map((occurr, index) => (
-                            <OccurenceNode
-                                id={occurr.slug}
-                                key={occurr?.id}
-                                $index={index}
-                                $date={occurr?.start}
-                            >
-                                <div></div>
-                                <picture>
-                                    <source
-                                        srcSet={occurr?.occurencePhotoUrl}
-                                    />
-                                    <img src="/EVENT.png" />
-                                </picture>
-                                <OccurenceInfo>
-                                    <span>{occurr?.title}</span>
-                                    <DateSpan>
-                                        {formatDate(
-                                            new Date(occurr?.start),
-                                            true
-                                        )}
-                                    </DateSpan>
-                                    <Description>
-                                        {occurr.description}
-                                    </Description>
-                                </OccurenceInfo>
-                            </OccurenceNode>
-                        ))}
+                    {!isLoadingOccur ? (
+                        <>
+                            {occurrences?.length > 0 ? (
+                                occurrences.map((occurr, index) => (
+                                    <OccurenceNode
+                                        id={occurr.slug}
+                                        key={occurr?.id}
+                                        $index={index}
+                                        $date={occurr?.start}
+                                    >
+                                        <div></div>
+                                        <picture>
+                                            <source
+                                                srcSet={
+                                                    occurr?.occurencePhotoUrl
+                                                }
+                                            />
+                                            <img src="/EVENT.png" />
+                                        </picture>
+                                        <OccurenceInfo>
+                                            <span>{occurr?.title}</span>
+                                            <DateSpan>
+                                                {formatDate(
+                                                    new Date(occurr?.start),
+                                                    true
+                                                )}
+                                            </DateSpan>
+                                            <Description>
+                                                {occurr.description}
+                                            </Description>
+                                        </OccurenceInfo>
+                                    </OccurenceNode>
+                                ))
+                            ) : (
+                                <h1>No occurencias todavia :(</h1>
+                            )}
+                        </>
+                    ) : (
+                        <Spinner />
+                    )}
                 </EventOccurences>
             </Container>
         </DivFlex>

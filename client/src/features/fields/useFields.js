@@ -10,6 +10,10 @@ function useFields() {
     const [page, setPage] = useState(searchParams.get("page") * 1 || 1);
     const [limit, setLimit] = useState(6);
     const [search, setSearch] = useState("");
+    const [refecthData, setRefecthData] = useState(false);
+    const refecht = () => {
+        setRefecthData(!refecthData);
+    };
 
     useEffect(() => {
         setSearchParams({
@@ -32,7 +36,7 @@ function useFields() {
             }
         }
         fetchData();
-    }, [page, limit, search]);
+    }, [page, limit, search, refecthData]);
 
     return {
         fields,
@@ -44,6 +48,7 @@ function useFields() {
         setLimit,
         setSearch,
         search,
+        refecht,
     };
 }
 

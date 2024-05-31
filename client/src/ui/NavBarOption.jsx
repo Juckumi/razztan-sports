@@ -94,7 +94,6 @@ const List = styled.ul`
 `;
 
 const Li = styled.li`
-    background: var(--color-brand-green);
     color: inherit;
     padding: 2.5rem;
     width: 100%;
@@ -158,7 +157,12 @@ function NavBarOption({ navLink }) {
         //TODO:Falta que cuando se le de a events se marque como activo events y el navOtions de mas abajo
 
         <NavOption
-            $active={location.pathname.includes(link) ? "true" : "false"}
+            $active={
+                location.pathname.includes(link) ||
+                link.includes(location.pathname)
+                    ? "true"
+                    : "false"
+            }
             $right={right}
             onClick={() => handleLink(link)}
         >

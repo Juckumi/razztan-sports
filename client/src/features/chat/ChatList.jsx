@@ -2,6 +2,7 @@ import styled from "styled-components";
 import ChatRow from "./ChatRow";
 import { useGetAllUserChats } from "./useGetAllUserChats";
 import Button from "../../ui/Button";
+import Spinner from "../../ui/Spinner";
 
 const StyledChatList = styled.div`
     position: relative;
@@ -26,7 +27,7 @@ const StyledChatList = styled.div`
     }
 `;
 
-function ChatList({ setOpenChat, isOpen, openChat, chats }) {
+function ChatList({ setOpenChat, isOpen, openChat, chats, isLoading }) {
     console.log(isOpen);
 
     console.log(chats, "abierto");
@@ -34,15 +35,19 @@ function ChatList({ setOpenChat, isOpen, openChat, chats }) {
     return (
         <StyledChatList $isOpen={isOpen}>
             <div style={{ overflowY: "auto", maxHeight: "100%" }}>
-                {chats?.map((chat, index) => (
-                    <ChatRow
-                        key={chat.id}
-                        setOpenChat={setOpenChat}
-                        chat={chat}
-                        count={index}
-                        openChat={openChat}
-                    />
-                ))}
+                {!isLoading ? (
+                    chats?.map((chat, index) => (
+                        <ChatRow
+                            key={chat.id}
+                            setOpenChat={setOpenChat}
+                            chat={chat}
+                            count={index}
+                            openChat={openChat}
+                        />
+                    ))
+                ) : (
+                    <Spinner />
+                )}
             </div>
         </StyledChatList>
     );

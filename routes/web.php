@@ -45,6 +45,8 @@ Route::prefix('api')->group(function () {
     });
     Route::prefix('messages')->group(function() {
         Route::get('/',[MessageController::class,'getAllMessages']);
+        Route::post('/',[MessageController::class,'createMessage']);
+
         Route::get('/{id}',[MessageController::class,'getMessageById']);
         Route::get('/chat/{id}',[MessageController::class,'getMessagesByChatId']);
 
@@ -59,11 +61,21 @@ Route::prefix('api')->group(function () {
     });
     Route::prefix('bookings')->group(function() {
         Route::get('/',[BookingController::class,'getAllBookings']);
+        Route::post('/',[BookingController::class,'createBooking']);
+        Route::get('/event/{id}',[BookingController::class,'getAllBookingsByEvent']);
+
+        
+
         
     });
     Route::prefix('fields')->group(function() {
         Route::get('/',[FieldController::class,'getAllFields']);
+        Route::post('/',[FieldController::class,'createField']);
+
         Route::get('/paginated',[FieldController::class,'getAllPaginatedFields']);
+
+        Route::get('/{id}',[FieldController::class,'getFieldById']);
+
 
     });
     Route::prefix('sports')->group(function() {
