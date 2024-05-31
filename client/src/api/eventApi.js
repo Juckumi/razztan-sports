@@ -19,7 +19,7 @@ export const getAllPaginatedEvents = async (filters) => {
 };
 
 export const getAllEvents = async () => {
-    const res = await fetch(`/api/events`);
+    const res = await fetch(`${API_BASE_URL}/api/events`);
 
     if (!res.ok) {
         throw new Error("No se ha podido fetchear la data usuario");
@@ -31,7 +31,7 @@ export const getAllEvents = async () => {
 };
 
 export const getEventBySlug = async (eventSlug) => {
-    const res = await fetch(`/api/events/slug/${eventSlug}`);
+    const res = await fetch(`${API_BASE_URL}/api/events/slug/${eventSlug}`);
 
     if (!res.ok) {
         throw new Error("No se ha podido fetchear la data usuario");
@@ -42,7 +42,7 @@ export const getEventBySlug = async (eventSlug) => {
     return data.data;
 };
 export const getEventsByUserId = async (userId) => {
-    const res = await fetch(`/api/events/user/${userId}`);
+    const res = await fetch(`${API_BASE_URL}/api/events/user/${userId}`);
     if (!res.ok) {
         throw new Error("No se ha podido fetchear la data usuario");
     }
@@ -56,7 +56,7 @@ export const createEvent = async (body) => {
     // const body = JSON.stringify(event);
 
     try {
-        const res = await fetch(`/api/events`, {
+        const res = await fetch(`${API_BASE_URL}/api/events`, {
             method: "POST",
             body,
         });

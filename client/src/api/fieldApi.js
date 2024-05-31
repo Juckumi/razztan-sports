@@ -2,7 +2,7 @@ import API_BASE_URL from "./config";
 
 export const getOneField = async (fieldId) => {
     console.log(fieldId, "fieldId");
-    const res = await fetch(`/api/fields/${fieldId}`);
+    const res = await fetch(`${API_BASE_URL}/api/fields/${fieldId}`);
     if (!res.ok) {
         throw new Error("No se ha podido fetchear la data usuario");
     }
@@ -14,7 +14,7 @@ export const getOneField = async (fieldId) => {
 
 export const getAllPaginatedFields = async (filters) => {
     const res = await fetch(
-        `/api/fields/paginated?page=${filters.page}&limit=${filters.limit}&search=${filters.search}`
+        `${API_BASE_URL}/api/fields/paginated?page=${filters.page}&limit=${filters.limit}&search=${filters.search}`
     );
 
     if (!res.ok) {
@@ -30,7 +30,7 @@ export const createField = async (body) => {
     // const body = JSON.stringify(event);
 
     try {
-        const res = await fetch(`/api/fields`, {
+        const res = await fetch(`${API_BASE_URL}/api/fields`, {
             method: "POST",
             body,
         });

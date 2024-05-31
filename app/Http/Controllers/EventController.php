@@ -143,14 +143,14 @@ class EventController extends Controller
         }
 
             $imageName = time() . '-' . 'razztan-sports-banner-'.'.' . request()->bannerPhotoUrl->extension();
-            request()->bannerPhotoUrl->move(base_path('client/public/uploads/eventsPhotos'), $imageName);
+            request()->bannerPhotoUrl->move(base_path('client/dist/uploads/eventsPhotos'), $imageName);
             $bannerPhotoUrl = '/uploads/eventsPhotos/' . $imageName;
 
         $eventsPhotosUrls = [];
         foreach (request()->eventsPhotosUrls as $index => $img) {
 
             $imageName = time() . '-' . $index . 'razztan-sports-event-'.'.' . $img->extension();
-            $img->move(base_path('client/public/uploads/eventsPhotos'), $imageName);
+            $img->move(base_path('client/dist/uploads/eventsPhotos'), $imageName);
             $eventsPhotosUrls[] = '/uploads/eventsPhotos/' . $imageName;
 
         }

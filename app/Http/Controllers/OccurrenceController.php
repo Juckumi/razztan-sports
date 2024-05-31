@@ -47,7 +47,7 @@ class OccurrenceController extends Controller
         }
 
             $imageName = time() . '-' . 'razztan-sports-occurence-'.'.' . request()->occurencePhotoUrl->extension();
-            request()->occurencePhotoUrl->move(base_path('client/public/uploads/eventsPhotos'), $imageName);
+            request()->occurencePhotoUrl->move(base_path('client/dist/uploads/eventsPhotos'), $imageName);
             $occurencePhotoUrl = '/uploads/eventsPhotos/' . $imageName;    
 
             $occurrence = new Occurrence();

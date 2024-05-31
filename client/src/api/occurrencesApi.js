@@ -1,7 +1,7 @@
 import API_BASE_URL from "./config";
 
 export const getAllOccurences = async () => {
-    const res = await fetch(`/api/occurrences`);
+    const res = await fetch(`${API_BASE_URL}/api/occurrences`);
 
     if (!res.ok) {
         throw new Error("No se ha podido fetchear la data usuario");
@@ -14,7 +14,9 @@ export const getAllOccurences = async () => {
 
 export const getOccurrencesById = async (eventId) => {
     try {
-        const res = await fetch(`/api/occurrences/event/${eventId}`);
+        const res = await fetch(
+            `${API_BASE_URL}/api/occurrences/event/${eventId}`
+        );
 
         if (!res.ok) {
             throw new Error("No se ha fetchear la data usuario");
@@ -30,7 +32,7 @@ export const getOccurrencesById = async (eventId) => {
 
 export const createOccurence = async (body) => {
     try {
-        const res = await fetch(`/api/occurrences`, {
+        const res = await fetch(`${API_BASE_URL}/api/occurrences`, {
             method: "POST",
             body,
         });

@@ -99,7 +99,7 @@ class FieldController extends Controller
         }
 
             $imageName = time() . '-' . 'razztan-sports-field'.'.' . request()->fieldPhotosUrl->extension();
-            request()->fieldPhotosUrl->move(base_path('client/public/uploads/fieldPhotos'), $imageName);
+            request()->fieldPhotosUrl->move(base_path('client/dist/uploads/fieldPhotos'), $imageName);
             $bannerPhotoUrl = '/uploads/fieldPhotos/' . $imageName;
 
         

@@ -17,7 +17,7 @@ export const loginUser = async (body) => {
     };
 
     try {
-        const res = await fetch(`/api/auth/login`, {
+        const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
             method: "POST",
             body: JSON.stringify(body),
             headers,

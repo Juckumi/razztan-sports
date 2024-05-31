@@ -1,10 +1,12 @@
+import API_BASE_URL from "./config";
+
 export const createBooking = async (data) => {
     try {
         const body = JSON.stringify(data);
 
         console.log(data);
 
-        const res = await fetch(`/api/bookings`, {
+        const res = await fetch(`${API_BASE_URL}/api/bookings`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -31,7 +33,9 @@ export const createBooking = async (data) => {
 
 export const getBookingsByEvent = async (eventId) => {
     try {
-        const res = await fetch(`/api/bookings/event/${eventId}`);
+        const res = await fetch(
+            `${API_BASE_URL}/api/bookings/event/${eventId}`
+        );
 
         if (!res.ok) {
             throw new Error("No se ha fetchear la data bookings");
