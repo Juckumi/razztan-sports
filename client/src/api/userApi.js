@@ -1,3 +1,5 @@
+import API_BASE_URL from "./config";
+
 export const getUser = () => {
     const user = {
         username: "jair1234",
@@ -8,13 +10,14 @@ export const getUser = () => {
 };
 
 export const loginUser = async (body) => {
+    console.log(body, "bodyyyyyyyy");
     const headers = {
         "Content-Type": "application/json",
         "Content-Length": "<calculated when request is sent>",
     };
 
     try {
-        const res = await fetch("/api/login", {
+        const res = await fetch(`/api/auth/login`, {
             method: "POST",
             body: JSON.stringify(body),
             headers,
@@ -39,7 +42,7 @@ export const createUser = async (body) => {
         "Content-Type": "application/json",
     };
 
-    const res = await fetch("/api/register", {
+    const res = await fetch(`/api/auth/register`, {
         method: "POST",
         body: JSON.stringify(body),
         headers,
@@ -69,21 +72,23 @@ export const getAllUsers = async ({ search }) => {
     }
 };
 
-import API_BASE_URL from "./config";
+export const isAuthenticated = () => {
+    const token = localStorage.getItem("token");
+    // Verificar si el token existe y no está expirado
+    if (token) {
+        // Decodificar el token para obtener la fecha de expiración
+        const decodedToken = parseJWT(token);
+        // Verificar si la fecha de expiración del token es mayor que la fecha actual
+        return decodedToken.exp * 1000 > Date.now(); // Convertir segundos a milisegundos
+    }
+    return false;
+};
 
-export const verifyToken = async (token) => {
-    const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-    };
-
-    const res = await fetch("/api/verify-token", {
-        method: "POST",
-        headers,
-    });
-    if (res.ok && res.status === 201) {
-        return true;
-    } else {
-        return false;
+// Función para decodificar el token JWT
+const parseJWT = (token) => {
+    try {
+        return JSON.parse(atob(token.split(".")[1]));
+    } catch (error) {
+        return {};
     }
 };

@@ -18,6 +18,7 @@ import EventInvite from "../features/events/event/EventInvite";
 import Fields from "../pages/Fields";
 import CreateFieldForm from "../features/fields/CreateFieldForm";
 import CreateBookingForm from "../features/fields/CreateBookingForm";
+import ProtectedRoute from "../app/ProtectedRoute";
 
 const router = createBrowserRouter([
     {
@@ -49,7 +50,9 @@ const router = createBrowserRouter([
         ],
     },
     {
+        // element: <ProtectedRoute element={<UserLayout />} />,
         element: <UserLayout />,
+
         children: [
             {
                 path: "user/dashboard",
