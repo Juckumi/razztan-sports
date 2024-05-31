@@ -13,4 +13,9 @@ class Field extends Model
 {
     return $this->belongsToMany(Sport::class);
 }
+
+public function bookings()
+{
+    return $this->hasMany(Booking::class)->orderBy('start', 'ASC');;
+}
 }

@@ -7,7 +7,7 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import Select from "../../ui/Select";
 import { useGetAllSports } from "./useGetAllSports";
 import { Icon } from "./EventsCard";
-import { useNavigate } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 import { useCreateEvent } from "./event/useCreateEvent";
 import { toast } from "react-hot-toast";
 import DateSpan from "../../ui/DateSpan";
@@ -79,6 +79,7 @@ const ImgViewerContainer = styled.div`
 
 function CreateEventForm() {
     const navigate = useNavigate();
+    const [refecht] = useOutletContext();
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -129,6 +130,7 @@ function CreateEventForm() {
 
             if (res?.status === 201) {
                 toast.success("se ha creado con exito el evento");
+                refecht();
                 navigate(-1);
             } else if (res?.status === 401) {
                 toast.error(

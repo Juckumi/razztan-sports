@@ -173,6 +173,7 @@ const Tooltip = styled.ul`
     }
 `;
 function Select({
+    bookings = false,
     selectTitle,
     render,
     data,
@@ -188,10 +189,17 @@ function Select({
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedItems, setSelectedItems] = useState(initialvalue || "");
+    const [selectedItemsSave, setSelectedItemsSave] = useState(
+        initialvalue || ""
+    );
 
     const ref = useClickOutside(() => setIsOpen(false));
     useEffect(() => {
-        onSelectionChange(selectedItems);
+        if (bookings) {
+            onSelectionChange(selectedItemsSave);
+        } else {
+            onSelectionChange(selectedItems);
+        }
     }, [selectedItems, initialvalue]);
 
     const handleSelect = (item) => {
@@ -202,7 +210,12 @@ function Select({
                     : [...prev, item.name]
             );
         } else {
-            setSelectedItems(item);
+            if (bookings) {
+                setSelectedItems(item.title);
+            } else {
+                setSelectedItems(item);
+            }
+            setSelectedItemsSave(item.id);
             setIsOpen(false);
         }
     };

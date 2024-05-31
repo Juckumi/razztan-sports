@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Icon } from "../events/EventsCard";
 import { TbSoccerField } from "react-icons/tb";
 import { MdOutlinePlace } from "react-icons/md";
+import { useNavigate } from "react-router";
 
 const StyledEventCard = styled.div`
     height: 12rem;
@@ -9,8 +10,9 @@ const StyledEventCard = styled.div`
     border-radius: var(--b-radius-lg);
     overflow: hidden;
     display: flex;
-    cursor: pointer;
+    /* cursor: pointer; */
     position: relative;
+    box-shadow: 5px 5px 10px var(--color-brand-bone-400);
 `;
 const FieldInfo = styled.div`
     display: flex;
@@ -72,10 +74,10 @@ const StyledSportsContainer = styled.div`
     }
 `;
 
-function FieldCard({ field }) {
+function FieldCard({ field, navigate }) {
     return (
         <StyledEventCard>
-            <StyledDivImg>
+            <StyledDivImg onClick={() => navigate(`field/${field.id}`)}>
                 <picture>
                     <source srcSet={field?.fieldPhotosUrl} />
                     <Img src={"/EVENT.png"} alt="EVENT.jpg" />

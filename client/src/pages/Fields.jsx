@@ -4,7 +4,7 @@ import Spinner from "../ui/Spinner";
 import useFields from "../features/fields/useFields";
 import Pagination from "../ui/Pagination";
 import FieldCard from "../features/fields/FieldCard";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
 import Button from "../ui/Button";
 
 const StyledTable = styled.div`
@@ -30,10 +30,10 @@ const StyledSection = styled.section`
 `;
 function Fields() {
     const [searchParams, setSearchparams] = useSearchParams();
-
-    const { fields, isLoading, limit, setPage, page } = useFields();
     const navigate = useNavigate();
-    if (isLoading) return <Spinner />;
+
+    const { fields, isLoading, limit, setPage, refecht } = useFields();
+    console.log(fields, "fieldss");
     return (
         <StyledSection>
             <div
@@ -53,7 +53,7 @@ function Fields() {
                 >
                     +
                 </Button.Animated>
-            </div>{" "}
+            </div>
             {!isLoading ? (
                 <>
                     {fields?.data?.length > 0 && fields?.paginate ? (
@@ -62,6 +62,7 @@ function Fields() {
                                 {!isLoading &&
                                     fields?.data?.map((field) => (
                                         <FieldCard
+                                            navigate={navigate}
                                             field={field}
                                             key={field.id}
                                         />
@@ -88,6 +89,7 @@ function Fields() {
             ) : (
                 <Spinner />
             )}
+            <Outlet context={[refecht]} />
         </StyledSection>
     );
 }

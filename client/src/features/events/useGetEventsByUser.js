@@ -6,6 +6,10 @@ export function useGetEventsByUser() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const userId = 1;
+    const [refecthData, setRefecthData] = useState(false);
+    const refecht = () => {
+        setRefecthData(!refecthData);
+    };
 
     useEffect(() => {
         async function fetchData() {
@@ -21,7 +25,7 @@ export function useGetEventsByUser() {
             }
         }
         fetchData();
-    }, [userId]);
+    }, [userId, refecthData]);
 
-    return { events, isLoading, error };
+    return { events, isLoading, error, refecht };
 }

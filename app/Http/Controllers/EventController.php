@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Sport;
 use App\Models\User;
+use App\Models\Chat;
+
 
 
 use App\Http\Requests\StoreEventRequest;
@@ -184,6 +186,14 @@ class EventController extends Controller
             }
 
         }
+            $chat = new Chat();
+
+            $chat->name = $event->title;
+            $chat->event_id = $event->id;
+
+            $chat->save();
+
+
             
             
             return response()->json(['data'=> request()->all()],201);

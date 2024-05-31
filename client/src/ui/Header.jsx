@@ -44,7 +44,7 @@ const Hamburguesa = styled.div`
     height: 5em;
     * {
         transition: transform 1s;
-        background-color: var(--color-black);
+        background-color: var(--color-brand-bone-300);
         margin: 12%;
         height: 5%;
         border-radius: 1rem;

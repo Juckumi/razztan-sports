@@ -20,6 +20,7 @@ class FieldFactory extends Factory
             'name' => $this->faker->name,
             'm2' => $this->faker->numberBetween(100, 1000),
             'place' => $this->faker->city,
+            'dailyprice' => $this->faker->numberBetween(10, 1000),
             'fieldPhotosUrl' => $this->faker->imageUrl(),
         ];
     }

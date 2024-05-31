@@ -1,3 +1,5 @@
+import API_BASE_URL from "./config";
+
 export const getAllOccurences = async () => {
     const res = await fetch(`/api/occurrences`);
 

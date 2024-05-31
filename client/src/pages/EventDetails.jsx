@@ -17,6 +17,7 @@ import DateSpan from "../ui/DateSpan";
 import Button from "../ui/Button";
 import Switch from "../ui/Switch";
 import { Outlet, useNavigate } from "react-router";
+import FieldsBookings from "../features/events/event/FieldsBookings";
 
 const Badge = styled(StyledIcon)`
     background-color: var(--color-grey-100);
@@ -235,20 +236,23 @@ function EventDetails() {
                 </Badge>
             </EventInfo>
             <SignUpEventContainer>
-                {variable ? (
-                    <OccurenceButton onClick={() => navigate("invite")}>
-                        Invita
-                        <Button.Animated $rounded>+</Button.Animated>
-                    </OccurenceButton>
-                ) : (
-                    <Switch
-                        icon={<LuCalendarPlus />}
-                        checkedIcon={<LuCalendarCheck2 />}
-                        checked={false}
-                        message={"¡Apuntate!"}
-                        checkedMessage={"Ya estas apuntado"}
-                    />
-                )}
+                {
+                    variable && (
+                        <OccurenceButton onClick={() => navigate("invite")}>
+                            Invita
+                            <Button.Animated $rounded>+</Button.Animated>
+                        </OccurenceButton>
+                    )
+                    // : (
+                    //     <Switch
+                    //         icon={<LuCalendarPlus />}
+                    //         checkedIcon={<LuCalendarCheck2 />}
+                    //         checked={false}
+                    //         message={"¡Apuntate!"}
+                    //         checkedMessage={"Ya estas apuntado"}
+                    //     />
+                    // )
+                }
             </SignUpEventContainer>
             <EventBody>
                 <SideBody></SideBody>
@@ -270,6 +274,7 @@ function EventDetails() {
                     />
                 ))}
             </ImgContainer>
+            <FieldsBookings eventId={event?.id} />
             <Occurrence eventId={event?.id} />
             <Outlet context={[eventId]} />
         </>

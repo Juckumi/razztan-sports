@@ -16,6 +16,10 @@ return new class extends Migration
             $table->float('price');
             $table->dateTime('start');
             $table->dateTime('end');
+            $table->foreignId('event_id')->constrained('events')->onDelete('cascade');
+            $table->foreignId('field_id')->constrained('fields')->onDelete('cascade');
+
+
             $table->timestamps();
         });
     }

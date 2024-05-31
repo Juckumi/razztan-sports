@@ -32,7 +32,7 @@ const StyledEmptyDiv = styled.div`
 
 function UserEvents() {
     const navigate = useNavigate();
-    const { events, isLoading } = useGetEventsByUser();
+    const { events, isLoading, refecht } = useGetEventsByUser();
     return (
         <>
             {!isLoading ? (
@@ -83,7 +83,7 @@ function UserEvents() {
                             </Button.Animated>
                         </StyledEmptyDiv>
                     )}
-                    <Outlet />
+                    <Outlet context={[refecht]} />
                 </>
             ) : (
                 <Spinner />

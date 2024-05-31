@@ -48,4 +48,14 @@ public function invitations()
 {
     return $this->hasMany(Invitation::class)->orderBy('start', 'ASC');;
 }
+public function bookings()
+{
+    return $this->hasMany(Booking::class)->orderBy('start', 'ASC');;
+}
+
+
+public function chats()
+{
+    return $this->hasMany(Chat::class)->orderBy('start', 'ASC');;
+}
 }
