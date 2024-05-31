@@ -13,7 +13,7 @@ class ChatController extends Controller
 
     function getAllChats(){
         try {
-            $allchats= Chat::all();
+            $allchats= Chat::with('event')->get();
             return response()->json(['data'=> $allchats],201);
         } catch (\Throwable $th) {
             return response()->json(['error'=> $th->getMessage()],500);

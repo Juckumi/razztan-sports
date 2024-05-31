@@ -111,7 +111,7 @@ const router = createBrowserRouter([
                 element: <Fields />,
             },
             {
-                path: "user/chat",
+                path: "user/forum",
                 element: <ChatDashboard />,
             },
         ],

@@ -1,6 +1,8 @@
+import API_BASE_URL from "./config";
+
 export const getAllMessages = async () => {
     try {
-        const res = await fetch("/api/chats");
+        const res = await fetch(`/api/chats`);
 
         const data = await res.json();
         if (!res.ok) {
@@ -24,5 +26,30 @@ export const getMessagesByChatId = async (chatId) => {
         return data.data;
     } catch (err) {
         return err;
+    }
+};
+
+export const createMessage = async (data) => {
+    try {
+        const body = JSON.stringify(data);
+
+        const res = await fetch(`/api/messages`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body,
+        });
+
+        if (!res.ok) {
+            const errorData = await res.json();
+            console.error(errorData, "errors");
+            throw { errorData, res };
+        }
+
+        return res;
+    } catch (error) {
+        console.error("Error creating occurrence:", error);
+        throw error;
     }
 };

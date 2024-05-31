@@ -4,7 +4,7 @@ import { Outlet } from "react-router";
 import NavBar from "../ui/NavBar";
 import { FiCalendar, FiInfo } from "react-icons/fi";
 import { MdOutlineSportsBasketball } from "react-icons/md";
-import { useContext, useLayoutEffect, useRef } from "react";
+import { useContext, useLayoutEffect, useRef, useState } from "react";
 import { AppContext } from "../context/AppContext";
 
 const navLinks = [
@@ -76,6 +76,7 @@ const navLinks = [
 const AppLayout = () => {
     const { themeMode, setThemeMode } = useContext(AppContext);
     const navbarRef = useRef();
+    const [isOpen, setIsOpen] = useState();
 
     useLayoutEffect(() => {
         setThemeMode("event");
@@ -87,10 +88,16 @@ const AppLayout = () => {
     return (
         <>
             <div style={{ position: "fixed", width: "100vw" }}>
-                <Header themeMode={themeMode} navbarRef={navbarRef} />
+                <Header
+                    themeMode={themeMode}
+                    navbarRef={navbarRef}
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                />
                 <NavBar
                     navLinks={navLinks}
                     themeMode={themeMode}
+                    isOpen={isOpen}
                     navbarRef={navbarRef}
                 />
             </div>

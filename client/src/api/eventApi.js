@@ -1,3 +1,5 @@
+import API_BASE_URL from "./config";
+
 export const getAllPaginatedEvents = async (filters) => {
     const res = await fetch(
         `/api/events/paginated?page=${filters.page}&limit=${

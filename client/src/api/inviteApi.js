@@ -1,3 +1,5 @@
+import API_BASE_URL from "./config";
+
 export const createInvite = async (data) => {
     try {
         const body = JSON.stringify(data);

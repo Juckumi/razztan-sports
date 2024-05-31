@@ -69,6 +69,8 @@ export const getAllUsers = async ({ search }) => {
     }
 };
 
+import API_BASE_URL from "./config";
+
 export const verifyToken = async (token) => {
     const headers = {
         "Content-Type": "application/json",

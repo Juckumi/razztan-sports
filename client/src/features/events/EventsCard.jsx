@@ -25,6 +25,7 @@ const StyledEventCard = styled.div`
     display: flex;
     cursor: pointer;
     position: relative;
+    box-shadow: 5px 5px 10px var(--color-brand-bone-400);
 `;
 
 const StyledGrid = styled.div`

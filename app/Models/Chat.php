@@ -16,6 +16,11 @@ class Chat extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
     
     use HasFactory;
 }

@@ -1,3 +1,5 @@
+import API_BASE_URL from "./config";
+
 export const getAllPaginatedFields = async (filters) => {
     const res = await fetch(
         `/api/fields/paginated?page=${filters.page}&limit=${filters.limit}&search=${filters.search}`

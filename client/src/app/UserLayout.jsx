@@ -31,8 +31,8 @@ const navLinks = [
     },
     // {label:'About' ,link:'sa',icon:<FiInfo />},
     {
-        label: "Chat",
-        link: "/user/chat",
+        label: "Foros",
+        link: "/user/forum",
         right: "false",
         icon: <FiMessageSquare />,
         list: [],
